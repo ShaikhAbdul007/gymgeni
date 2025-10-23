@@ -10,21 +10,35 @@ import '../../drawer/view/drawer_view.dart';
 class Desktop extends StatelessWidget {
   final Widget? body;
   final String? headerLabel;
+  final Widget? endDrawer;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
-  const Desktop({super.key, this.body, this.headerLabel});
+  const Desktop({
+    super.key,
+    this.body,
+    this.headerLabel,
+    this.endDrawer,
+    this.scaffoldKey,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: AppColors.whiteColor,
       persistentFooterButtons: [Footer()],
+      endDrawer: Drawer(
+        backgroundColor: AppColors.whiteColor,
+        width: MediaQuery.sizeOf(context).width / 2,
+        child: endDrawer ?? Container(),
+      ),
       body: Row(
         children: [
           Expanded(flex: 2, child: CustomDrawer()),
           Expanded(
             flex: 15,
             child: Container(
-              color: AppColors.grey200Colors,
+              color: AppColors.whiteColor,
               child: body ?? Container(),
             ),
           ),

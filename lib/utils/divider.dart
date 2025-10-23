@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import '../color/colors.dart';
+import '../utils/colors.dart';
 
-Widget customDivider(
-    {bool isParameterGiven = false,
-    Color? color,
-    double indent = 0,
-    double endIndent = 0,
-    double height = 0,
-    double thickness = 0}) {
+Widget customDivider({
+  bool isParameterGiven = false,
+  Color? color,
+  double indent = 0,
+  double endIndent = 0,
+  double height = 0,
+  double thickness = 0,
+}) {
   return Divider(
-    color: isParameterGiven ? color : AppColors.greyColor,
+    color: isParameterGiven ? color : AppColors.greyLightColor,
     thickness: thickness,
     height: height,
     indent: isParameterGiven ? indent : 20,
@@ -24,10 +25,6 @@ class CustomVerticalDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      color: Colors.black,
-    );
+    return Container(height: height, width: width, color: Colors.black);
   }
 }

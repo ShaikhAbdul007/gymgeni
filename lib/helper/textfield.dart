@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../color/colors.dart';
+import '../utils/colors.dart';
 import '../utils/text_style.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String hintText;
+  final String? hintText;
   final TextEditingController controller;
   final Widget? suffixIcon;
   final bool obscureText;
@@ -20,7 +20,7 @@ class CustomTextField extends StatelessWidget {
 
   const CustomTextField({
     super.key,
-    required this.hintText,
+    this.hintText,
     required this.controller,
     this.obscureText = false,
     this.maxLines = 1,
@@ -38,12 +38,12 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(width: 0.5, color: Colors.grey.shade100),
       ),
       child: TextFormField(
         onEditingComplete: () => FocusScope.of(context).nextFocus(),
-        style: customMontserrat(fontSize: 12),
+        style: customMontserrat(fontSize: 13),
         cursorColor: AppColors.blackColor,
         cursorHeight: 18,
         cursorWidth: 0.5,
@@ -55,23 +55,25 @@ class CustomTextField extends StatelessWidget {
               : FilteringTextInputFormatter.singleLineFormatter,
         ],
         obscureText: obscureText,
+        obscuringCharacter: '*',
         controller: controller,
         maxLines: maxLines,
         minLines: minLines,
         validator: validator,
         readOnly: readOnly,
         decoration: InputDecoration(
+          hintText: hintText ?? "",
           suffixIcon: suffixIcon,
           border: InputBorder.none,
           fillColor: Colors.grey.shade100,
           filled: true,
           contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: Colors.transparent),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: Colors.transparent),
           ),
         ),

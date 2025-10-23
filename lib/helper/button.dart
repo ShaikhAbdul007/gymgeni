@@ -14,43 +14,44 @@ class CustomButton extends StatelessWidget {
   final TextStyle? style;
   final Color color;
 
-  const CustomButton(
-      {super.key,
-      required this.height,
-      required this.width,
-      this.isLoading = false,
-      this.lottieHeight,
-      this.isLottieHeight = false,
-      required this.label,
-      required this.onPress,
-      this.color = AppColors.greyColor,
-      this.isOperationPerform = false,
-      this.style});
+  const CustomButton({
+    super.key,
+    required this.height,
+    required this.width,
+    this.isLoading = false,
+    this.lottieHeight,
+    this.isLottieHeight = false,
+    required this.label,
+    required this.onPress,
+    this.color = AppColors.darkBackground,
+    this.isOperationPerform = false,
+    this.style,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        decoration: BoxDecoration(
-            border: Border.all(width: 0.5, color: AppColors.whiteColor),
-            borderRadius: BorderRadius.circular(8),
-            color: color),
-        width: width,
-        height: height,
-        child: InkWell(
-          onTap: isLoading ? null : onPress,
-          child: Center(
-            child: isLoading
-                ? CircularProgressIndicator(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        border: Border.all(width: 0.5, color: AppColors.whiteColor),
+        borderRadius: BorderRadius.circular(8),
+        color: color,
+      ),
+      width: width,
+      height: height,
+      child: InkWell(
+        onTap: isLoading ? null : onPress,
+        child: Center(
+          child:
+              isLoading
+                  ? CircularProgressIndicator(
                     backgroundColor: AppColors.whiteColor,
                     color: AppColors.blackColor,
                   )
-                : Text(
-                    label,
-                    style: style,
-                  ),
-          ),
-        ));
+                  : Text(label, style: style),
+        ),
+      ),
+    );
   }
 }
 
@@ -82,18 +83,17 @@ class CustomButtonWithIcon extends StatelessWidget {
     return isLoading
         ? CustomLottie(isLottieHeight: false)
         : SizedBox(
-            width: width,
-            height: height,
-            child: ElevatedButton(
-              onPressed: isOperationPerform
-                  ? null
-                  : isLoading
-                      ? null
-                      : onPress,
-              child: Center(
-                  child: Icon(
-                icons,
-              )),
-            ));
+          width: width,
+          height: height,
+          child: ElevatedButton(
+            onPressed:
+                isOperationPerform
+                    ? null
+                    : isLoading
+                    ? null
+                    : onPress,
+            child: Center(child: Icon(icons)),
+          ),
+        );
   }
 }

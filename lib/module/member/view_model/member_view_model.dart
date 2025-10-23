@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 
 import '../model/members_model.dart';
 
-class MemberViewModel extends GetxController {
+class MemberViewModel extends GetxController
+    with GetSingleTickerProviderStateMixin {
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   TextEditingController age = TextEditingController();
@@ -16,7 +17,8 @@ class MemberViewModel extends GetxController {
   TextEditingController dob = TextEditingController();
   TextEditingController search = TextEditingController();
   TextEditingController source = TextEditingController();
-
+  TabController? tabController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final List<String> durationList = [
     '1 Month',
     '3 Month',
@@ -46,6 +48,15 @@ class MemberViewModel extends GetxController {
     'Expire Date',
     'Action',
   ];
+
+  void openDrawer() {
+    scaffoldKey.currentState?.openEndDrawer();
+  }
+
+  void closeDrawer() {
+    scaffoldKey.currentState?.closeEndDrawer();
+  }
+
   final List<Member> members = [
     Member(
       image: 'assets/femaleemp.jpg',
@@ -224,4 +235,10 @@ class MemberViewModel extends GetxController {
       rejectDate: '18-10-2025',
     ),
   ];
+
+  @override
+  void onInit() {
+    tabController = TabController(length: 5, vsync: this);
+    super.onInit();
+  }
 }

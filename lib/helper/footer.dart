@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../color/colors.dart';
+import '../utils/colors.dart';
 import '../utils/sizebox.dart';
 import '../utils/text_style.dart';
 
@@ -26,7 +26,7 @@ class Footer extends StatelessWidget {
             fontSize: 14,
 
             fontWeight: FontWeight.bold,
-            color: AppColors.greyColor,
+            color: AppColors.greyLightColor,
           ),
         ),
         setWidth(width: 5),

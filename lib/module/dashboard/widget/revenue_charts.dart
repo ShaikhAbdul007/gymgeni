@@ -28,14 +28,14 @@ class RevenueChartsComponent extends StatelessWidget {
                 children: [
                   Text(
                     'Members',
-                    style: styleNunito(
+                    style: customNunito(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
                     '',
-                    style: styleNunito(
+                    style: customNunito(
                       fontSize: 8,
                       fontWeight: FontWeight.normal,
                     ),
@@ -77,14 +77,14 @@ class RevenueChartsTabletComponent extends StatelessWidget {
                 children: [
                   Text(
                     'Members',
-                    style: styleNunito(
+                    style: customNunito(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
                     '',
-                    style: styleNunito(
+                    style: customNunito(
                       fontSize: 8,
                       fontWeight: FontWeight.normal,
                     ),
@@ -126,14 +126,14 @@ class RevenueChartsMobileComponent extends StatelessWidget {
                 children: [
                   Text(
                     'Members',
-                    style: styleNunito(
+                    style: customNunito(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
                     '',
-                    style: styleNunito(
+                    style: customNunito(
                       fontSize: 8,
                       fontWeight: FontWeight.normal,
                     ),

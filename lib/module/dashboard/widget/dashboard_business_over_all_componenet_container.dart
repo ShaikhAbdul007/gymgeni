@@ -34,7 +34,7 @@ class DashBoardBusinessOverAllComponenetContainer extends StatelessWidget {
                     style: customMontserrat(
                       fontSize: 12,
                       fontWeight: FontWeight.normal,
-                      color: AppColors.greyColor,
+                      color: AppColors.greyLighterShadeColor,
                     ),
                   ),
                   setHeight(height: 10),
@@ -80,7 +80,7 @@ class DashBoardBusinessOverAllComponenetContainer extends StatelessWidget {
                       style: customPoppin(
                         fontSize: 12,
                         fontWeight: FontWeight.normal,
-                        color: AppColors.greyColor,
+                        color: AppColors.greyLighterShadeColor,
                       ),
                     ),
                   ],
@@ -123,7 +123,7 @@ class MobileDashBoardBusinessOverAllComponenetContainer
                     style: customMontserrat(
                       fontSize: 12,
                       fontWeight: FontWeight.normal,
-                      color: AppColors.greyColor,
+                      color: AppColors.greyLighterShadeColor,
                     ),
                   ),
                   setHeight(height: 10),
@@ -169,7 +169,7 @@ class MobileDashBoardBusinessOverAllComponenetContainer
                       style: customMontserrat(
                         fontSize: 12,
                         fontWeight: FontWeight.normal,
-                        color: AppColors.greyColor,
+                        color: AppColors.greyLighterShadeColor,
                       ),
                     ),
                   ],
@@ -212,7 +212,7 @@ class TabletDashBoardBusinessOverAllComponenetContainer
                     style: customMontserrat(
                       fontSize: 12,
                       fontWeight: FontWeight.normal,
-                      color: AppColors.greyColor,
+                      color: AppColors.greyLighterShadeColor,
                     ),
                   ),
                   setHeight(height: 10),
@@ -258,7 +258,7 @@ class TabletDashBoardBusinessOverAllComponenetContainer
                       style: customMontserrat(
                         fontSize: 12,
                         fontWeight: FontWeight.normal,
-                        color: AppColors.greyColor,
+                        color: AppColors.greyLighterShadeColor,
                       ),
                     ),
                   ],

@@ -29,13 +29,13 @@ class MenuItem extends StatelessWidget {
       child: ListTile(
         leading: Icon(
           icon,
-          color: isSelected ? AppColors.greyColor : Colors.black,
+          color: isSelected ? AppColors.greyLighterShadeColor : Colors.black,
           size: 20,
         ),
         title: Text(
           itemName,
           style: customMontserrat(
-            color: isSelected ? AppColors.greyColor : Colors.black,
+            color: isSelected ? AppColors.greyLighterShadeColor : Colors.black,
             fontSize: 13,
           ),
         ),

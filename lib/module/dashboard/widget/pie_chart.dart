@@ -26,11 +26,15 @@ class CustomPieChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding:
-                  EdgeInsets.only(top: 24, bottom: 10, left: 10, right: 10),
+              padding: EdgeInsets.only(
+                top: 24,
+                bottom: 10,
+                left: 10,
+                right: 10,
+              ),
               child: Text(
                 'Member Disrtubtion',
-                style: styleNunito(fontSize: 12, fontWeight: FontWeight.w600),
+                style: customNunito(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(
@@ -43,28 +47,29 @@ class CustomPieChart extends StatelessWidget {
                 ringStrokeWidth: 40,
                 chartType: ChartType.ring,
                 centerText: "Members",
-                centerTextStyle: styleNunito(
+                centerTextStyle: customNunito(
                   color: AppColors.whiteColor,
                   fontSize: 15,
                 ),
                 chartLegendSpacing: 40,
                 chartValuesOptions: ChartValuesOptions(
-                    showChartValues: true,
-                    showChartValuesOutside: false,
-                    showChartValuesInPercentage: false,
-                    decimalPlaces: 0,
-                    showChartValueBackground: true,
-                    chartValueBackgroundColor: AppColors.blackColor,
-                    chartValueStyle: styleNunito(
-                      color: AppColors.whiteColor,
-                      fontSize: 10,
-                    )),
+                  showChartValues: true,
+                  showChartValuesOutside: false,
+                  showChartValuesInPercentage: false,
+                  decimalPlaces: 0,
+                  showChartValueBackground: true,
+                  chartValueBackgroundColor: AppColors.blackColor,
+                  chartValueStyle: customNunito(
+                    color: AppColors.whiteColor,
+                    fontSize: 10,
+                  ),
+                ),
                 legendOptions: LegendOptions(
                   showLegends: true,
                   showLegendsInRow: true,
                   legendShape: BoxShape.circle,
                   legendPosition: LegendPosition.bottom,
-                  legendTextStyle: styleNunito(fontSize: 12),
+                  legendTextStyle: customNunito(fontSize: 12),
                 ),
               ),
             ),
@@ -96,11 +101,15 @@ class TabletCustomPieChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding:
-                  EdgeInsets.only(top: 24, bottom: 10, left: 10, right: 10),
+              padding: EdgeInsets.only(
+                top: 24,
+                bottom: 10,
+                left: 10,
+                right: 10,
+              ),
               child: Text(
                 'Member Disrtubtion',
-                style: styleNunito(fontSize: 12, fontWeight: FontWeight.w600),
+                style: customNunito(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(
@@ -113,28 +122,29 @@ class TabletCustomPieChart extends StatelessWidget {
                 ringStrokeWidth: 40,
                 chartType: ChartType.ring,
                 centerText: "Members",
-                centerTextStyle: styleNunito(
+                centerTextStyle: customNunito(
                   color: AppColors.whiteColor,
                   fontSize: 15,
                 ),
                 chartLegendSpacing: 40,
                 chartValuesOptions: ChartValuesOptions(
-                    showChartValues: true,
-                    showChartValuesOutside: false,
-                    showChartValuesInPercentage: false,
-                    decimalPlaces: 0,
-                    showChartValueBackground: true,
-                    chartValueBackgroundColor: AppColors.blackColor,
-                    chartValueStyle: styleNunito(
-                      color: AppColors.whiteColor,
-                      fontSize: 10,
-                    )),
+                  showChartValues: true,
+                  showChartValuesOutside: false,
+                  showChartValuesInPercentage: false,
+                  decimalPlaces: 0,
+                  showChartValueBackground: true,
+                  chartValueBackgroundColor: AppColors.blackColor,
+                  chartValueStyle: customNunito(
+                    color: AppColors.whiteColor,
+                    fontSize: 10,
+                  ),
+                ),
                 legendOptions: LegendOptions(
                   showLegends: true,
                   showLegendsInRow: true,
                   legendShape: BoxShape.circle,
                   legendPosition: LegendPosition.bottom,
-                  legendTextStyle: styleNunito(fontSize: 12),
+                  legendTextStyle: customNunito(fontSize: 12),
                 ),
               ),
             ),
@@ -166,11 +176,15 @@ class MobileCustomPieChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding:
-                  EdgeInsets.only(top: 24, bottom: 10, left: 10, right: 10),
+              padding: EdgeInsets.only(
+                top: 24,
+                bottom: 10,
+                left: 10,
+                right: 10,
+              ),
               child: Text(
                 'Member Disrtubtion',
-                style: styleNunito(fontSize: 12, fontWeight: FontWeight.w600),
+                style: customNunito(fontSize: 12, fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(
@@ -183,28 +197,29 @@ class MobileCustomPieChart extends StatelessWidget {
                 ringStrokeWidth: 20,
                 chartType: ChartType.ring,
                 centerText: "Members",
-                centerTextStyle: styleNunito(
+                centerTextStyle: customNunito(
                   color: AppColors.whiteColor,
                   fontSize: 8,
                 ),
                 chartLegendSpacing: 40,
                 chartValuesOptions: ChartValuesOptions(
-                    showChartValues: true,
-                    showChartValuesOutside: false,
-                    showChartValuesInPercentage: false,
-                    decimalPlaces: 0,
-                    showChartValueBackground: true,
-                    chartValueBackgroundColor: AppColors.blackColor,
-                    chartValueStyle: styleNunito(
-                      color: AppColors.whiteColor,
-                      fontSize: 10,
-                    )),
+                  showChartValues: true,
+                  showChartValuesOutside: false,
+                  showChartValuesInPercentage: false,
+                  decimalPlaces: 0,
+                  showChartValueBackground: true,
+                  chartValueBackgroundColor: AppColors.blackColor,
+                  chartValueStyle: customNunito(
+                    color: AppColors.whiteColor,
+                    fontSize: 10,
+                  ),
+                ),
                 legendOptions: LegendOptions(
                   showLegends: true,
                   showLegendsInRow: true,
                   legendShape: BoxShape.circle,
                   legendPosition: LegendPosition.bottom,
-                  legendTextStyle: styleNunito(fontSize: 12),
+                  legendTextStyle: customNunito(fontSize: 12),
                 ),
               ),
             ),

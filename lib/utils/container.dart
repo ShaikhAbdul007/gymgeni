@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../color/colors.dart';
+import '../utils/colors.dart';
 
 class CustomContainer extends StatelessWidget {
   final double height;

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../color/colors.dart';
+import '../utils/colors.dart';
 import '../helper/button.dart';
 import 'divider.dart';
 import 'sizebox.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymgeni/helper/footer.dart';
-import '../../../color/colors.dart';
+
+import '../../../utils/colors.dart';
 import '../../drawer/view/drawer_view.dart';
 
 class Mobile extends StatelessWidget {

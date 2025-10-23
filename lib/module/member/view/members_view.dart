@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:gymgeni/module/member/widget/create_new_member.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
-
 import '../../../helper/button.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/sizebox.dart';
@@ -15,45 +15,113 @@ class MembersView extends GetView<MemberViewModel> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveTemplate(
-      desktop: Desktop(controller: controller),
+      desktop: MemberDesktop(controller: controller),
       tablet: Table(),
       mobile: Mobile(),
+      scaffoldKey: controller.scaffoldKey,
+      endDrawer: CreateNewMember(controller: controller),
     );
   }
 }
 
-class Desktop extends StatelessWidget {
+class MemberDesktop extends StatelessWidget {
   final MemberViewModel controller;
-  const Desktop({super.key, required this.controller});
+  const MemberDesktop({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Dashboard', style: customPoppin()),
-                Text('Welcome back, Abdul'),
-              ],
-            ),
-            CustomButton(
-              height: 40,
-              width: 120,
-              label: 'label',
-              onPress: () {},
-            ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                spacing: 5,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Members',
+                    style: customPoppin(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'Manage all your members in one place',
+                    style: customMontserrat(color: AppColors.greyLightColor),
+                  ),
+                ],
+              ),
+              CustomButton(
+                height: 40,
+                width: 120,
+                label: 'Add Member',
+                style: customMontserrat(color: AppColors.whiteColor),
+                color: AppColors.blackColor,
+                onPress: () {
+                  print('tapped');
+                  controller.openDrawer();
+                },
+              ),
+            ],
+          ),
+        ),
+
+        TabBar(
+          controller: controller.tabController,
+          isScrollable: true,
+          labelColor: AppColors.whiteColor,
+          unselectedLabelColor: AppColors.blackColor,
+          labelStyle: customPoppin(fontWeight: FontWeight.w400),
+          unselectedLabelStyle: customPoppin(fontWeight: FontWeight.w400),
+          indicator: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color:
+                AppColors
+                    .greyLighterShadeColor, // soft background for active tab
+            borderRadius: BorderRadius.circular(4), // rounded corners
+          ),
+          indicatorSize: TabBarIndicatorSize.tab,
+          indicatorAnimation: TabIndicatorAnimation.linear,
+          indicatorPadding: EdgeInsetsGeometry.all(5),
+          padding: EdgeInsets.only(top: 5, bottom: 10),
+          tabs: [
+            Tab(child: Text('All')),
+            Tab(child: Text('Active')),
+            Tab(child: Text('Inactive')),
+            Tab(child: Text('Pending')),
+            Tab(child: Text('Freezed')),
           ],
         ),
-        Divider(),
-        MemberDataTable(
-          columnNames: controller.columnNames,
-          members: controller.members,
+        Expanded(
+          child: TabBarView(
+            controller: controller.tabController,
+            children: [
+              MemberDataTable(
+                columnNames: controller.columnNames,
+                members: controller.members,
+              ),
+              MemberDataTable(
+                columnNames: controller.columnNames,
+                members: controller.members,
+              ),
+              MemberDataTable(
+                columnNames: controller.columnNames,
+                members: controller.members,
+              ),
+              MemberDataTable(
+                columnNames: controller.columnNames,
+                members: controller.members,
+              ),
+              MemberDataTable(
+                columnNames: controller.columnNames,
+                members: controller.members,
+              ),
+            ],
+          ),
         ),
-        setHeight(height: 10),
       ],
     );
   }
@@ -91,13 +159,13 @@ class MemberDataTable extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width, // Full width
+        width: MediaQuery.of(context).size.width,
         child: DataTable(
-          dataRowMinHeight: 5,
-          dataRowMaxHeight: 80,
+          dataRowMinHeight: 8,
+          dataRowMaxHeight: 60,
           columnSpacing: 10,
           headingRowColor: WidgetStateColor.resolveWith(
-            (states) => Colors.blue.shade50,
+            (states) => AppColors.whiteColor,
           ),
           columns:
               columnNames.map((columnName) {
@@ -117,7 +185,6 @@ class MemberDataTable extends StatelessWidget {
                   cells: [
                     DataCell(
                       ListTile(
-                        minTileHeight: 10,
                         leading: Container(
                           width: 90,
                           height: 100,
@@ -137,24 +204,24 @@ class MemberDataTable extends StatelessWidget {
                         ),
                         title: Text(
                           member.name,
-                          style: styleNunito(fontSize: 15),
+                          style: customNunito(fontSize: 15),
                         ),
                         subtitle: Text(
                           member.subtitle,
-                          style: styleNunito(fontSize: 13),
+                          style: customNunito(fontSize: 13),
                         ),
                       ),
                     ),
                     DataCell(
-                      Text(member.plan, style: styleNunito(fontSize: 12)),
+                      Text(member.plan, style: customNunito(fontSize: 12)),
                     ),
                     DataCell(
-                      Text(member.amount, style: styleNunito(fontSize: 12)),
+                      Text(member.amount, style: customNunito(fontSize: 12)),
                     ),
                     DataCell(
                       Text(
                         member.balanceAmount,
-                        style: styleNunito(fontSize: 12),
+                        style: customNunito(fontSize: 12),
                       ),
                     ),
                     DataCell(
@@ -175,16 +242,19 @@ class MemberDataTable extends StatelessWidget {
                         child: Center(
                           child: Text(
                             member.status,
-                            style: styleNunito(fontSize: 10),
+                            style: customNunito(fontSize: 10),
                           ),
                         ),
                       ),
                     ),
                     DataCell(
-                      Text(member.date, style: styleNunito(fontSize: 12)),
+                      Text(member.date, style: customNunito(fontSize: 12)),
                     ),
                     DataCell(
-                      Text(member.rejectDate, style: styleNunito(fontSize: 12)),
+                      Text(
+                        member.rejectDate,
+                        style: customNunito(fontSize: 12),
+                      ),
                     ),
                     DataCell(
                       Row(
@@ -260,16 +330,16 @@ class TabletMemberDataTable extends StatelessWidget {
                         ),
                         title: Text(
                           member.name,
-                          style: styleNunito(fontSize: 15),
+                          style: customNunito(fontSize: 15),
                         ),
                         subtitle: Text(
                           member.subtitle,
-                          style: styleNunito(fontSize: 13),
+                          style: customNunito(fontSize: 13),
                         ),
                       ),
                     ),
                     DataCell(
-                      Text(member.plan, style: styleNunito(fontSize: 12)),
+                      Text(member.plan, style: customNunito(fontSize: 12)),
                     ),
                     DataCell(
                       Container(
@@ -289,16 +359,19 @@ class TabletMemberDataTable extends StatelessWidget {
                         child: Center(
                           child: Text(
                             member.status,
-                            style: styleNunito(fontSize: 10),
+                            style: customNunito(fontSize: 10),
                           ),
                         ),
                       ),
                     ),
                     DataCell(
-                      Text(member.date, style: styleNunito(fontSize: 12)),
+                      Text(member.date, style: customNunito(fontSize: 12)),
                     ),
                     DataCell(
-                      Text(member.rejectDate, style: styleNunito(fontSize: 12)),
+                      Text(
+                        member.rejectDate,
+                        style: customNunito(fontSize: 12),
+                      ),
                     ),
                     DataCell(
                       Row(
@@ -378,27 +451,27 @@ class MobileMemberDataTable extends StatelessWidget {
                     children: [
                       Text(
                         member.name,
-                        style: styleNunito(
+                        style: customNunito(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
                         "Plan: ${member.plan}",
-                        style: styleNunito(fontSize: 14),
+                        style: customNunito(fontSize: 14),
                       ),
                       setHeight(height: 5),
                       RichText(
                         text: TextSpan(
                           text: 'Status : ',
-                          style: styleNunito(
+                          style: customNunito(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
                           children: [
                             TextSpan(
                               text: member.status,
-                              style: styleNunito(
+                              style: customNunito(
                                 fontSize: 16,
                                 color:
                                     member.status == 'Active'
@@ -406,7 +479,7 @@ class MobileMemberDataTable extends StatelessWidget {
                                         : member.status == 'Pending'
                                         ? Colors.yellow
                                         : member.status == 'Freezed'
-                                        ? AppColors.greyColor
+                                        ? AppColors.greyLighterShadeColor
                                         : member.status == 'Inactive'
                                         ? Colors.grey.shade300
                                         : Colors.red.shade400,
@@ -418,7 +491,7 @@ class MobileMemberDataTable extends StatelessWidget {
                       setHeight(height: 5),
                       Text(
                         "Date: ${member.date}",
-                        style: styleNunito(fontSize: 13),
+                        style: customNunito(fontSize: 13),
                       ),
                     ],
                   ),

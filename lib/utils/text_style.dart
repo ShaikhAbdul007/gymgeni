@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../color/colors.dart';
+import '../utils/colors.dart';
 
 TextStyle customPoppin({
-  Color color = AppColors.greyColor,
+  Color color = AppColors.blackColor,
   FontWeight fontWeight = FontWeight.normal,
   double fontSize = 15,
   TextDecoration? decoration,
@@ -71,7 +71,7 @@ TextStyle customMontserrat({
   );
 }
 
-TextStyle styleNunito({
+TextStyle customNunito({
   Color color = AppColors.blackColor,
   FontWeight fontWeight = FontWeight.normal,
   double fontSize = 15,
