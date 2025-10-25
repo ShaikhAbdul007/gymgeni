@@ -4,7 +4,7 @@ class ApiEndPoint {
   static final String fullBaseUrl = "$urls$servicePath";
 
   //Headers
-  static final String contentType = "application/json; charset=UTF-8";
+  static final String contentType = "application/x-www-form-urlencoded";
   static final String authorization = "Authorization";
   static final String acceptLanguage = "Accept-Language";
   static final String accept = 'application/json';
