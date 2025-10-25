@@ -1,70 +1,28 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import '../../../../utils/sizebox.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gymgeni/module/signups/view/signuptablet.dart';
+import '../../responsive_layout/responsive_dimension/responsive_layout.dart';
+import '../controller/signup_controller.dart';
+import 'signupdesktop.dart';
 
-// class SignupView extends StatelessWidget {
-//   const SignupView({super.key});
+class SignupView extends GetView<SignupViewModel> {
+  const SignupView({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return ResponsiveLayout(
-//       mobileScreenLayout: MobileSignupView(),
-//       tabScreenLayout: WebSignupView(),
-//       webScreenLayout: WebSignupView(),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveLayout(
+      desktop: SignupDesktop(controller: controller),
+      tablet: SignupTablet(controller: controller),
+      mobile: MobileSignupView(),
+    );
+  }
+}
 
-// class WebSignupView extends GetView<SignupController> {
-//   const WebSignupView({super.key});
+class MobileSignupView extends StatelessWidget {
+  const MobileSignupView({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return CustomScaffold(
-//       isMobile: false,
-//       body: SingleChildScrollView(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//               children: [
-//                 Flexible(
-//                   flex: 2,
-//                   child: Padding(
-//                     padding: const EdgeInsets.only(bottom: 150.0),
-//                     child: Image.asset('assets/signup.png'),
-//                   ),
-//                 ),
-//                 Flexible(
-//                   flex: 3,
-//                   child: setHeightWidth(
-//                     height: 900,
-//                     width: 600,
-//                     child: SignupBodyWidget(controller: controller),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class MobileSignupView extends GetView<SignupController> {
-//   const MobileSignupView({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return CustomScaffold(
-//       isMobile: true,
-//       body: setHeightWidth(
-//         height: double.infinity,
-//         width: double.infinity,
-//         child: MobileSignupBodyWidget(controller: controller),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}

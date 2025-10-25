@@ -1,40 +1,35 @@
 class SignupModel {
-  String id;
-  String name;
-  String email;
-  String phone;
-  String gymName;
-  String address;
-  DateTime createdAt;
-  SignupModel(
-      {required this.name,
-      required this.gymName,
-      required this.phone,
-      required this.email,
-      required this.address,
-      required this.id,
-      required this.createdAt});
+  final bool? status;
+  final String? message;
+  final SingUpData? signUpData;
+  SignupModel({this.signUpData, this.status, this.message});
 
-  factory SignupModel.fromJson(Map<String, dynamic> map) {
+  factory SignupModel.fromJson(Map<String, dynamic> json) {
     return SignupModel(
-      id: map['uid'] ?? '',
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      phone: map['phone'] ?? '',
-      gymName: map['phone'] ?? '',
-      address: map['address'] ?? '',
-      createdAt: map['createdAt'],
+      message: json['msg'] ?? '',
+      signUpData: SingUpData.fromJson(json['data'] ?? {}),
+      status: json['success'] ?? false,
     );
   }
   Map<String, dynamic> toJson() {
-    return {
-      'uid': id,
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'createdAt': createdAt,
-      'gymName': gymName,
-      'address': address,
-    };
+    return {'success': status, 'msg': message, 'data': signUpData?.toJson()};
+  }
+}
+
+class SingUpData {
+  final String? id;
+  final String? email;
+  final String? roleId;
+  SingUpData({this.email, this.id, this.roleId});
+
+  factory SingUpData.fromJson(Map<String, dynamic> json) {
+    return SingUpData(
+      email: json['email'] ?? '',
+      id: json['id'] ?? '',
+      roleId: json['roleId'] ?? '',
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'email': email, 'roleId': roleId};
   }
 }

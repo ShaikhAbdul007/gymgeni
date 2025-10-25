@@ -1,56 +1,111 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gymgeni/cachemanager/cache_manager.dart';
+import 'package:gymgeni/repository/signup_repo.dart';
+import 'package:gymgeni/routes/routes_path.dart';
+import 'package:gymgeni/utils/constant.dart';
+import 'package:gymgeni/utils/errorstrings.dart';
+import 'package:image_picker/image_picker.dart';
 
-// class SignupController extends GetxController with FirebaseAuthService {
-//   TextEditingController emailController = TextEditingController();
-//   TextEditingController passwordController = TextEditingController();
-//   TextEditingController userNameController = TextEditingController();
-//   TextEditingController gymNameController = TextEditingController();
-//   TextEditingController phoneNoController = TextEditingController();
-//   TextEditingController gymImageController = TextEditingController();
-//   TextEditingController addressController = TextEditingController();
-//   TextEditingController roleController = TextEditingController();
-//   TextEditingController locationController = TextEditingController();
-//   RxBool isPasswordVisible = true.obs;
-//   RxBool isSignUpLoading = false.obs;
-//   RxBool isTermAndConditionSelect = false.obs;
-//   final ImagePicker imagePicker = ImagePicker();
+class SignupViewModel extends GetxController with CacheManager {
+  final signupReo = SignupRepo();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController confrimpasswordController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController gymNameController = TextEditingController();
+  TextEditingController phoneNoController = TextEditingController();
+  TextEditingController gymImageController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController roleController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController pincodeController = TextEditingController();
+  RxBool isPasswordVisible = true.obs;
+  RxBool isSignUpLoading = false.obs;
+  RxBool isTermAndConditionSelect = false.obs;
+  final ImagePicker imagePicker = ImagePicker();
+  Rx<Uint8List> webImage = Uint8List(0).obs;
+  XFile? resImage;
 
-//   showPassword() {
-//     isPasswordVisible.value = !isPasswordVisible.value;
-//   }
+  Rx<File>? imageFilePath;
 
-//   isTermAndConditionSelected(bool value) {
-//     isTermAndConditionSelect.value = value;
-//   }
+  showPassword() {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
 
-//   pickImageFormGallery() async {
-//     var res = await imagePicker.pickImage(source: ImageSource.gallery);
-//     gymImageController.text = res!.name;
-//     print(res?.name);
-//     print(res?.path);
-//   }
+  isTermAndConditionSelected(bool value) {
+    isTermAndConditionSelect.value = value;
+  }
 
-//   signUp(BuildContext context) async {
-//     isSignUpLoading.value = true;
-//     var res = await auth
-//         .createUserWithEmailAndPassword(
-//           email: emailController.text.trim(),
-//           password: passwordController.text.trim(),
-//         )
-//         .then((value) {
-//           isSignUpLoading.value = false;
+  pickImageFormGallery() async {
+    resImage = await imagePicker.pickImage(source: ImageSource.gallery);
+    if (resImage != null) {
+      if (kIsWeb) {
+        final Uint8List image = await resImage!.readAsBytes();
+        webImage.value = image;
 
-//           Routes.navigateToRoute(routeName: Routes.loginScreen);
-//           UserCredential user = value;
-//           print('value is $value');
-//         })
-//         .onError((error, stackTrace) {
-//           Constant.showCustomLAlert(
-//             errorMessage: error.toString(),
-//             context: context,
-//           );
-//           isSignUpLoading.value = false;
-//         });
-//   }
-// }
+        if (webImage.value.isNotEmpty) {
+          gymImageController.text = 'image Selected';
+        }
+      } else {
+        var imageFile = File(resImage!.path);
+        imageFilePath!.value = imageFile;
+      }
+    }
+  }
+
+  void clearImage() {
+    webImage.value = Uint8List(0);
+    gymImageController.clear();
+  }
+
+  signUp(BuildContext context) async {
+    isSignUpLoading.value = true;
+    Map<String, String> body = {
+      'user_name': userNameController.text.trim(),
+      'gym_name': gymNameController.text.trim(),
+      'phone_number': phoneNoController.text.trim(),
+      'email': emailController.text.trim(),
+      'role': roleController.text.trim(),
+      'address':
+          '${addressController.text.trim()}${pincodeController.text.trim()}',
+      'location': stateController.text.trim(),
+      'password': confrimpasswordController.text.trim(),
+    };
+    try {
+      var response = await signupReo.signUpFun(
+        body: body,
+        fileBytes: webImage.value,
+        fileField: 'gym_image',
+        fileName: resImage?.name ?? '',
+      );
+      if (response.status == success) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: response.message ?? '',
+          errorStatus: true,
+        );
+        Future.delayed(Duration(seconds: 1), () {
+          RoutesPaths.navigateToRoute(routeName: RoutesPaths.loginView);
+        });
+        isSignUpLoading.value = false;
+      } else if (response.status == failed) {
+        isSignUpLoading.value = false;
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: response.message ?? '',
+          errorStatus: false,
+        );
+      } else {
+        isSignUpLoading.value = false;
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: response.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {}
+  }
+}
