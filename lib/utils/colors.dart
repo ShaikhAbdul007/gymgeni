@@ -11,4 +11,7 @@ class AppColors {
   static const Color darkBackground = Color(0xFF121212);
   static const Color blackColor = Color(0xFF2B2B2B);
   static const Color blueColor = Colors.blue;
+  static const Color greenColor = Colors.greenAccent;
+  static const Color yellowColor = Colors.amberAccent;
+  static const Color redColor = Colors.red;
 }
