@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 const destopSize = 1000;
-const tabletSize = 800;
+const tabletSize = 500;
 const mobileScreen = 500;
 
 bool isDesktop(BuildContext context) {
@@ -24,4 +24,14 @@ bool isIosOrMac() {
 
 bool isAndriodOrWindow() {
   return Platform.isAndroid || Platform.isWindows;
+}
+
+double height(BuildContext context) {
+  var screenHeight = MediaQuery.of(context).size.height;
+  return screenHeight;
+}
+
+double width(BuildContext context) {
+  var screenWidth = MediaQuery.of(context).size.width;
+  return screenWidth;
 }
