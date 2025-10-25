@@ -85,6 +85,7 @@ class SignupViewModel extends GetxController with CacheManager {
         Constant.showSnackBar(
           context: context,
           errorMessage: response.message ?? '',
+
           errorStatus: true,
         );
         Future.delayed(Duration(seconds: 1), () {
@@ -107,5 +108,22 @@ class SignupViewModel extends GetxController with CacheManager {
         );
       }
     } finally {}
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    userNameController.dispose();
+    confrimpasswordController.dispose();
+    emailController.dispose();
+    pincodeController.dispose();
+    stateController.dispose();
+    phoneNoController.dispose();
+    roleController.dispose();
+    gymNameController.dispose();
+    gymImageController.dispose();
+    addressController.dispose();
+    super.dispose();
   }
 }

@@ -63,4 +63,11 @@ class LoginViewModel extends GetxController with CacheManager {
       }
     } finally {}
   }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 }
