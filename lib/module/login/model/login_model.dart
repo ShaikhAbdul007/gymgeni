@@ -1,45 +1,38 @@
 class LoginModel {
   bool? success;
-  String? msg;
-  Data? data;
+  String? message;
+  LoginData? loginData;
 
-  LoginModel({this.success, this.msg, this.data});
+  LoginModel({this.success, this.message, this.loginData});
 
-  LoginModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    msg = json['msg'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  factory LoginModel.fromJson(Map<String, dynamic> json) {
+    return LoginModel(
+      loginData: LoginData.fromJson(json['data'] ?? {}),
+      message: json['msg'],
+      success: json['success'] ?? false,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['success'] = success;
-    data['msg'] = msg;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
+    return {'status': success, 'msg': message, 'data': loginData?.toJson()};
   }
 }
 
-class Data {
+class LoginData {
   String? token;
   User? user;
 
-  Data({this.token, this.user});
+  LoginData({this.token, this.user});
 
-  Data.fromJson(Map<String, dynamic> json) {
-    token = json['token'];
-    user = json['user'] != null ? User.fromJson(json['user']) : null;
+  factory LoginData.fromJson(Map<String, dynamic> json) {
+    return LoginData(
+      token: json['token'] ?? '',
+      user: User.fromJson(json['user'] ?? {}),
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['token'] = token;
-    if (user != null) {
-      data['user'] = user!.toJson();
-    }
-    return data;
+    return {'token': token, 'user': user?.toJson()};
   }
 }
 
@@ -51,19 +44,16 @@ class User {
 
   User({this.id, this.email, this.roleId, this.userName});
 
-  User.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    email = json['email'];
-    roleId = json['role_id'];
-    userName = json['user_name'];
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] ?? '',
+      email: json['email'] ?? '',
+      roleId: json['role_id'] ?? 0,
+      userName: json['user_name'] ?? '',
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['email'] = email;
-    data['role_id'] = roleId;
-    data['user_name'] = userName;
-    return data;
+    return {'id': id, 'email': email, 'user_name': userName, 'role_id': roleId};
   }
 }

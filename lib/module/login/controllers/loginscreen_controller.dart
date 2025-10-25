@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/cachemanager/cache_manager.dart';
+import 'package:gymgeni/repository/login_repo.dart';
+import 'package:gymgeni/routes/routes_path.dart';
+import 'package:gymgeni/utils/errorstrings.dart';
 import '../../../../utils/constant.dart';
 
-class LoginViewModel extends GetxController {
+class LoginViewModel extends GetxController with CacheManager {
+  final loginRepo = LoginRepo();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool isPasswordVisible = true.obs;
@@ -23,18 +28,39 @@ class LoginViewModel extends GetxController {
   }
 
   login(BuildContext context) async {
-    // isLoading.value = true;
-    // await auth
-    //     .signInWithEmailAndPassword(
-    //         email: emailController.text.trim(),
-    //         password: passwordController.text.trim())
-    //     .then((login) {
-    //   Routes.navigateToRoute(routeName: Routes.mainScreen);
-    //   isLoading.value = false;
-    // }).onError((error, stackTrace) {
-    //   Constant.showCustomLAlert(
-    //       errorMessage: error.toString(), context: context);
-    //   isLoading.value = false;
-    // });
+    isLoading.value = true;
+    Map<String, dynamic> body = {
+      'email': emailController.text.trim(),
+      'password': passwordController.text.trim(),
+    };
+    try {
+      var res = await loginRepo.login(body);
+      if (res.success == success) {
+        saveToken(res.loginData?.token ?? '');
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: true,
+        );
+        Future.delayed(Duration(seconds: 1), () {
+          RoutesPaths.navigateToRoute(routeName: RoutesPaths.dashboardView);
+          isLoading.value = false;
+        });
+      } else if (res.success == failed) {
+        isLoading.value = false;
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      } else {
+        isLoading.value = false;
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {}
   }
 }

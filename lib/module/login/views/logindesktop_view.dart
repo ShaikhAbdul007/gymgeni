@@ -1,0 +1,237 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:gymgeni/helper/textfield.dart';
+import 'package:gymgeni/module/responsive_layout/responsive_dimension/dimension.dart';
+import 'package:gymgeni/utils/divider.dart';
+import 'package:gymgeni/utils/keys.dart';
+import '../../../helper/svg_assetes.dart';
+import '../../../utils/colors.dart';
+import '../controllers/loginscreen_controller.dart';
+import 'package:gymgeni/routes/routes_path.dart';
+import 'package:gymgeni/utils/text_style.dart';
+import '../../../../utils/sizebox.dart';
+import '../widgets/login_button.dart';
+
+class LoginDeskTop extends StatelessWidget {
+  final LoginViewModel controller;
+  const LoginDeskTop({super.key, required this.controller});
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = height(context);
+    double screenWidth = width(context);
+
+    return Scaffold(
+      body: Center(
+        child: Form(
+          key: loginKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 70),
+                height: screenHeight / 1.5,
+                width: screenWidth / 3,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Get Started', style: customPoppin(fontSize: 20)),
+                      setHeight(height: 5),
+                      Text(
+                        "Welcome to Gym Geni - Let's Login Your Account",
+                        style: customPoppin(fontSize: 15),
+                      ),
+                      setHeight(height: 10),
+                      customDivider(
+                        color: AppColors.darkBackground,
+                        isParameterGiven: true,
+                        indent: 5,
+                      ),
+                      setHeight(height: 10),
+                      RichText(
+                        text: TextSpan(
+                          text: 'Email ',
+                          style: customNunito(
+                            fontSize: 14,
+                            color: AppColors.blackColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '*',
+                              style: customNunito(
+                                fontSize: 15,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      setHeight(height: 2),
+                      CustomTextField(
+                        hintText: 'Email',
+                        controller: controller.emailController,
+                        suffixIcon: Icon(Icons.email),
+                        validator: (email) {
+                          if (email == null || email.isEmpty) {
+                            return 'Please enter email';
+                          } else if (!email.contains('@')) {
+                            return 'Please enter valid email eg "youremail@gmail.com"';
+                          }
+                          return null;
+                        },
+                      ),
+                      setHeight(height: 15),
+                      Text(
+                        'Password',
+                        style: customPoppin(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      setHeight(height: 2),
+                      Obx(
+                        () => CustomTextField(
+                          hintText: 'Password',
+                          obscureText: controller.isPasswordVisible.value,
+                          validator: (password) {
+                            if (password == null || password.isEmpty) {
+                              return 'Please enter password';
+                            } else if (password.length <= 6) {
+                              return 'Password should be atleast 6 charachter';
+                            }
+                            return null;
+                          },
+                          controller: controller.passwordController,
+                          suffixIcon: IconButton(
+                            onPressed: () => controller.showPassword(),
+                            icon: Icon(
+                              controller.isPasswordVisible.value
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              color: AppColors.blackColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      setHeight(height: 2),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "Forgot Password ?",
+                          style: customMontserrat(
+                            fontSize: 15,
+                            color: AppColors.blueColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      setHeight(height: 10),
+                      Obx(
+                        () => LoginButton(
+                          isLoading: controller.isLoading.value,
+                          onPress: () async {
+                            if (loginKey.currentState!.validate()) {
+                              await controller.login(context);
+                            }
+                          },
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          print('tapped');
+                          RoutesPaths.navigateToRoute(
+                            routeName: RoutesPaths.signUpView,
+                          );
+                        },
+                        child: Center(
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Do not have account ?',
+                              style: customNunito(
+                                fontSize: 14,
+                                color: AppColors.greyLightColor,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: ' Create account',
+                                  style: customMontserrat(
+                                    fontSize: 16,
+                                    color: AppColors.blueColor,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 70),
+                height: screenHeight / 1.5,
+                width: screenWidth / 3,
+                child: CustomImageAssets(
+                  svgAssets: 'assets/login1.png',
+                  height: 500,
+                  width: 500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+ // Obx(
+                    //   () => CheckboxListTile(
+                    //     contentPadding: EdgeInsets.all(0),
+                    //     activeColor: Colors.black,
+                    //     controlAffinity: ListTileControlAffinity.leading,
+                    //     value: controller.isKeepMeLoggedInSelect.value,
+                    //     onChanged:
+                    //         (value) =>
+                    //             controller.isKeepMeLoggedInSelect(value ?? false),
+                    //     title: Text(
+                    //       'keep me logged in',
+                    //       style: customNunito(fontSize: 16),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Obx(
+                    //   () => CheckboxListTile(
+                    //     contentPadding: EdgeInsets.all(0),
+                    //     activeColor: Colors.black,
+                    //     controlAffinity: ListTileControlAffinity.leading,
+                    //     value: controller.isTermAndConditionSelect.value,
+                    //     onChanged:
+                    //         (value) => controller.isTermAndConditionSelected(
+                    //           value ?? false,
+                    //         ),
+                    //     title: RichText(
+                    //       text: TextSpan(
+                    //         text: 'I agree to ',
+                    //         style: customNunito(
+                    //           fontSize: 15,
+                    //           color: AppColors.greyLightColor,
+                    //         ),
+                    //         children: [
+                    //           TextSpan(
+                    //             text: 'Term & Condition',
+                    //             style: customNunito(
+                    //               fontSize: 16,
+                    //               color: Colors.red,
+                    //             ),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
