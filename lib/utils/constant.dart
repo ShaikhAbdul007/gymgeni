@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../utils/colors.dart';
 import '../helper/button.dart';
+import 'colors.dart';
 import 'divider.dart';
 import 'sizebox.dart';
 import 'text_style.dart';
@@ -112,7 +112,6 @@ class Constant {
             height: 35,
             width: 100,
             label: 'close',
-            style: customNato(fontSize: 12, color: AppColors.whiteColor),
             onPress: () {
               Get.back();
             },
@@ -142,5 +141,48 @@ class Constant {
     if (kDebugMode) {
       print(logMessage);
     }
+  }
+
+  static showSnackBar({
+    required BuildContext context,
+    required String errorMessage,
+    required bool? errorStatus,
+  }) {
+    final snackBar = SnackBar(
+      content: Align(
+        alignment: AlignmentGeometry.centerLeft,
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 12,
+              backgroundColor:
+                  errorStatus == true
+                      ? AppColors.greenColor
+                      : errorStatus == false
+                      ? AppColors.redColor
+                      : AppColors.yellowColor,
+              child:
+                  errorStatus == true
+                      ? const Icon(Icons.done, color: Colors.white)
+                      : errorStatus == false
+                      ? const Icon(Icons.info, color: Colors.white)
+                      : const Icon(Icons.info, color: Colors.white),
+            ),
+            setWidth(width: 8),
+            Expanded(
+              child: Text(
+                errorMessage,
+                style: customMontserrat(fontWeight: FontWeight.w500),
+              ),
+            ),
+          ],
+        ),
+      ),
+      width: 300,
+      backgroundColor: AppColors.whiteColor,
+      behavior: SnackBarBehavior.floating,
+      duration: Duration(seconds: 2),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
