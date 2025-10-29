@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymgeni/helper/common_progress_bar.dart';
 import 'package:gymgeni/helper/lottie.dart';
 import 'package:gymgeni/utils/text_style.dart';
 import '../utils/colors.dart';
@@ -44,10 +45,7 @@ class CustomButton extends StatelessWidget {
         child: Center(
           child:
               isLoading
-                  ? CircularProgressIndicator(
-                    backgroundColor: AppColors.whiteColor,
-                    color: AppColors.blackColor,
-                  )
+                  ? CommonProgressBar()
                   : Text(
                     label,
                     style: customMontserrat(
