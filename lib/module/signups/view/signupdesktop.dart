@@ -19,8 +19,8 @@ class SignupDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = height(context);
-    double screenWidth = width(context);
+    double h = screenHeight(context);
+    double w = screenWidth(context);
     return Scaffold(
       body: Form(
         key: signUpKey,
@@ -29,8 +29,8 @@ class SignupDesktop extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: screenHeight,
-              width: screenWidth / 2,
+              height: h,
+              width: w / 2,
               child: CustomImageAssets(
                 svgAssets: 'assets/signup.png',
                 height: 500,
@@ -38,8 +38,8 @@ class SignupDesktop extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: screenHeight,
-              width: screenWidth / 2,
+              height: h,
+              width: w / 2,
               child: Padding(
                 padding: const EdgeInsets.only(right: 18.0),
                 child: SingleChildScrollView(

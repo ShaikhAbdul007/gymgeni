@@ -19,8 +19,8 @@ class SignupTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = height(context);
-    double screenWidth = width(context);
+    double h = screenHeight(context);
+    double w = screenWidth(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -363,8 +363,8 @@ class SignupTablet extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 70),
-                height: screenHeight,
-                width: screenWidth,
+                height: h,
+                width: w,
                 child: CustomImageAssets(
                   svgAssets: 'assets/signup.png',
                   height: 500,
