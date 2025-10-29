@@ -26,12 +26,12 @@ bool isAndriodOrWindow() {
   return Platform.isAndroid || Platform.isWindows;
 }
 
-double height(BuildContext context) {
+double screenHeight(BuildContext context) {
   var screenHeight = MediaQuery.of(context).size.height;
   return screenHeight;
 }
 
-double width(BuildContext context) {
+double screenWidth(BuildContext context) {
   var screenWidth = MediaQuery.of(context).size.width;
   return screenWidth;
 }
