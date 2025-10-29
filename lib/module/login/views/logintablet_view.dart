@@ -19,8 +19,8 @@ class LoginTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = height(context);
-    double screenWidth = width(context);
+    double h = screenHeight(context);
+    double w = screenWidth(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -32,8 +32,8 @@ class LoginTablet extends StatelessWidget {
               const SizedBox(height: 20),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 70),
-                height: screenHeight / 1.5,
-                width: screenWidth,
+                height: h / 1.5,
+                width: w,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -172,8 +172,8 @@ class LoginTablet extends StatelessWidget {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 70),
-                height: screenHeight / 1.5,
-                width: screenWidth,
+                height: h / 1.5,
+                width: w,
                 child: CustomImageAssets(
                   svgAssets: 'assets/login1.png',
                   height: 500,

@@ -17,8 +17,8 @@ class LoginDeskTop extends StatelessWidget {
   const LoginDeskTop({super.key, required this.controller});
   @override
   Widget build(BuildContext context) {
-    double screenHeight = height(context);
-    double screenWidth = width(context);
+    double h = screenHeight(context);
+    double w = screenWidth(context);
 
     return Scaffold(
       body: Center(
@@ -30,8 +30,8 @@ class LoginDeskTop extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 70),
-                height: screenHeight / 1.5,
-                width: screenWidth / 3,
+                height: h / 1.5,
+                width: w / 3,
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,8 +174,8 @@ class LoginDeskTop extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 70),
-                height: screenHeight / 1.5,
-                width: screenWidth / 3,
+                height: h / 1.5,
+                width: w / 3,
                 child: CustomImageAssets(
                   svgAssets: 'assets/login1.png',
                   height: 500,
