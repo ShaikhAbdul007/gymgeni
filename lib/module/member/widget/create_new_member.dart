@@ -197,7 +197,6 @@ class CreateNewMember extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomButton(
-              style: customNunito(fontSize: 14, color: AppColors.whiteColor),
               color: AppColors.darkBackground,
               height: 50,
               width: 120,
@@ -208,7 +207,6 @@ class CreateNewMember extends StatelessWidget {
             ),
             setWidth(width: 10),
             CustomButton(
-              style: customNunito(fontSize: 14),
               height: 50,
               width: 120,
               label: 'Cancel',

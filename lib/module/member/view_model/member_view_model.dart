@@ -48,6 +48,15 @@ class MemberViewModel extends GetxController
     'Expire Date',
     'Action',
   ];
+  List<Tab> tabs = [
+    Tab(child: Text('All')),
+    Tab(child: Text('Active')),
+    Tab(child: Text('Inactive')),
+    Tab(child: Text('Pending')),
+    Tab(child: Text('Freezed')),
+    Tab(child: Text('Attendence')),
+    Tab(child: Text('Configuration')),
+  ];
 
   void openDrawer() {
     scaffoldKey.currentState?.openEndDrawer();
@@ -238,7 +247,7 @@ class MemberViewModel extends GetxController
 
   @override
   void onInit() {
-    tabController = TabController(length: 5, vsync: this);
+    tabController = TabController(length: tabs.length, vsync: this);
     super.onInit();
   }
 }

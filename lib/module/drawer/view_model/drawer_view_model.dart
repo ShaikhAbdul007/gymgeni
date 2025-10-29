@@ -10,7 +10,8 @@ class CustomDrawerController extends GetxController {
 
   void menuOnTap(int index, String route) {
     selectedIndex.value = index;
-    Get.rootDelegate.toNamed(route);
+    //Get.rootDelegate.toNamed(route);
+    Get.toNamed(route);
   }
 
   void onHovering(bool hovering, int index) {
@@ -21,16 +22,16 @@ class CustomDrawerController extends GetxController {
     MenuItem(
       isSelected: false,
       isHovered: false,
-      icon: CupertinoIcons.person,
-      route: RoutesPaths.memberView,
-      itemName: 'Member',
+      icon: CupertinoIcons.rectangle_3_offgrid,
+      route: RoutesPaths.dashboardView,
+      itemName: 'Dashboard',
     ),
     MenuItem(
       isSelected: false,
       isHovered: false,
-      icon: CupertinoIcons.rectangle_3_offgrid,
-      route: RoutesPaths.dashboardView,
-      itemName: 'Dashboard',
+      icon: CupertinoIcons.person,
+      route: RoutesPaths.memberView,
+      itemName: 'Member',
     ),
     MenuItem(
       isSelected: false,
@@ -59,6 +60,13 @@ class CustomDrawerController extends GetxController {
       icon: CupertinoIcons.person_2_alt,
       route: RoutesPaths.employeeView,
       itemName: 'Employees',
+    ),
+    MenuItem(
+      isSelected: false,
+      isHovered: false,
+      icon: CupertinoIcons.square_arrow_right,
+      route: RoutesPaths.loginView,
+      itemName: 'Logout',
     ),
   ];
 }
