@@ -81,6 +81,7 @@ class Constant {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: AppColors.whiteColor,
           contentPadding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
           content: content!,
         );
