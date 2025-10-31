@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gymgeni/helper/button.dart';
+import 'package:gymgeni/utils/divider.dart';
+import '../../../utils/colors.dart';
 import '../../../utils/sizebox.dart';
 import '../../../utils/text_style.dart';
 import '../../responsive_layout/responsive_dimension/responsive_tempate.dart';
@@ -29,29 +30,47 @@ class Desktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Dashboard', style: customPoppin()),
-                Text('Welcome back, Abdul'),
-              ],
-            ),
-            CustomButton(
-              height: 40,
-              width: 120,
-              label: 'label',
-              onPress: () {},
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Dashboard',
+                    style: customPoppin(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'Welcome back, Abdul',
+                    style: customMontserrat(color: AppColors.greyLightColor),
+                  ),
+                ],
+              ),
+              // CustomButton(
+              //   height: 40,
+              //   width: 120,
+              //   label: 'label',
+              //   onPress: () {},
+              // ),
+            ],
+          ),
         ),
-        Divider(),
+        customDivider(
+          isParameterGiven: true,
+          endIndent: 5,
+          indent: 5,
+          color: AppColors.blackColors,
+        ),
+        setHeight(height: 10),
         DashBoardBusinessOverAllSection(
           dashBoardBusinessOverAllListItem: controller.mainHeroList,
         ),
-        setHeight(height: 15),
+        setHeight(height: 10),
         WebRevenueCharts(
           colorList: controller.colorList,
           dataMap: controller.dataMap,
