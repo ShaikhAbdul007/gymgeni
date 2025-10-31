@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
 
-class FinanceView extends StatelessWidget {
+import '../../../helper/common_body.dart';
+import '../viewmodel/finance_viewmodel.dart';
+
+class FinanceView extends GetView<FinanceViewmodel> {
   const FinanceView({super.key});
   @override
   Widget build(BuildContext context) {
     return ResponsiveTemplate(
-      desktop: Desktop(),
+      desktop: Desktop(controller: controller),
       tablet: Tablet(),
       mobile: Mobile(),
     );
@@ -14,14 +18,24 @@ class FinanceView extends StatelessWidget {
 }
 
 class Desktop extends StatelessWidget {
-  const Desktop({super.key});
+  final FinanceViewmodel controller;
+  const Desktop({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(child: Text('FinanceView', style: TextStyle(fontSize: 50))),
+    return CommonBody(
+      tabBarChildren: [
+        Text('All'),
+        Text('Sale'),
+        Text('Pending'),
+        Text('Configuration'),
       ],
+      heading: 'Finance',
+      subHeading: 'Manage all your finances in one place',
+      buttonLabel: 'Add Payment',
+      buttonOnPress: () {},
+      tabs: controller.tabs,
+      tabController: controller.tabController,
     );
   }
 }
