@@ -1,12 +1,15 @@
-import 'package:flutter/src/widgets/navigator.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/cachemanager/cache_manager.dart';
 
-class RoutesMiddleware extends GetMiddleware {
+class RoutesMiddleware extends GetMiddleware with CacheManager {
   @override
   RouteSettings? redirect(String? route) {
-    final isAuth = false; // ya fetch from SharedPreferences or any auth state
+    String token = retriveToken();
+    final bool isAuth = token.isNotEmpty ? true : false;
     if (!isAuth) {
       return const RouteSettings(name: '/login');
     }
+    return null;
   }
 }

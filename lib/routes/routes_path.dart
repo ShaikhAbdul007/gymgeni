@@ -13,14 +13,15 @@ abstract class RoutesPaths {
   static const reportView = '/reportView';
   static const unknownRouteView = '/unknownRouteView';
   static const employeeView = '/employeeView';
+  static const memberMasterView = '/memberMasterView';
 
   static navigateToRoute({required String routeName, dynamic data}) {
     switch (routeName) {
       case loginView:
-        Get.offAllNamed(loginView);
+        Get.rootDelegate.offNamed(loginView);
         break;
       case signUpView:
-        Get.toNamed(signUpView);
+        Get.rootDelegate.toNamed(signUpView);
         break;
       case memberView:
         Get.toNamed(memberView);
@@ -32,7 +33,7 @@ abstract class RoutesPaths {
         Get.toNamed(financeView);
         break;
       case dashboardView:
-        Get.offAllNamed(dashboardView);
+        Get.rootDelegate.offNamed(dashboardView);
         break;
       case leadView:
         Get.toNamed(leadView);
