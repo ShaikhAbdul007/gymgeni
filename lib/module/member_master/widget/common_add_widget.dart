@@ -10,6 +10,7 @@ import '../../../utils/sizebox.dart';
 class CommonAddWidget extends StatelessWidget {
   final TextEditingController controller;
   final String headerLabel;
+  final String errorLabel;
   final String labelHintText;
   final bool isLoading;
   final void Function() submitOnPress;
@@ -22,6 +23,7 @@ class CommonAddWidget extends StatelessWidget {
     required this.submitOnPress,
     required this.cancelOnPress,
     this.isLoading = false,
+    required this.errorLabel,
   });
 
   @override
@@ -55,7 +57,7 @@ class CommonAddWidget extends StatelessWidget {
             hintText: labelHintText,
             validator: (trainig) {
               if (trainig == null || trainig.isEmpty) {
-                return 'Enter training mode';
+                return errorLabel;
               }
               return null;
             },
