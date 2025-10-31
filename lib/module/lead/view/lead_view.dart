@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:gymgeni/module/lead/viewmodel/lead_view_model.dart';
 
+import '../../../helper/common_body.dart';
 import '../../responsive_layout/responsive_dimension/responsive_tempate.dart';
 
-class LeadView extends StatelessWidget {
+class LeadView extends GetView<LeadViewModel> {
   const LeadView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveTemplate(
-      desktop: Desktop(),
+      desktop: Desktop(controller: controller),
       tablet: Table(),
       mobile: Mobile(),
     );
@@ -16,14 +19,19 @@ class LeadView extends StatelessWidget {
 }
 
 class Desktop extends StatelessWidget {
-  const Desktop({super.key});
+  final LeadViewModel controller;
+  const Desktop({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(child: Text('LeadView', style: TextStyle(fontSize: 50))),
-      ],
+    return CommonBody(
+      tabBarChildren: [Text('All'), Text('follow Up'), Text('Configuration')],
+      heading: 'Lead',
+      subHeading: 'Manage all your leads in one place',
+      buttonLabel: 'Add Lead',
+      buttonOnPress: () {},
+      tabs: controller.tabs,
+      tabController: controller.tabController,
     );
   }
 }
