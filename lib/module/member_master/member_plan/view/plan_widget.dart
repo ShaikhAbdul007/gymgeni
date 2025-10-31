@@ -5,13 +5,12 @@ import '../../../../helper/common_nodatafound.dart';
 import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../../../utils/sizebox.dart';
-import '../../widget/common_add_widget.dart';
-import '../view_model/training_type_viewmodel.dart';
-import '../widget/training_type_member_table.dart';
+import '../view_model/plan_viewmodel.dart';
+import '../widget/member_add_new_planwidget.dart';
+import '../widget/member_plan_member_table.dart';
 
-class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
-  const TrainingTypeWidget({super.key});
+class PlanWidget extends GetView<PlanViewmodel> {
+  const PlanWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            setWidth(width: 10),
+            Spacer(),
             CustomButton(
               height: 40,
               width: 90,
@@ -29,15 +28,18 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
               onPress: () {
                 Constant.customShowDialog(
                   content: Obx(
-                    () => CommonAddWidget(
-                      errorLabel: 'Enter training type',
+                    () => CommonAddNewPlanWidget(
+                      labelHintText2: 'Plan Amount',
+                      errorLabel2: 'Enter Plan Name',
+                      errorLabel: 'Enter Plan Name',
                       isLoading: controller.isAddLoading.value,
                       controller: controller.newTrainingController,
-                      headerLabel: 'Add Training type',
-                      labelHintText: 'Training Type',
+                      amountController: controller.amountController,
+                      headerLabel: 'Add Plan Name',
+                      labelHintText: 'Plan Name',
                       submitOnPress: () {
                         if (traingModeKey.currentState!.validate()) {
-                          controller.addTrainingType(context);
+                          controller.addPlan(context);
                         }
                       },
                       cancelOnPress: () {
@@ -55,32 +57,30 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
           () =>
               controller.isdataLoading.value || controller.isDeleteLoading.value
                   ? CommonProgressBar()
-                  : controller.trainingType.isEmpty
+                  : controller.planName.isEmpty
                   ? CommonNoDataFound(label: 'No data found')
-                  : TrainingTypeMemberTable(
-                    columnNames: controller.columnName,
-                    traingType: controller.trainingType,
-                    deleteOnTap: (type) {
-                      controller.deleteTrainingType(
-                        context: context,
-                        id: type.id ?? '',
+                  : MemberPlanMemberTable(
+                    editOnTap: (plan) {
+                      controller.setData(
+                        traingName: plan.name ?? '',
+                        planAmount: 0,
                       );
-                    },
-                    editOnTap: (type) {
-                      controller.setData(traingName: type.name ?? '');
                       Constant.customShowDialog(
                         content: Obx(
-                          () => CommonAddWidget(
-                            errorLabel: 'Enter training type',
+                          () => CommonAddNewPlanWidget(
+                            labelHintText2: 'Plan Amount',
+                            errorLabel2: 'Enter Plan Name',
+                            errorLabel: 'Enter Plan Name',
                             isLoading: controller.isUpdateLoading.value,
                             controller: controller.newTrainingController,
-                            headerLabel: 'Edit Training Type',
-                            labelHintText: 'Training Type',
+                            amountController: controller.amountController,
+                            headerLabel: 'Edit Plan Name',
+                            labelHintText: 'Plan Name',
                             submitOnPress: () {
                               if (traingModeKey.currentState!.validate()) {
-                                controller.updateTrainingType(
+                                controller.updatePlan(
                                   context: context,
-                                  id: type.id ?? '',
+                                  id: plan.id ?? '',
                                 );
                               }
                             },
@@ -92,6 +92,14 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
                         context: context,
                       );
                     },
+                    deleteOnTap: (plan) {
+                      controller.deletePlan(
+                        context: context,
+                        id: plan.id ?? '',
+                      );
+                    },
+                    columnNames: controller.columnName,
+                    planType: controller.planName,
                   ),
         ),
       ],

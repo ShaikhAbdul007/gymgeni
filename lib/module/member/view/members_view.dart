@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:gymgeni/helper/common_body.dart';
 import 'package:gymgeni/module/member/widget/active_member.dart';
 import 'package:gymgeni/module/member/widget/all_member.dart';
 import 'package:gymgeni/module/member/widget/create_new_member.dart';
@@ -8,9 +9,6 @@ import 'package:gymgeni/module/member/widget/inactive_member.dart';
 import 'package:gymgeni/module/member/widget/pending_member.dart';
 import 'package:gymgeni/module/member_master/view/member_master_view.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
-import '../../../helper/button.dart';
-import '../../../utils/colors.dart';
-import '../../../utils/text_style.dart';
 import '../view_model/member_view_model.dart';
 
 class MembersView extends GetView<MemberViewModel> {
@@ -34,111 +32,43 @@ class MemberDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                spacing: 5,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Members',
-                    style: customPoppin(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    'Manage all your members in one place',
-                    style: customMontserrat(color: AppColors.greyLightColor),
-                  ),
-                ],
-              ),
-              CustomButton(
-                height: 40,
-                width: 150,
-                label: 'Add Member',
-                color: AppColors.blackColor,
-                onPress: () {
-                  print('tapped');
-                  controller.openDrawer();
-                },
-              ),
-            ],
-          ),
+    return CommonBody(
+      tabBarChildren: [
+        AllMemberWidget(
+          columnNames: controller.columnNames,
+          members: controller.members,
         ),
-        TabBar(
-          dividerColor: Colors.transparent,
-          controller: controller.tabController,
-          isScrollable: true,
-          labelColor: AppColors.whiteColor,
-          unselectedLabelColor: AppColors.blackColor,
-          labelStyle: customPoppin(fontWeight: FontWeight.w400),
-          unselectedLabelStyle: customPoppin(fontWeight: FontWeight.w400),
-          indicator: BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: AppColors.blackColor,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          indicatorSize: TabBarIndicatorSize.tab,
-          indicatorAnimation: TabIndicatorAnimation.linear,
-          indicatorPadding: EdgeInsetsGeometry.all(5),
-          padding: EdgeInsets.only(top: 5),
-          tabs: controller.tabs,
+        ActiveMemberWidget(
+          columnNames: controller.columnNames,
+          members: controller.members,
         ),
-        Expanded(
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: AppColors.whiteColor,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: TabBarView(
-              physics: const NeverScrollableScrollPhysics(),
-              controller: controller.tabController,
-              children: [
-                AllMemberWidget(
-                  columnNames: controller.columnNames,
-                  members: controller.members,
-                ),
-                ActiveMemberWidget(
-                  columnNames: controller.columnNames,
-                  members: controller.members,
-                ),
-                InactiveMemberWidget(
-                  columnNames: controller.columnNames,
-                  members: controller.members,
-                ),
-                PendingMemberWidget(
-                  columnNames: controller.columnNames,
-                  members: controller.members,
-                ),
-                FreezedMemberWidget(
-                  columnNames: controller.columnNames,
-                  members: controller.members,
-                ),
-                FreezedMemberWidget(
-                  columnNames: controller.columnNames,
-                  members: controller.members,
-                ),
-                MemberMasterView(),
-              ],
-            ),
-          ),
+        InactiveMemberWidget(
+          columnNames: controller.columnNames,
+          members: controller.members,
         ),
+        PendingMemberWidget(
+          columnNames: controller.columnNames,
+          members: controller.members,
+        ),
+        FreezedMemberWidget(
+          columnNames: controller.columnNames,
+          members: controller.members,
+        ),
+        FreezedMemberWidget(
+          columnNames: controller.columnNames,
+          members: controller.members,
+        ),
+        MemberMasterView(),
       ],
+      heading: 'Members',
+      subHeading: 'Manage all your members in one place',
+      buttonLabel: 'Add Member',
+      buttonOnPress: () {
+        print('tapped');
+        controller.openDrawer();
+      },
+      tabs: controller.tabs,
+      tabController: controller.tabController,
     );
   }
 }

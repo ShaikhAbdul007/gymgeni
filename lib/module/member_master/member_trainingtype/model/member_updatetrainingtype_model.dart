@@ -1,16 +1,16 @@
 class MemberUpdatetrainingTypeModel {
   final bool? status;
   final String? message;
-  final MemberUpdatetrainingTypeData? memberAddtrainingData;
+  final MemberUpdatetrainingTypeData? memberAddGroupData;
   MemberUpdatetrainingTypeModel({
-    this.memberAddtrainingData,
+    this.memberAddGroupData,
     this.message,
     this.status,
   });
 
   factory MemberUpdatetrainingTypeModel.fromJson(Map<String, dynamic> json) {
     return MemberUpdatetrainingTypeModel(
-      memberAddtrainingData: MemberUpdatetrainingTypeData.fromJson(
+      memberAddGroupData: MemberUpdatetrainingTypeData.fromJson(
         json['data'] ?? {},
       ),
       message: json['msg'],
@@ -22,7 +22,7 @@ class MemberUpdatetrainingTypeModel {
     return {
       'success': status,
       'msg': message,
-      'data': memberAddtrainingData?.toJson(),
+      'data': memberAddGroupData?.toJson(),
     };
   }
 }

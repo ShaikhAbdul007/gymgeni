@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/dimension.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/text_style.dart';
-import '../member_goal/widget/goal_widget.dart';
-import '../member_group/widget/group_widget.dart';
-import '../member_plan/widget/plan_widget.dart';
+import '../member_goal/view/goal_widget.dart';
+import '../member_group/view/group_widget.dart';
+import '../member_plan/view/plan_widget.dart';
 import '../member_trainingtype/view/training_type_widget.dart';
 import '../member_triaingmode/view/training_mode_widget.dart';
 import '../view_model/member_master_viewmodel.dart';
@@ -43,8 +43,8 @@ class MemberMasterDesktop extends GetView<MemberMasterViewModel> {
                 TrainingModeWidget(),
                 TrainingTypeWidget(),
                 PlanWidget(),
-                GroupWidget(),
                 GoalWidget(),
+                GroupWidget(),
               ],
             ),
           ),

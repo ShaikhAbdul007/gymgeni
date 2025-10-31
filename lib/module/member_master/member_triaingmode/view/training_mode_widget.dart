@@ -30,6 +30,7 @@ class TrainingModeWidget extends GetView<TrainingModeViewModel> {
                 Constant.customShowDialog(
                   content: Obx(
                     () => CommonAddWidget(
+                      errorLabel: 'Enter training mode',
                       isLoading: controller.isAddLoading.value,
                       controller: controller.newTrainingController,
                       headerLabel: 'Add Training Mode',
@@ -69,6 +70,7 @@ class TrainingModeWidget extends GetView<TrainingModeViewModel> {
                       Constant.customShowDialog(
                         content: Obx(
                           () => CommonAddWidget(
+                            errorLabel: 'Enter training mode',
                             isLoading: controller.isUpdateLoading.value,
                             controller: controller.newTrainingController,
                             headerLabel: 'Edit Training Mode',

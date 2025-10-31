@@ -64,7 +64,7 @@ class CreateNewMember extends StatelessWidget {
                     NewEnquireComponentWithDropDown(
                       width: 200,
                       label: 'Plan',
-                      listItems: controller.durationList,
+                      listItems: controller.planList,
                       notifyParent: (value) {},
                     ),
                   ],

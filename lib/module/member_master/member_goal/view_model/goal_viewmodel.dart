@@ -1,35 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/repository/member_master_goal_repo.dart';
 import 'package:gymgeni/utils/constant.dart';
 import 'package:gymgeni/utils/errorstrings.dart';
-import '../../../../repository/member_master_trainingmode_repo.dart';
-import '../../model/member_master_model.dart';
+import '../model/member_allgoal_model.dart';
 
 class GoalViewmodel extends GetxController {
-  final memberMasterRepo = TraingModeRepo();
+  final goalRepo = GoalRepo();
   TextEditingController newTrainingController = TextEditingController();
-  RxBool isLoading = false.obs;
-  List<String> columnName = ['Trainig Mode', 'Action'];
-  final List<MemberMasterModel> trainingModes = [
-    MemberMasterModel(group: 'Normal Training', value: false),
-    MemberMasterModel(group: 'Cardio Only', value: false),
-    MemberMasterModel(group: 'Strength Only', value: false),
-    MemberMasterModel(group: 'Zumba', value: false),
-    MemberMasterModel(group: 'CrossFit', value: false),
-    MemberMasterModel(
-      group: 'HIIT (High-Intensity Interval Training)',
-      value: false,
-    ),
-    MemberMasterModel(group: 'Yoga', value: false),
-    MemberMasterModel(group: 'Pilates', value: false),
-    MemberMasterModel(group: 'Functional Training', value: false),
-    MemberMasterModel(group: 'Mixed Training', value: false),
-  ];
-  addTraining(BuildContext context) async {
-    isLoading.value = true;
+  List<String> columnName = ['Goal Name', 'Action'];
+  RxBool isAddLoading = false.obs;
+  RxBool isUpdateLoading = false.obs;
+  RxBool isDeleteLoading = false.obs;
+  RxBool isdataLoading = false.obs;
+  RxList<MemberAllGoalData> goalName = <MemberAllGoalData>[].obs;
+
+  @override
+  void onInit() {
+    getGoalName();
+    super.onInit();
+  }
+
+  clear() {
+    newTrainingController.clear();
+    Get.back();
+  }
+
+  setData({required String traingName}) {
+    newTrainingController.text = traingName;
+  }
+
+  getGoalName() async {
+    isdataLoading.value = true;
+    try {
+      var res = await goalRepo.getGoal();
+      if (res.status == success) {
+        goalName.value = res.memberAllGoalData ?? [];
+      } else if (res.status == failed) {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isdataLoading.value = false;
+    }
+  }
+
+  addGoalName(BuildContext context) async {
+    isAddLoading.value = true;
     Map<String, dynamic> body = {"name": newTrainingController.text.trim()};
     try {
-      var res = await memberMasterRepo.addNewTraingMode(body);
+      var res = await goalRepo.addNewGroup(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,
@@ -37,6 +66,7 @@ class GoalViewmodel extends GetxController {
           errorStatus: true,
         );
         clear();
+        getGoalName();
       } else if (res.status == failed) {
         Constant.showSnackBar(
           context: context,
@@ -51,15 +81,73 @@ class GoalViewmodel extends GetxController {
         );
       }
     } finally {
-      isLoading.value = false;
+      isAddLoading.value = false;
     }
   }
 
-  getTraingMode() {}
+  updateGoalName({required BuildContext context, required String id}) async {
+    isUpdateLoading.value = true;
+    Map<String, dynamic> body = {
+      "name": newTrainingController.text.trim(),
+      "id": id,
+    };
+    try {
+      var res = await goalRepo.updateGroup(body);
+      print(res);
+      if (res.status == success) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: true,
+        );
+        clear();
+        getGoalName();
+      } else if (res.status == failed) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      } else {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isUpdateLoading.value = false;
+    }
+  }
 
-  clear() {
-    newTrainingController.clear();
-    Get.back();
+  deleteGoalName({required BuildContext context, required String id}) async {
+    isDeleteLoading.value = true;
+    Map<String, dynamic> body = {"id": id};
+    try {
+      var res = await goalRepo.deleteGroup(body);
+      if (res.status == success) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: true,
+        );
+        getGoalName();
+      } else if (res.status == failed) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      } else {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDeleteLoading.value = false;
+    }
   }
 
   @override

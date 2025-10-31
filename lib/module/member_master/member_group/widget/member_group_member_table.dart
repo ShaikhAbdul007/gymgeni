@@ -3,17 +3,17 @@ import 'package:gymgeni/module/responsive_layout/responsive_dimension/dimension.
 import 'package:gymgeni/utils/colors.dart';
 import '../../../../helper/common_action.dart';
 import '../../../../utils/text_style.dart';
-import '../model/member_alltrainingtype_model.dart';
+import '../model/member_allgroup_model.dart';
 
-class TrainingTypeMemberTable extends StatelessWidget {
+class MemberGroupMemberTable extends StatelessWidget {
   final List<String> columnNames;
-  final List<MemberAllTrainingTypeData> traingType;
-  final void Function(MemberAllTrainingTypeData type)? deleteOnTap;
-  final void Function(MemberAllTrainingTypeData member)? editOnTap;
-  const TrainingTypeMemberTable({
+  final List<MemberAllGroupData> groupType;
+  final void Function(MemberAllGroupData group)? deleteOnTap;
+  final void Function(MemberAllGroupData group)? editOnTap;
+  const MemberGroupMemberTable({
     super.key,
     required this.columnNames,
-    required this.traingType,
+    required this.groupType,
     this.deleteOnTap,
     this.editOnTap,
   });
@@ -45,19 +45,16 @@ class TrainingTypeMemberTable extends StatelessWidget {
                 );
               }).toList(),
           rows:
-              traingType.map((member) {
+              groupType.map((group) {
                 return DataRow(
                   cells: [
                     DataCell(
-                      Text(
-                        member.name ?? '',
-                        style: customNunito(fontSize: 14),
-                      ),
+                      Text(group.name ?? '', style: customNunito(fontSize: 14)),
                     ),
                     DataCell(
                       CommonAction(
-                        deleteOnTap: () => deleteOnTap?.call(member),
-                        editOnTap: () => editOnTap?.call(member),
+                        deleteOnTap: () => deleteOnTap?.call(group),
+                        editOnTap: () => editOnTap?.call(group),
                       ),
                     ),
                   ],

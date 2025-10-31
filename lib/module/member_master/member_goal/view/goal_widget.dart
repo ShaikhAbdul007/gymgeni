@@ -5,13 +5,13 @@ import '../../../../helper/common_nodatafound.dart';
 import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../../../utils/sizebox.dart';
+import '../../../../utils/text_style.dart';
 import '../../widget/common_add_widget.dart';
-import '../view_model/training_type_viewmodel.dart';
-import '../widget/training_type_member_table.dart';
+import '../view_model/goal_viewmodel.dart';
+import '../widget/member_goal_member_table.dart';
 
-class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
-  const TrainingTypeWidget({super.key});
+class GoalWidget extends GetView<GoalViewmodel> {
+  const GoalWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            setWidth(width: 10),
+            Spacer(),
             CustomButton(
               height: 40,
               width: 90,
@@ -30,14 +30,14 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
                 Constant.customShowDialog(
                   content: Obx(
                     () => CommonAddWidget(
-                      errorLabel: 'Enter training type',
+                      errorLabel: 'Enter Goal Name',
                       isLoading: controller.isAddLoading.value,
                       controller: controller.newTrainingController,
-                      headerLabel: 'Add Training type',
-                      labelHintText: 'Training Type',
+                      headerLabel: 'Add Goal Name',
+                      labelHintText: 'Goal Name',
                       submitOnPress: () {
                         if (traingModeKey.currentState!.validate()) {
-                          controller.addTrainingType(context);
+                          controller.addGoalName(context);
                         }
                       },
                       cancelOnPress: () {
@@ -55,32 +55,30 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
           () =>
               controller.isdataLoading.value || controller.isDeleteLoading.value
                   ? CommonProgressBar()
-                  : controller.trainingType.isEmpty
+                  : controller.goalName.isEmpty
                   ? CommonNoDataFound(label: 'No data found')
-                  : TrainingTypeMemberTable(
-                    columnNames: controller.columnName,
-                    traingType: controller.trainingType,
-                    deleteOnTap: (type) {
-                      controller.deleteTrainingType(
+                  : MemberGoalMemberTable(
+                    deleteOnTap: (goal) {
+                      controller.deleteGoalName(
                         context: context,
-                        id: type.id ?? '',
+                        id: goal.id ?? '',
                       );
                     },
-                    editOnTap: (type) {
-                      controller.setData(traingName: type.name ?? '');
+                    editOnTap: (goal) {
+                      controller.setData(traingName: goal.name ?? '');
                       Constant.customShowDialog(
                         content: Obx(
                           () => CommonAddWidget(
-                            errorLabel: 'Enter training type',
+                            errorLabel: 'Enter Goal Name',
                             isLoading: controller.isUpdateLoading.value,
                             controller: controller.newTrainingController,
-                            headerLabel: 'Edit Training Type',
-                            labelHintText: 'Training Type',
+                            headerLabel: 'Edit Goal Name',
+                            labelHintText: 'Goal Name',
                             submitOnPress: () {
                               if (traingModeKey.currentState!.validate()) {
-                                controller.updateTrainingType(
+                                controller.updateGoalName(
                                   context: context,
-                                  id: type.id ?? '',
+                                  id: goal.id ?? '',
                                 );
                               }
                             },
@@ -92,6 +90,8 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
                         context: context,
                       );
                     },
+                    columnNames: controller.columnName,
+                    goalType: controller.goalName,
                   ),
         ),
       ],

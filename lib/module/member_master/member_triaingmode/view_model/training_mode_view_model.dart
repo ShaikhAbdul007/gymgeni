@@ -23,6 +23,15 @@ class TrainingModeViewModel extends GetxController {
     super.onInit();
   }
 
+  clear() {
+    newTrainingController.clear();
+    Get.back();
+  }
+
+  setData({required String traingName}) {
+    newTrainingController.text = traingName;
+  }
+
   getTraingMode() async {
     isdataLoading.value = true;
     try {
@@ -141,15 +150,6 @@ class TrainingModeViewModel extends GetxController {
     } finally {
       isDeleteLoading.value = false;
     }
-  }
-
-  clear() {
-    newTrainingController.clear();
-    Get.back();
-  }
-
-  setData({required String traingName}) {
-    newTrainingController.text = traingName;
   }
 
   @override

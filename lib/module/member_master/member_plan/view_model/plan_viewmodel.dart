@@ -1,36 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gymgeni/utils/constant.dart';
-import 'package:gymgeni/utils/errorstrings.dart';
-
-import '../../../../repository/member_master_trainingmode_repo.dart';
-import '../../model/member_master_model.dart';
+import 'package:gymgeni/repository/member_master_plan_repo.dart';
+import '../../../../utils/constant.dart';
+import '../../../../utils/errorstrings.dart';
+import '../model/member_allplan_model.dart';
 
 class PlanViewmodel extends GetxController {
-  final memberMasterRepo = TraingModeRepo();
+  final planRepo = PlanRepo();
   TextEditingController newTrainingController = TextEditingController();
-  RxBool isLoading = false.obs;
-  List<String> columnName = ['Trainig Mode', 'Action'];
-  final List<MemberMasterModel> trainingModes = [
-    MemberMasterModel(group: 'Normal Training', value: false),
-    MemberMasterModel(group: 'Cardio Only', value: false),
-    MemberMasterModel(group: 'Strength Only', value: false),
-    MemberMasterModel(group: 'Zumba', value: false),
-    MemberMasterModel(group: 'CrossFit', value: false),
-    MemberMasterModel(
-      group: 'HIIT (High-Intensity Interval Training)',
-      value: false,
-    ),
-    MemberMasterModel(group: 'Yoga', value: false),
-    MemberMasterModel(group: 'Pilates', value: false),
-    MemberMasterModel(group: 'Functional Training', value: false),
-    MemberMasterModel(group: 'Mixed Training', value: false),
-  ];
-  addTraining(BuildContext context) async {
-    isLoading.value = true;
+  TextEditingController amountController = TextEditingController();
+  List<String> columnName = ['Plan Name', 'Action'];
+  RxBool isAddLoading = false.obs;
+  RxBool isUpdateLoading = false.obs;
+  RxBool isDeleteLoading = false.obs;
+  RxBool isdataLoading = false.obs;
+  RxList<MemberAllPlanData> planName = <MemberAllPlanData>[].obs;
+
+  @override
+  void onInit() {
+    getPlan();
+    super.onInit();
+  }
+
+  clear() {
+    newTrainingController.clear();
+    amountController.clear();
+    Get.back();
+  }
+
+  setData({required String traingName, required dynamic planAmount}) {
+    newTrainingController.text = traingName;
+    amountController.text = planAmount;
+  }
+
+  getPlan() async {
+    isdataLoading.value = true;
+    try {
+      var res = await planRepo.getPlan();
+      if (res.status == success) {
+        planName.value = res.memberAllPlanData ?? [];
+      } else if (res.status == failed) {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isdataLoading.value = false;
+    }
+  }
+
+  addPlan(BuildContext context) async {
+    isAddLoading.value = true;
     Map<String, dynamic> body = {"name": newTrainingController.text.trim()};
     try {
-      var res = await memberMasterRepo.addNewTraingMode(body);
+      var res = await planRepo.addNewPlan(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,
@@ -38,6 +69,7 @@ class PlanViewmodel extends GetxController {
           errorStatus: true,
         );
         clear();
+        getPlan();
       } else if (res.status == failed) {
         Constant.showSnackBar(
           context: context,
@@ -52,20 +84,79 @@ class PlanViewmodel extends GetxController {
         );
       }
     } finally {
-      isLoading.value = false;
+      isAddLoading.value = false;
     }
   }
 
-  getTraingMode() {}
+  updatePlan({required BuildContext context, required String id}) async {
+    isUpdateLoading.value = true;
+    Map<String, dynamic> body = {
+      "name": newTrainingController.text.trim(),
+      "id": id,
+    };
+    try {
+      var res = await planRepo.updatePlan(body);
+      print(res);
+      if (res.status == success) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: true,
+        );
+        clear();
+        getPlan();
+      } else if (res.status == failed) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      } else {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isUpdateLoading.value = false;
+    }
+  }
 
-  clear() {
-    newTrainingController.clear();
-    Get.back();
+  deletePlan({required BuildContext context, required String id}) async {
+    isDeleteLoading.value = true;
+    Map<String, dynamic> body = {"id": id};
+    try {
+      var res = await planRepo.deletePlan(body);
+      if (res.status == success) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: true,
+        );
+        getPlan();
+      } else if (res.status == failed) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      } else {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDeleteLoading.value = false;
+    }
   }
 
   @override
   void dispose() {
     newTrainingController.dispose();
+    amountController.dispose();
     super.dispose();
   }
 }

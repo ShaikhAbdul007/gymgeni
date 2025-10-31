@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/repository/member_master_goal_repo.dart';
+import 'package:gymgeni/repository/member_master_plan_repo.dart';
+import 'package:gymgeni/repository/member_master_trainingtype_repo.dart';
+import 'package:gymgeni/utils/errorstrings.dart';
 
+import '../../../utils/constant.dart';
+import '../../member_master/member_goal/model/member_allgoal_model.dart';
+import '../../member_master/member_plan/model/member_allplan_model.dart';
+import '../../member_master/member_trainingtype/model/member_alltrainingtype_model.dart';
 import '../model/members_model.dart';
 
 class MemberViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
+  final goalRepo = GoalRepo();
+  final planRepo = PlanRepo();
+  final traingTypeRepo = TraingTypeRepo();
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   TextEditingController age = TextEditingController();
@@ -19,24 +30,12 @@ class MemberViewModel extends GetxController
   TextEditingController source = TextEditingController();
   TabController? tabController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final List<String> durationList = [
-    '1 Month',
-    '3 Month',
-    '6 Month',
-    '12 Month',
-  ];
 
   final List<String> genderList = ['Male', 'Female', 'Other'];
-
-  final List<String> goalList = [
-    'Weight Loss',
-    'Fat Loss',
-    'Weight Gain',
-    'Muscle Gain',
-    'Strength Training',
-  ];
-
-  final List<String> trainingTypeList = ['Normal', 'Personal Training'];
+  RxList<MemberAllPlanData> planList = <MemberAllPlanData>[].obs;
+  RxList<MemberAllGoalData> goalList = <MemberAllGoalData>[].obs;
+  RxList<MemberAllTrainingTypeData> trainingTypeList =
+      <MemberAllTrainingTypeData>[].obs;
 
   final List<String> columnNames = [
     'Member',
@@ -248,6 +247,48 @@ class MemberViewModel extends GetxController
   @override
   void onInit() {
     tabController = TabController(length: tabs.length, vsync: this);
+    getPlanData();
+    getGoalData();
+    getTraingTypeData();
     super.onInit();
+  }
+
+  getPlanData() async {
+    var res = await planRepo.getPlan();
+    if (res.status == success) {
+      planList.value = res.memberAllPlanData ?? [];
+    } else {
+      Constant.showSnackBar(
+        context: Get.context!,
+        errorMessage: res.message ?? '',
+        errorStatus: false,
+      );
+    }
+  }
+
+  getGoalData() async {
+    var res = await goalRepo.getGoal();
+    if (res.status == success) {
+      goalList.value = res.memberAllGoalData ?? [];
+    } else {
+      Constant.showSnackBar(
+        context: Get.context!,
+        errorMessage: res.message ?? '',
+        errorStatus: false,
+      );
+    }
+  }
+
+  getTraingTypeData() async {
+    var res = await traingTypeRepo.getTraingTypeMode();
+    if (res.status == success) {
+      trainingTypeList.value = res.memberAllTrainingTypeData ?? [];
+    } else {
+      Constant.showSnackBar(
+        context: Get.context!,
+        errorMessage: res.message ?? '',
+        errorStatus: false,
+      );
+    }
   }
 }
