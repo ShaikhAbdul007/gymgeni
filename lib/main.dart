@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:gymgeni/theme/theme.dart';
 import 'routes/routes.dart';
-import 'routes/routes_path.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  usePathUrlStrategy();
+  intailization();
   runApp(const MyApp());
+}
+
+intailization() async {
+  await GetStorage.init();
+  usePathUrlStrategy();
 }
 
 class MyApp extends StatelessWidget {
