@@ -10,8 +10,7 @@ class CustomDrawerController extends GetxController {
 
   void menuOnTap(int index, String route) {
     selectedIndex.value = index;
-    //Get.rootDelegate.toNamed(route);
-    Get.toNamed(route);
+    Get.rootDelegate.toNamed(route);
   }
 
   void onHovering(bool hovering, int index) {
