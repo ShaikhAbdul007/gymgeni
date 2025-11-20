@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
 
 import '../../../helper/common_body.dart';
+import '../../finance_master/view/finance_master_payment_method_view.dart';
 import '../viewmodel/finance_viewmodel.dart';
 
 class FinanceView extends GetView<FinanceViewmodel> {
@@ -28,7 +29,7 @@ class Desktop extends StatelessWidget {
         Text('All'),
         Text('Sale'),
         Text('Pending'),
-        Text('Configuration'),
+        FinanceMasterPaymentMethodView(),
       ],
       heading: 'Finance',
       subHeading: 'Manage all your finances in one place',

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../helper/button.dart';
 import '../../../../helper/common_nodatafound.dart';
 import '../../../../helper/common_progress_bar.dart';
+import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
 import '../../widget/common_add_widget.dart';
@@ -53,7 +54,9 @@ class GroupWidget extends GetView<GroupViewmodel> {
         Obx(
           () =>
               controller.isdataLoading.value || controller.isDeleteLoading.value
-                  ? CommonProgressBar()
+                  ? CommonProgressBar(
+                    circularProgressColor: AppColors.blackColor,
+                  )
                   : controller.groupName.isEmpty
                   ? CommonNoDataFound(label: 'No data found')
                   : MemberGroupMemberTable(

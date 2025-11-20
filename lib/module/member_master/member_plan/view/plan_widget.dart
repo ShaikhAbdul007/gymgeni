@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../helper/button.dart';
 import '../../../../helper/common_nodatafound.dart';
 import '../../../../helper/common_progress_bar.dart';
+import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
 import '../view_model/plan_viewmodel.dart';
@@ -29,8 +30,11 @@ class PlanWidget extends GetView<PlanViewmodel> {
                 Constant.customShowDialog(
                   content: Obx(
                     () => CommonAddNewPlanWidget(
+                      durationController: controller.durationController,
+                      errorLabel3: 'Enter Plan Duration',
+                      labelHintText3: 'Duration',
                       labelHintText2: 'Plan Amount',
-                      errorLabel2: 'Enter Plan Name',
+                      errorLabel2: 'Enter Plan Amount',
                       errorLabel: 'Enter Plan Name',
                       isLoading: controller.isAddLoading.value,
                       controller: controller.newTrainingController,
@@ -56,7 +60,9 @@ class PlanWidget extends GetView<PlanViewmodel> {
         Obx(
           () =>
               controller.isdataLoading.value || controller.isDeleteLoading.value
-                  ? CommonProgressBar()
+                  ? CommonProgressBar(
+                    circularProgressColor: AppColors.blackColor,
+                  )
                   : controller.planName.isEmpty
                   ? CommonNoDataFound(label: 'No data found')
                   : MemberPlanMemberTable(
@@ -68,6 +74,9 @@ class PlanWidget extends GetView<PlanViewmodel> {
                       Constant.customShowDialog(
                         content: Obx(
                           () => CommonAddNewPlanWidget(
+                            durationController: controller.durationController,
+                            errorLabel3: 'Enter duration',
+                            labelHintText3: 'Duration',
                             labelHintText2: 'Plan Amount',
                             errorLabel2: 'Enter Plan Name',
                             errorLabel: 'Enter Plan Name',

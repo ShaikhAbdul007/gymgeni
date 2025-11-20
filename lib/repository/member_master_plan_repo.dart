@@ -33,7 +33,7 @@ class PlanRepo {
 
   Future<MemberUpdatePlanModel> updatePlan(Map<String, dynamic> body) async {
     try {
-      var res = await networking.postData(
+      var res = await networking.putData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.updatePlan}',
         body: body,
       );
@@ -45,7 +45,7 @@ class PlanRepo {
 
   Future<MemberUpdatePlanModel> deletePlan(Map<String, dynamic> body) async {
     try {
-      var res = await networking.postData(
+      var res = await networking.deleteData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deletePlan}',
         body: body,
       );

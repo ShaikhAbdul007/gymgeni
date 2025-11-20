@@ -33,7 +33,7 @@ class GroupRepo {
 
   Future<MemberUpdateGroupModel> updateGroup(Map<String, dynamic> body) async {
     try {
-      var res = await networking.postData(
+      var res = await networking.putData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.updateGroup}',
         body: body,
       );
@@ -45,7 +45,7 @@ class GroupRepo {
 
   Future<MemberUpdateGroupModel> deleteGroup(Map<String, dynamic> body) async {
     try {
-      var res = await networking.postData(
+      var res = await networking.deleteData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deleteGroup}',
         body: body,
       );

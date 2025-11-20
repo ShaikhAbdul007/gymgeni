@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../helper/button.dart';
 import '../../../../helper/common_nodatafound.dart';
 import '../../../../helper/common_progress_bar.dart';
+import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
 import '../../../../utils/text_style.dart';
@@ -54,9 +55,11 @@ class GoalWidget extends GetView<GoalViewmodel> {
         Obx(
           () =>
               controller.isdataLoading.value || controller.isDeleteLoading.value
-                  ? CommonProgressBar()
+                  ? CommonProgressBar(
+                    circularProgressColor: AppColors.blackColor,
+                  )
                   : controller.goalName.isEmpty
-                  ? CommonNoDataFound(label: 'No data found')
+                  ? Center(child: CommonNoDataFound(label: 'No data found'))
                   : MemberGoalMemberTable(
                     deleteOnTap: (goal) {
                       controller.deleteGoalName(

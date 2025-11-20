@@ -27,6 +27,7 @@ class MemberMasterDesktop extends GetView<MemberMasterViewModel> {
               controller: controller.tabController,
               isScrollable: true,
               labelColor: AppColors.blackColor,
+              physics: NeverScrollableScrollPhysics(),
               unselectedLabelColor: AppColors.blackColor,
               labelStyle: customPoppin(fontWeight: FontWeight.w400),
               unselectedLabelStyle: customPoppin(fontWeight: FontWeight.w400),
@@ -38,6 +39,7 @@ class MemberMasterDesktop extends GetView<MemberMasterViewModel> {
           Flexible(
             flex: 8,
             child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: controller.tabController,
               children: [
                 TrainingModeWidget(),

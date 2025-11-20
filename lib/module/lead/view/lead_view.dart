@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:gymgeni/module/lead/viewmodel/lead_view_model.dart';
+import 'package:gymgeni/module/lead_master/view/lead_master_view.dart';
 
 import '../../../helper/common_body.dart';
 import '../../responsive_layout/responsive_dimension/responsive_tempate.dart';
@@ -25,7 +26,7 @@ class Desktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonBody(
-      tabBarChildren: [Text('All'), Text('follow Up'), Text('Configuration')],
+      tabBarChildren: [Text('All'), Text('follow Up'), LeadMasterView()],
       heading: 'Lead',
       subHeading: 'Manage all your leads in one place',
       buttonLabel: 'Add Lead',

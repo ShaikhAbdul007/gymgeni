@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gymgeni/helper/common_nodatafound.dart';
 import 'package:gymgeni/helper/common_progress_bar.dart';
+import 'package:gymgeni/utils/colors.dart';
 import 'package:gymgeni/utils/sizebox.dart';
 import '../../../../helper/button.dart';
 import '../../../../utils/constant.dart';
@@ -54,7 +55,9 @@ class TrainingModeWidget extends GetView<TrainingModeViewModel> {
         Obx(
           () =>
               controller.isdataLoading.value || controller.isDeleteLoading.value
-                  ? CommonProgressBar()
+                  ? CommonProgressBar(
+                    circularProgressColor: AppColors.blackColor,
+                  )
                   : controller.trainingModes.isEmpty
                   ? CommonNoDataFound(label: 'No data found')
                   : TrainingModeMemberTable(

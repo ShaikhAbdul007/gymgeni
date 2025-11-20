@@ -36,7 +36,7 @@ class TraingTypeRepo {
     Map<String, dynamic> body,
   ) async {
     try {
-      var res = await networking.postData(
+      var res = await networking.putData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.updateTrainingType}',
         body: body,
       );
@@ -50,7 +50,7 @@ class TraingTypeRepo {
     Map<String, dynamic> body,
   ) async {
     try {
-      var res = await networking.postData(
+      var res = await networking.deleteData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deleteTrainingType}',
         body: body,
       );

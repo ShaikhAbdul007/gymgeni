@@ -32,31 +32,52 @@ class MemberDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+      'controller.tabController.index is ${controller.tabController?.index}',
+    );
     return CommonBody(
       tabBarChildren: [
-        AllMemberWidget(
-          columnNames: controller.columnNames,
-          members: controller.members,
+        Obx(
+          () => AllMemberWidget(
+            isDataLoading: controller.isMembersLoading.value,
+            columnNames: controller.columnNames,
+            members: controller.getMember,
+          ),
         ),
-        ActiveMemberWidget(
-          columnNames: controller.columnNames,
-          members: controller.members,
+        Obx(
+          () => ActiveMemberWidget(
+            isDataLoading: controller.isMembersLoading.value,
+            columnNames: controller.columnNames,
+            members: controller.getMember,
+          ),
         ),
-        InactiveMemberWidget(
-          columnNames: controller.columnNames,
-          members: controller.members,
+        Obx(
+          () => InactiveMemberWidget(
+            isDataLoading: controller.isMembersLoading.value,
+            columnNames: controller.columnNames,
+            members: controller.getMember,
+          ),
         ),
-        PendingMemberWidget(
-          columnNames: controller.columnNames,
-          members: controller.members,
+        Obx(
+          () => PendingMemberWidget(
+            isDataLoading: controller.isMembersLoading.value,
+            columnNames: controller.columnNames,
+            members: controller.getMember,
+          ),
         ),
-        FreezedMemberWidget(
-          columnNames: controller.columnNames,
-          members: controller.members,
+        Obx(
+          () => FreezedMemberWidget(
+            isDataLoading: controller.isMembersLoading.value,
+            columnNames: controller.columnNames,
+            members: controller.getMember,
+          ),
         ),
-        FreezedMemberWidget(
-          columnNames: controller.columnNames,
-          members: controller.members,
+        Obx(
+          () => FreezedMemberWidget(
+            isDataLoading: controller.isMembersLoading.value,
+            columnNames: controller.columnNames,
+            members: controller.getMember,
+          ),
         ),
         MemberMasterView(),
       ],

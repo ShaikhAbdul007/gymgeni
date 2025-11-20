@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gymgeni/helper/common_body.dart';
 
+import '../../employee_master/view/employee_master_view.dart';
 import '../../responsive_layout/responsive_dimension/responsive_tempate.dart';
 import '../viewmodel/employee_viewmodel.dart';
 
@@ -25,7 +26,7 @@ class Desktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonBody(
-      tabBarChildren: [Text('All'), Text('Attendance'), Text('Configuration')],
+      tabBarChildren: [Text('All'), Text('Attendance'), EmployeeMasterView()],
       heading: 'Employees',
       subHeading: 'Manage all your employees in one place',
       buttonLabel: 'Add Employe',

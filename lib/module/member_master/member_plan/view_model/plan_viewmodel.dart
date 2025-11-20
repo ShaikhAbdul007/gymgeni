@@ -9,6 +9,7 @@ class PlanViewmodel extends GetxController {
   final planRepo = PlanRepo();
   TextEditingController newTrainingController = TextEditingController();
   TextEditingController amountController = TextEditingController();
+  TextEditingController durationController = TextEditingController();
   List<String> columnName = ['Plan Name', 'Action'];
   RxBool isAddLoading = false.obs;
   RxBool isUpdateLoading = false.obs;
@@ -59,7 +60,11 @@ class PlanViewmodel extends GetxController {
 
   addPlan(BuildContext context) async {
     isAddLoading.value = true;
-    Map<String, dynamic> body = {"name": newTrainingController.text.trim()};
+    Map<String, dynamic> body = {
+      "name": newTrainingController.text.trim(),
+      "price": amountController.text.trim(),
+      "duration_months": durationController.text.trim(),
+    };
     try {
       var res = await planRepo.addNewPlan(body);
       if (res.status == success) {

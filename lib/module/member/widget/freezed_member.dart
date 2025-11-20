@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import '../../../helper/common_data_table.dart';
-
 import '../model/members_model.dart';
-import '../view_model/member_view_model.dart';
 
 class FreezedMemberWidget extends StatelessWidget {
   final List<String> columnNames;
-  final List<Member> members;
+  final List<Members> members;
+  final bool isDataLoading;
   const FreezedMemberWidget({
     super.key,
     required this.columnNames,
     required this.members,
+    required this.isDataLoading,
   });
 
   @override
   Widget build(BuildContext context) {
-    return CommonMemberDataTable(columnNames: columnNames, members: members);
+    return CommonMemberDataTable(
+      noDataFound: 'No freezed member found',
+      isDataLoading: isDataLoading,
+      columnNames: columnNames,
+      members: members,
+    );
   }
 }

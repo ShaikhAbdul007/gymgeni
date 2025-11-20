@@ -1,11 +1,19 @@
 import 'package:get/get.dart';
-import 'package:gymgeni/module/finance/binding/finance_binding.dart';
+import '../module/employee_master/binding/employee_master_binding.dart';
+import '../module/employee_master/employee_master_type/binding/employee_type_binding.dart';
+import '../module/finance/binding/finance_binding.dart';
+import '../module/lead_master/binding/lead_master_binding.dart';
+import '../module/lead_master/lead_categories/binding/lead_categories_binding.dart';
+import '../module/lead_master/lead_follow_type/binding/lead_follow_type_binding.dart';
+import '../module/lead_master/lead_status/binding/lead_status_binding.dart';
 import '../module/drawer/view/drawer_view.dart';
 import '../module/dashboard/binding/dashboard_binding.dart';
 import '../module/employee/binding/employee_binding.dart';
 import '../module/employee/view/employee_view.dart';
+import '../module/finance_master/binding/finance_binding.dart';
 import '../module/lead/binding/lead_binding.dart';
 import '../module/lead/view/lead_view.dart';
+import '../module/lead_master/lead_source/binding/lead_source_binding.dart';
 import '../module/login/views/loginscreen_view.dart';
 import '../module/member/binding/member_bindings.dart';
 import '../module/member_master/member_group/binding/group_binding.dart';
@@ -56,7 +64,7 @@ class AppRoutes {
     GetPage(
       name: RoutesPaths.financeView,
       middlewares: [RoutesMiddleware()],
-      binding: FinanceBinding(),
+      bindings: [FinanceBinding(), FinanceMasterinding()],
       page: () => const FinanceView(),
     ),
     GetPage(
@@ -68,7 +76,14 @@ class AppRoutes {
     GetPage(
       name: RoutesPaths.leadView,
       page: () => const LeadView(),
-      binding: LeadBinding(),
+      bindings: [
+        LeadBinding(),
+        LeadMasterBinding(),
+        LeadCategoriesBinding(),
+        LeadFollowTypeBinding(),
+        LeadSourceBinding(),
+        LeadStatusBinding(),
+      ],
       middlewares: [RoutesMiddleware()],
     ),
     GetPage(
@@ -80,7 +95,11 @@ class AppRoutes {
       name: RoutesPaths.employeeView,
       middlewares: [RoutesMiddleware()],
       page: () => const EmployeeView(),
-      binding: EmployeeBinding(),
+      bindings: [
+        EmployeeBinding(),
+        EmployeeTypeBinding(),
+        EmployeeMasterBinding(),
+      ],
     ),
     GetPage(
       name: RoutesPaths.loginView,

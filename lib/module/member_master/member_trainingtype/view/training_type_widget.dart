@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../helper/button.dart';
 import '../../../../helper/common_nodatafound.dart';
 import '../../../../helper/common_progress_bar.dart';
+import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
 import '../../../../utils/sizebox.dart';
@@ -54,7 +55,9 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
         Obx(
           () =>
               controller.isdataLoading.value || controller.isDeleteLoading.value
-                  ? CommonProgressBar()
+                  ? CommonProgressBar(
+                    circularProgressColor: AppColors.blackColor,
+                  )
                   : controller.trainingType.isEmpty
                   ? CommonNoDataFound(label: 'No data found')
                   : TrainingTypeMemberTable(
