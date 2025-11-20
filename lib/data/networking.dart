@@ -72,6 +72,68 @@ class Networking extends BaseClient with CacheManager {
   }
 
   @override
+  Future deleteData({
+    required String url,
+    required Map<String, dynamic> body,
+  }) async {
+    dynamic jsonDeleteResponse;
+    String? token;
+    token = checkingTokenExpireOrNot();
+    Constant.customPrintLog(''' url: $url ,body: $body,token: $token ''');
+    try {
+      var response = await http.delete(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Accept': ApiEndPoint.accept,
+          'Content-Type': ApiEndPoint.contentType,
+          'Authorization': "Bearer $token",
+        },
+        body: body,
+      );
+
+      jsonDeleteResponse = await fetchResponse(response);
+    } on SocketException {
+      return Future.error(internetError);
+    } on HttpException {
+      return Future.error(httpError);
+    } on Exception catch (e) {
+      return Future.error(e);
+    }
+    return jsonDeleteResponse;
+  }
+
+  @override
+  Future putData({
+    required String url,
+    required Map<String, dynamic> body,
+  }) async {
+    dynamic jsonPutResponse;
+    String? token;
+    token = checkingTokenExpireOrNot();
+    Constant.customPrintLog(''' url: $url ,body: $body,token: $token ''');
+    try {
+      var response = await http.put(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Accept': ApiEndPoint.accept,
+          'Content-Type': ApiEndPoint.contentType,
+          'Authorization': "Bearer $token",
+        },
+        body: body,
+      );
+
+      jsonPutResponse = await fetchResponse(response);
+    } on SocketException {
+      return Future.error(internetError);
+    } on HttpException {
+      return Future.error(httpError);
+    } on Exception catch (e) {
+      return Future.error(e);
+    }
+    return jsonPutResponse;
+  }
+
+  @override
   Future postMultipartRequestData({
     required String url,
     required Map<String, String> body,

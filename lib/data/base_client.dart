@@ -4,6 +4,14 @@ abstract class BaseClient {
     required String url,
     required Map<String, dynamic> body,
   });
+  Future<dynamic> putData({
+    required String url,
+    required Map<String, dynamic> body,
+  });
+  Future<dynamic> deleteData({
+    required String url,
+    required Map<String, dynamic> body,
+  });
   Future<dynamic> postMultipartRequestData({
     required String url,
     required Map<String, String> body,

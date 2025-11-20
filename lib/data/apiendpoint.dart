@@ -3,87 +3,135 @@ class ApiEndPoint {
   static final String servicePath = 'api/v1/gymmate/';
   static final String fullBaseUrl = "$urls$servicePath";
 
-  //Headers
+  // Headers
   static final String contentType = "application/x-www-form-urlencoded";
   static final String authorization = "Authorization";
   static final String acceptLanguage = "Accept-Language";
   static final String accept = 'application/json';
 
-  //Timeout
-
+  // Timeout
   static final int connectTimerOutsMs = 15000;
   static final int receiveTimerOutsMs = 15000;
   static final int sendTimerOutsMs = 15000;
-  // Auth
-  static final String loginEndPoint = "loginuser";
-  static final String registerEndPoint = "registeruser";
 
-  // 🔹 Training Mode
-  static final String createTrainingModeEndPoint = "createtrainingmode";
-  static final String getTrainingMode = "gettrainingmode";
-  static final String updateTrainingMode = "updatetrainingmode";
-  static final String deleteTrainingMode = "deletetrainingmode";
+  // ---------------- AUTH ----------------
+  static final String loginEndPoint = "login";
+  static final String registerEndPoint = "register";
 
-  // 🔹 Training Type
-  static final String createTrainingType = "createtrainingtype";
-  static final String getTrainingType = "gettrainingtype";
-  static final String updateTrainingType = "updatetrainingtype";
-  static final String deleteTrainingType = "deletetrainingtype";
+  // ---------------- TRAINING MODE ----------------
+  static final String createTrainingModeEndPoint = "training-modes";
+  static final String getTrainingMode = "training-modes";
+  static final String updateTrainingMode = "training-modes/";
+  static final String deleteTrainingMode = "training-modes/";
 
-  // 🔹 Plan
-  static final String createPlan = "createplan";
-  static final String getPlan = "getplan";
-  static final String updatePlan = "updateplan/";
-  static final String deletePlan = "deleteplan/";
+  // ---------------- TRAINING TYPE ----------------
+  static final String createTrainingType = "training-types";
+  static final String getTrainingType = "training-types";
+  static final String updateTrainingType = "training-types/";
+  static final String deleteTrainingType = "training-types/";
 
-  // 🔹 Group
-  static final String createGroup = "creategroup";
-  static final String getGroup = "getgroup";
-  static final String updateGroup = "updategroup/";
-  static final String deleteGroup = "deletegroup/";
+  // ---------------- PLAN ----------------
+  static final String createPlan = "plans";
+  static final String getPlan = "plans";
+  static final String updatePlan = "plans/";
+  static final String deletePlan = "plans/";
 
-  // 🔹 Goal
-  static final String createGoal = "creategoal";
-  static final String getGoal = "getgoal";
-  static final String updateGoal = "updategoal/";
-  static final String deleteGoal = "deletegoal/";
+  // ---------------- GROUP ----------------
+  static final String createGroup = "groups";
+  static final String getGroup = "groups";
+  static final String updateGroup = "groups/";
+  static final String deleteGroup = "groups/";
 
-  // 🔹 Source
-  static final String createSource = "createsource";
-  static final String getSource = "getsource";
-  static final String updateSource = "updatesource";
-  static final String deleteSource = "deletesource";
+  // ---------------- GOAL ----------------
+  static final String createGoal = "goals";
+  static final String getGoal = "goals";
+  static final String updateGoal = "goals/";
+  static final String deleteGoal = "goals/";
 
-  // 🔹 Lead Category
-  static final String createLeadCategory = "createleadcategory";
-  static final String getLeadCategory = "getleadcategory";
-  static final String updateLeadCategory = "updateleadcategory";
-  static final String deleteLeadCategory = "deleteleadcategory";
+  // ---------------- SOURCE ----------------
+  static final String createSource = "sources";
+  static final String getSource = "sources";
+  static final String updateSource = "sources/";
+  static final String deleteSource = "sources/";
 
-  // 🔹 Lead Follow Type
-  static final String createLeadFollowType = "createleadfollowtype";
-  static final String getLeadFollowType = "getleadfollowtype";
-  static final String updateLeadFollowType = "updateleadfollowtype";
-  static final String deleteLeadFollowType = "deleteleadfollowtype";
+  // ---------------- LEAD CATEGORY ----------------
+  static final String createLeadCategory = "lead-categories";
+  static final String getLeadCategory = "lead-categories";
+  static final String updateLeadCategory = "lead-categories/";
+  static final String deleteLeadCategory = "lead-categories/";
 
-  // 🔹 Lead Source
-  static final String createLeadSource = "createleadsource";
-  static final String getLeadSource = "getleadsource";
-  static final String updateLeadSource = "updateleadsource";
-  static final String deleteLeadSource = "deleteleadsource";
+  // ---------------- LEAD FOLLOW TYPE ----------------
+  static final String createLeadFollowType = "lead-follow-types";
+  static final String getLeadFollowType = "lead-follow-types";
+  static final String updateLeadFollowType = "lead-follow-types/";
+  static final String deleteLeadFollowType = "lead-follow-types/";
 
-  // 🔹 Lead Status
-  static final String createLeadStatus = "createleadstatus";
-  static final String getLeadStatus = "getleadstatus";
-  static final String updateLeadStatus = "updateleadstatus";
-  static final String deleteLeadStatus = "deleteleadstatus";
+  // ---------------- LEAD SOURCE ----------------
+  static final String createLeadSource = "lead-sources";
+  static final String getLeadSource = "lead-sources";
+  static final String updateLeadSource = "lead-sources/";
+  static final String deleteLeadSource = "lead-sources/";
 
-  // 🔹 Member Management
-  static final String createMember = "createmember";
-  static final String transferMember = "transfermember";
-  static final String freezeMember = "freezemember";
-  static final String updateMember = "updatemember";
-  static final String deleteMember = "deletemember";
-  static final String getMembers = "getmembers?status=active";
+  // ---------------- LEAD STATUS ----------------
+  static final String createLeadStatus = "lead-statuses";
+  static final String getLeadStatus = "lead-statuses";
+  static final String updateLeadStatus = "lead-statuses/";
+  static final String deleteLeadStatus = "lead-statuses/";
+
+  // ---------------- ADD LEADS ----------------
+  static final String createLead = "all-leads"; // POST (multipart)
+  static final String getLeads = "all-leads"; // GET
+
+  // ---------------- MEMBER ----------------
+  static final String createMember = "members";
+  static final String getMembers =
+      "members?status="; // ?status=active tum manually append kar sakte ho
+  static final String updateMember = "members/";
+  static final String deleteMember = "members/";
+
+  // image fetch
   static final String getUserImage = "getuserimage/";
+
+  //UserData
+  static final String userData = "user/";
+
+  // Member actions
+  static final String transferMember = "transfermember";
+  static final String freezeMember = "members/freeze";
+  static final String unFreezeMember = "members/unfreeze?member_id=";
+
+  // ---------------- MEMBER ATTENDANCE ----------------
+  static final String memberAttendanceCheckIn = "member-attendance/check-in";
+  static final String memberAttendanceCheckOut = "member-attendance/check-out";
+
+  // ---------------- EMPLOYEE TYPE MASTER ----------------
+  static final String createEmployeeType = "employee-types";
+  static final String getEmployeeType = "employee-types";
+  static final String updateEmployeeType = "employee-types/";
+  static final String deleteEmployeeType = "employee-types/";
+
+  // ---------------- EMPLOYEE ----------------
+  static final String createEmployee = "employees";
+  static final String getEmployee = "employees";
+  static final String updateEmployee = "employees/";
+  static final String deleteEmployee = "employees/";
+
+  // ---------------- EMPLOYEE ATTENDANCE ----------------
+  static final String employeeAttendanceCheckIn =
+      "employee-attendance/check-in";
+  static final String employeeAttendanceCheckOut =
+      "employee-attendance/check-out";
+
+  // ---------------- SALES ----------------
+  static final String getTodaySales = "sales/today";
+
+  // ---------------- PAYMENT ----------------
+  static final String getAllPayments = "payments/pending";
+  static final String getPendingPayments = "payments/pending";
+
+  // payment modes
+  static final String getPaymentModes = "payment-modes";
+
+  // payment status (failed / pending)
+  static final String paymentStatus = "payments/pending";
 }
