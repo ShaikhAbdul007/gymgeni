@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import '../module/employee_master/binding/employee_master_binding.dart';
 import '../module/employee_master/employee_master_type/binding/employee_type_binding.dart';
 import '../module/finance/binding/finance_binding.dart';
+import '../module/finance_master/finance_payment_method/binding/finance_payment_binding.dart';
 import '../module/lead_master/binding/lead_master_binding.dart';
 import '../module/lead_master/lead_categories/binding/lead_categories_binding.dart';
 import '../module/lead_master/lead_follow_type/binding/lead_follow_type_binding.dart';
@@ -64,7 +65,11 @@ class AppRoutes {
     GetPage(
       name: RoutesPaths.financeView,
       middlewares: [RoutesMiddleware()],
-      bindings: [FinanceBinding(), FinanceMasterinding()],
+      bindings: [
+        FinanceBinding(),
+        FinanceMasterinding(),
+        FinanceMasterPaymentBinding(),
+      ],
       page: () => const FinanceView(),
     ),
     GetPage(

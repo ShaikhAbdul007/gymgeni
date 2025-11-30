@@ -56,7 +56,7 @@ class CustomDrawerController extends GetxController {
     MenuItem(
       isSelected: false,
       isHovered: false,
-      icon: CupertinoIcons.person_2_alt,
+      icon: CupertinoIcons.person_2,
       route: RoutesPaths.employeeView,
       itemName: 'Employees',
     ),

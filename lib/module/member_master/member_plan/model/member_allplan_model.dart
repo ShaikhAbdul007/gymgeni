@@ -32,6 +32,8 @@ class MemberAllPlanData {
   String? name;
   String? createdAt;
   String? createdByEmail;
+  int? durationMonths;
+  String? price;
 
   MemberAllPlanData({this.id, this.name, this.createdAt, this.createdByEmail});
 
@@ -40,6 +42,8 @@ class MemberAllPlanData {
     name = json['name'];
     createdAt = json['created_at'];
     createdByEmail = json['created_by_email'];
+    durationMonths = json['duration_months'];
+    price = json['price'];
   }
 
   Map<String, dynamic> toJson() {
@@ -48,6 +52,8 @@ class MemberAllPlanData {
     data['name'] = name;
     data['created_at'] = createdAt;
     data['created_by_email'] = createdByEmail;
+    data['duration_months'] = durationMonths;
+    data['price'] = price;
 
     return data;
   }

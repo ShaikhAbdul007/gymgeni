@@ -7,13 +7,13 @@ import '../model/lead_status_model.dart';
 
 class LeadStatusTable extends StatelessWidget {
   final List<String> columnNames;
-  final List<LeadStatusData> groupType;
-  final void Function(LeadStatusData group)? deleteOnTap;
-  final void Function(LeadStatusData group)? editOnTap;
+  final List<LeadStatusData> statusName;
+  final void Function(LeadStatusData statusNames)? deleteOnTap;
+  final void Function(LeadStatusData statusNames)? editOnTap;
   const LeadStatusTable({
     super.key,
     required this.columnNames,
-    required this.groupType,
+    required this.statusName,
     this.deleteOnTap,
     this.editOnTap,
   });
@@ -45,16 +45,19 @@ class LeadStatusTable extends StatelessWidget {
                 );
               }).toList(),
           rows:
-              groupType.map((group) {
+              statusName.map((statusNames) {
                 return DataRow(
                   cells: [
                     DataCell(
-                      Text(group.name ?? '', style: customNunito(fontSize: 14)),
+                      Text(
+                        statusNames.name ?? '',
+                        style: customNunito(fontSize: 14),
+                      ),
                     ),
                     DataCell(
                       CommonAction(
-                        deleteOnTap: () => deleteOnTap?.call(group),
-                        editOnTap: () => editOnTap?.call(group),
+                        deleteOnTap: () => deleteOnTap?.call(statusNames),
+                        editOnTap: () => editOnTap?.call(statusNames),
                       ),
                     ),
                   ],

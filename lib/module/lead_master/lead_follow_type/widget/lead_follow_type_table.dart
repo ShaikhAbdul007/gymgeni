@@ -7,13 +7,13 @@ import '../model/lead_follow_type_model.dart';
 
 class LeadFollowTypeTable extends StatelessWidget {
   final List<String> columnNames;
-  final List<LeadFollowUpTypeData> groupType;
-  final void Function(LeadFollowUpTypeData group)? deleteOnTap;
-  final void Function(LeadFollowUpTypeData group)? editOnTap;
+  final List<LeadFollowUpTypeData> leadfollowUpTypes;
+  final void Function(LeadFollowUpTypeData leadfollowUpType)? deleteOnTap;
+  final void Function(LeadFollowUpTypeData leadfollowUpType)? editOnTap;
   const LeadFollowTypeTable({
     super.key,
     required this.columnNames,
-    required this.groupType,
+    required this.leadfollowUpTypes,
     this.deleteOnTap,
     this.editOnTap,
   });
@@ -45,16 +45,19 @@ class LeadFollowTypeTable extends StatelessWidget {
                 );
               }).toList(),
           rows:
-              groupType.map((group) {
+              leadfollowUpTypes.map((leadfollowUpType) {
                 return DataRow(
                   cells: [
                     DataCell(
-                      Text(group.name ?? '', style: customNunito(fontSize: 14)),
+                      Text(
+                        leadfollowUpType.name ?? '',
+                        style: customNunito(fontSize: 14),
+                      ),
                     ),
                     DataCell(
                       CommonAction(
-                        deleteOnTap: () => deleteOnTap?.call(group),
-                        editOnTap: () => editOnTap?.call(group),
+                        deleteOnTap: () => deleteOnTap?.call(leadfollowUpType),
+                        editOnTap: () => editOnTap?.call(leadfollowUpType),
                       ),
                     ),
                   ],

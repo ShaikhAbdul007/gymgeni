@@ -11,13 +11,18 @@ class NewEnquireComponentWithDropDown extends StatelessWidget {
   final List<dynamic> listItems;
   final dynamic Function(dynamic) notifyParent;
   final double width;
-
+  final String? error;
+  final bool isModelDropDownRequired;
+  final String? hintText;
   const NewEnquireComponentWithDropDown({
     super.key,
     required this.label,
     this.width = 120,
     required this.listItems,
     required this.notifyParent,
+    this.isModelDropDownRequired = false,
+    this.error,
+    this.hintText,
   });
 
   @override
@@ -30,7 +35,19 @@ class NewEnquireComponentWithDropDown extends StatelessWidget {
         children: [
           Text(label, style: customNunito(fontSize: 12)),
           setHeight(height: 3),
-          CustomDropDown(listItems: listItems, notifyParent: notifyParent),
+          isModelDropDownRequired
+              ? CustomDropDownWithModel(
+                hintText: hintText,
+                error: error,
+                listItems: listItems,
+                notifyParent: notifyParent,
+              )
+              : CustomDropDown(
+                hintText: hintText,
+                error: error,
+                listItems: listItems,
+                notifyParent: notifyParent,
+              ),
         ],
       ),
     );
@@ -45,7 +62,12 @@ class NewEnquireComponent extends StatelessWidget {
   final int minLines;
   final double width;
   final bool isDatePicker;
-
+  final TextInputType? keyboardType;
+  final int? maxInputLength;
+  final String? Function(String?)? validator;
+  final bool readOnly;
+  final bool filteringTextInputFormatterRequired;
+  final Function(String)? onChanged;
   const NewEnquireComponent({
     super.key,
     required this.textController,
@@ -55,6 +77,12 @@ class NewEnquireComponent extends StatelessWidget {
     this.minLines = 1,
     this.width = 200,
     this.isDatePicker = false,
+    this.validator,
+    this.keyboardType,
+    this.maxInputLength,
+    this.readOnly = false,
+    this.filteringTextInputFormatterRequired = false,
+    this.onChanged,
   });
 
   @override
@@ -69,15 +97,24 @@ class NewEnquireComponent extends StatelessWidget {
           setHeight(height: 3),
           isDatePicker
               ? CustomDatePicker(
+                validator: validator,
+                readOnly: readOnly,
                 hintText: labelHintText,
                 selectedDate: DateTime.now(),
                 controller: textController,
               )
               : CustomTextField(
+                filteringTextInputFormatterRequired:
+                    filteringTextInputFormatterRequired,
+                readOnly: readOnly,
+                keyboardType: keyboardType,
+                maxInputLength: maxInputLength ?? 500,
+                validator: validator,
                 maxLines: maxLines,
                 minLines: minLines,
                 hintText: labelHintText,
                 controller: textController,
+                onChanged: onChanged,
               ),
         ],
       ),

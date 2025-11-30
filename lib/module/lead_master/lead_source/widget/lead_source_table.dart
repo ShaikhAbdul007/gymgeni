@@ -7,13 +7,13 @@ import '../../../../utils/text_style.dart';
 
 class LeadSourceTable extends StatelessWidget {
   final List<String> columnNames;
-  final List<LeadSourceData> groupType;
-  final void Function(LeadSourceData group)? deleteOnTap;
-  final void Function(LeadSourceData group)? editOnTap;
+  final List<LeadSourceData> sourceName;
+  final void Function(LeadSourceData sourceNames)? deleteOnTap;
+  final void Function(LeadSourceData sourceNames)? editOnTap;
   const LeadSourceTable({
     super.key,
     required this.columnNames,
-    required this.groupType,
+    required this.sourceName,
     this.deleteOnTap,
     this.editOnTap,
   });
@@ -45,16 +45,19 @@ class LeadSourceTable extends StatelessWidget {
                 );
               }).toList(),
           rows:
-              groupType.map((group) {
+              sourceName.map((sourceNames) {
                 return DataRow(
                   cells: [
                     DataCell(
-                      Text(group.name ?? '', style: customNunito(fontSize: 14)),
+                      Text(
+                        sourceNames.name ?? '',
+                        style: customNunito(fontSize: 14),
+                      ),
                     ),
                     DataCell(
                       CommonAction(
-                        deleteOnTap: () => deleteOnTap?.call(group),
-                        editOnTap: () => editOnTap?.call(group),
+                        deleteOnTap: () => deleteOnTap?.call(sourceNames),
+                        editOnTap: () => editOnTap?.call(sourceNames),
                       ),
                     ),
                   ],

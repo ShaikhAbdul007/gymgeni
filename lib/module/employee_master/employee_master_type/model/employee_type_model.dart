@@ -1,17 +1,17 @@
 class EmployeeTypeModel {
   bool? status;
   String? message;
-  List<EmployeeTypeData>? data;
+  List<EmployeeTypeData>? employeeTypeData;
 
-  EmployeeTypeModel({this.status, this.message, this.data});
+  EmployeeTypeModel({this.status, this.message, this.employeeTypeData});
 
   EmployeeTypeModel.fromJson(Map<String, dynamic> json) {
     status = json['success'];
     message = json['msg'];
     if (json['data'] != null) {
-      data = <EmployeeTypeData>[];
+      employeeTypeData = <EmployeeTypeData>[];
       json['data'].forEach((v) {
-        data!.add(EmployeeTypeData.fromJson(v));
+        employeeTypeData!.add(EmployeeTypeData.fromJson(v));
       });
     }
   }
@@ -20,8 +20,8 @@ class EmployeeTypeModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = status;
     data['msg'] = message;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (this.employeeTypeData != null) {
+      data['data'] = this.employeeTypeData!.map((v) => v.toJson()).toList();
     }
     return data;
   }

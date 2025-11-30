@@ -42,7 +42,7 @@ class PlanWidget extends GetView<PlanViewmodel> {
                       headerLabel: 'Add Plan Name',
                       labelHintText: 'Plan Name',
                       submitOnPress: () {
-                        if (traingModeKey.currentState!.validate()) {
+                        if (commonAddWidgetKey.currentState!.validate()) {
                           controller.addPlan(context);
                         }
                       },
@@ -68,8 +68,9 @@ class PlanWidget extends GetView<PlanViewmodel> {
                   : MemberPlanMemberTable(
                     editOnTap: (plan) {
                       controller.setData(
+                        duration: plan.durationMonths,
                         traingName: plan.name ?? '',
-                        planAmount: 0,
+                        planAmount: plan.price ?? 0,
                       );
                       Constant.customShowDialog(
                         content: Obx(
@@ -86,7 +87,7 @@ class PlanWidget extends GetView<PlanViewmodel> {
                             headerLabel: 'Edit Plan Name',
                             labelHintText: 'Plan Name',
                             submitOnPress: () {
-                              if (traingModeKey.currentState!.validate()) {
+                              if (commonAddWidgetKey.currentState!.validate()) {
                                 controller.updatePlan(
                                   context: context,
                                   id: plan.id ?? '',

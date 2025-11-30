@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../module/lead_master/lead_follow_type/view_model/lead_follow_type_view_model.dart';
 import '../../../../module/lead_master/lead_follow_type/widget/lead_follow_type_table.dart';
-
 import '../../../../helper/button.dart';
 import '../../../../helper/common_nodatafound.dart';
 import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../../member_master/widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 
 class LeadFollowTypeView extends GetView<LeadFollowTypeViewModel> {
   const LeadFollowTypeView({super.key});
@@ -37,8 +36,8 @@ class LeadFollowTypeView extends GetView<LeadFollowTypeViewModel> {
                       headerLabel: 'Add Lead Follow Type',
                       labelHintText: 'Lead Follow Type',
                       submitOnPress: () {
-                        if (leadFollowTypeKey.currentState!.validate()) {
-                          // controller.addLeadFollowType(context);
+                        if (commonAddWidgetKey.currentState!.validate()) {
+                          controller.addLeadFollowType(context);
                         }
                       },
                       cancelOnPress: () {
@@ -51,8 +50,6 @@ class LeadFollowTypeView extends GetView<LeadFollowTypeViewModel> {
             ),
           ],
         ),
-
-        /// MAIN LIST
         Obx(
           () =>
               controller.isdataLoading.value || controller.isDeleteLoading.value
@@ -60,14 +57,14 @@ class LeadFollowTypeView extends GetView<LeadFollowTypeViewModel> {
                     circularProgressColor: AppColors.blackColor,
                   )
                   : controller.followUpName.isEmpty
-                  ? const CommonNoDataFound(label: 'No Lead Follow Types Found')
+                  ? const CommonNoDataFound(label: 'No lead follow types found')
                   : LeadFollowTypeTable(
                     columnNames: controller.columnName,
-                    groupType: controller.followUpName,
-
-                    editOnTap: (item) {
-                      // controller.setEditData(name: item.name ?? '');
-
+                    leadfollowUpTypes: controller.followUpName,
+                    editOnTap: (leadfollowUpTypes) {
+                      controller.setData(
+                        leadfollowUpType: leadfollowUpTypes.name ?? '',
+                      );
                       Constant.customShowDialog(
                         context: context,
                         content: Obx(
@@ -78,12 +75,12 @@ class LeadFollowTypeView extends GetView<LeadFollowTypeViewModel> {
                             headerLabel: 'Edit Lead Follow Type',
                             labelHintText: 'Lead Follow Type',
                             submitOnPress: () {
-                              // if (leadFollowTypeKey.currentState!.validate()) {
-                              //   controller.updateLeadFollowType(
-                              //     context: context,
-                              //     id: item.id ?? '',
-                              //   );
-                              // }
+                              if (commonAddWidgetKey.currentState!.validate()) {
+                                controller.updateLeadFollowType(
+                                  context: context,
+                                  id: leadfollowUpTypes.id ?? '',
+                                );
+                              }
                             },
                             cancelOnPress: () {
                               controller.clear();
@@ -93,11 +90,11 @@ class LeadFollowTypeView extends GetView<LeadFollowTypeViewModel> {
                       );
                     },
 
-                    deleteOnTap: (item) {
-                      // controller.deleteLeadFollowType(
-                      //   context: context,
-                      //   id: item.id ?? '',
-                      // );
+                    deleteOnTap: (leadfollowUpTypes) {
+                      controller.deleteLeadFollowType(
+                        context: context,
+                        id: leadfollowUpTypes.id ?? '',
+                      );
                     },
                   ),
         ),

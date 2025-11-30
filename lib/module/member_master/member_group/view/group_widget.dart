@@ -6,7 +6,7 @@ import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 import '../view_model/group_viewmodel.dart';
 import '../widget/member_group_member_table.dart';
 
@@ -36,7 +36,7 @@ class GroupWidget extends GetView<GroupViewmodel> {
                       headerLabel: 'Add Group Name',
                       labelHintText: 'Group Name',
                       submitOnPress: () {
-                        if (traingModeKey.currentState!.validate()) {
+                        if (commonAddWidgetKey.currentState!.validate()) {
                           controller.addGroup(context);
                         }
                       },
@@ -71,7 +71,7 @@ class GroupWidget extends GetView<GroupViewmodel> {
                             headerLabel: 'Edit Group Name',
                             labelHintText: 'Group Name',
                             submitOnPress: () {
-                              if (traingModeKey.currentState!.validate()) {
+                              if (commonAddWidgetKey.currentState!.validate()) {
                                 controller.updateGroup(
                                   context: context,
                                   id: group.id ?? '',

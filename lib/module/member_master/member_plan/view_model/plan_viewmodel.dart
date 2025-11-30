@@ -23,18 +23,24 @@ class PlanViewmodel extends GetxController {
     super.onInit();
   }
 
-  clear() {
+  void clear() {
     newTrainingController.clear();
     amountController.clear();
+    durationController.clear();
     Get.back();
   }
 
-  setData({required String traingName, required dynamic planAmount}) {
+  void setData({
+    required String traingName,
+    required dynamic planAmount,
+    required dynamic duration,
+  }) {
     newTrainingController.text = traingName;
     amountController.text = planAmount;
+    durationController.text = duration.toString();
   }
 
-  getPlan() async {
+  void getPlan() async {
     isdataLoading.value = true;
     try {
       var res = await planRepo.getPlan();
@@ -58,7 +64,7 @@ class PlanViewmodel extends GetxController {
     }
   }
 
-  addPlan(BuildContext context) async {
+  void addPlan(BuildContext context) async {
     isAddLoading.value = true;
     Map<String, dynamic> body = {
       "name": newTrainingController.text.trim(),
@@ -93,11 +99,13 @@ class PlanViewmodel extends GetxController {
     }
   }
 
-  updatePlan({required BuildContext context, required String id}) async {
+  void updatePlan({required BuildContext context, required String id}) async {
     isUpdateLoading.value = true;
     Map<String, dynamic> body = {
       "name": newTrainingController.text.trim(),
       "id": id,
+      "price": amountController.text.trim(),
+      "duration_months": durationController.text.trim(),
     };
     try {
       var res = await planRepo.updatePlan(body);
@@ -128,7 +136,7 @@ class PlanViewmodel extends GetxController {
     }
   }
 
-  deletePlan({required BuildContext context, required String id}) async {
+  void deletePlan({required BuildContext context, required String id}) async {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {

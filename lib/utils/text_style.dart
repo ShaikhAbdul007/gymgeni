@@ -12,6 +12,7 @@ TextStyle customPoppin({
     color: color,
     fontWeight: fontWeight,
     fontSize: fontSize,
+    decoration: decoration,
   );
 }
 
@@ -19,6 +20,7 @@ TextStyle customNato({
   Color color = AppColors.blackColor,
   FontWeight fontWeight = FontWeight.normal,
   double fontSize = 15,
+
   TextDecoration? decoration,
 }) {
   return GoogleFonts.notoSansAnatolianHieroglyphs(

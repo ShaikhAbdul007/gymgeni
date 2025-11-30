@@ -23,20 +23,36 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      onHover: onHover,
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: isSelected ? AppColors.greyLighterShadeColor : Colors.black,
-          size: 20,
-        ),
-        title: Text(
-          itemName,
-          style: customMontserrat(
-            color: isSelected ? AppColors.greyLighterShadeColor : Colors.black,
-            fontSize: 13,
+    return MouseRegion(
+      onEnter: (_) => onHover!(true),
+      onExit: (_) => onHover!(false),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          margin: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color:
+                !isSelected && isHovered
+                    ? AppColors.greyLighterShadeColor
+                    : isSelected
+                    ? AppColors.blackColor
+                    : AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(8),
+          ),
+
+          child: ListTile(
+            leading: Icon(
+              icon,
+              color: isSelected ? AppColors.whiteColor : AppColors.blackColor,
+              size: 20,
+            ),
+            title: Text(
+              itemName,
+              style: customMontserrat(
+                color: isSelected ? AppColors.whiteColor : AppColors.blackColor,
+                fontSize: 13,
+              ),
+            ),
           ),
         ),
       ),

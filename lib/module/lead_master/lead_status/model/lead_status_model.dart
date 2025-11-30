@@ -1,13 +1,13 @@
 class LeadStatusModel {
-  bool? success;
-  String? msg;
+  bool? status;
+  String? message;
   List<LeadStatusData>? data;
 
-  LeadStatusModel({this.success, this.msg, this.data});
+  LeadStatusModel({this.status, this.message, this.data});
 
   LeadStatusModel.fromJson(Map<String, dynamic> json) {
-    success = json['success'];
-    msg = json['msg'];
+    status = json['success'];
+    message = json['msg'];
     if (json['data'] != null) {
       data = <LeadStatusData>[];
       json['data'].forEach((v) {
@@ -18,8 +18,8 @@ class LeadStatusModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['success'] = success;
-    data['msg'] = msg;
+    data['success'] = status;
+    data['msg'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }

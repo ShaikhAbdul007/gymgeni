@@ -21,7 +21,7 @@ class GoalViewmodel extends GetxController {
     super.onInit();
   }
 
-  clear() {
+  void clear() {
     newTrainingController.clear();
     Get.back();
   }
@@ -30,7 +30,7 @@ class GoalViewmodel extends GetxController {
     newTrainingController.text = traingName;
   }
 
-  getGoalName() async {
+  void getGoalName() async {
     isdataLoading.value = true;
     try {
       var res = await goalRepo.getGoal();
@@ -54,7 +54,7 @@ class GoalViewmodel extends GetxController {
     }
   }
 
-  addGoalName(BuildContext context) async {
+  void addGoalName(BuildContext context) async {
     isAddLoading.value = true;
     Map<String, dynamic> body = {"name": newTrainingController.text.trim()};
     try {
@@ -85,7 +85,10 @@ class GoalViewmodel extends GetxController {
     }
   }
 
-  updateGoalName({required BuildContext context, required String id}) async {
+  void updateGoalName({
+    required BuildContext context,
+    required String id,
+  }) async {
     isUpdateLoading.value = true;
     Map<String, dynamic> body = {
       "name": newTrainingController.text.trim(),
@@ -120,7 +123,10 @@ class GoalViewmodel extends GetxController {
     }
   }
 
-  deleteGoalName({required BuildContext context, required String id}) async {
+  void deleteGoalName({
+    required BuildContext context,
+    required String id,
+  }) async {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {

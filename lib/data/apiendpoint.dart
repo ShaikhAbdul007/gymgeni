@@ -103,6 +103,7 @@ class ApiEndPoint {
   // ---------------- MEMBER ATTENDANCE ----------------
   static final String memberAttendanceCheckIn = "member-attendance/check-in";
   static final String memberAttendanceCheckOut = "member-attendance/check-out";
+  static final String memberAttendance = "member-attendance";
 
   // ---------------- EMPLOYEE TYPE MASTER ----------------
   static final String createEmployeeType = "employee-types";
@@ -121,6 +122,7 @@ class ApiEndPoint {
       "employee-attendance/check-in";
   static final String employeeAttendanceCheckOut =
       "employee-attendance/check-out";
+  static final String employeeAttendance = "employee-attendance";
 
   // ---------------- SALES ----------------
   static final String getTodaySales = "sales/today";
@@ -131,6 +133,9 @@ class ApiEndPoint {
 
   // payment modes
   static final String getPaymentModes = "payment-modes";
+  static final String createPaymentModes = "payment-modes";
+  static final String updatePaymentModes = "payment-modes";
+  static final String deletePaymentModes = "payment-modes";
 
   // payment status (failed / pending)
   static final String paymentStatus = "payments/pending";

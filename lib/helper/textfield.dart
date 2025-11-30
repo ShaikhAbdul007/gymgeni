@@ -17,6 +17,7 @@ class CustomTextField extends StatelessWidget {
   final int maxInputLength;
   final bool filteringTextInputFormatterRequired;
   final double verticalPadding;
+  final void Function(String)? onChanged;
 
   const CustomTextField({
     super.key,
@@ -32,6 +33,7 @@ class CustomTextField extends StatelessWidget {
     this.minLines = 1,
     this.maxInputLength = 500,
     this.filteringTextInputFormatterRequired = false,
+    this.onChanged,
   });
 
   @override
@@ -42,12 +44,14 @@ class CustomTextField extends StatelessWidget {
         border: Border.all(width: 0.5, color: Colors.grey.shade100),
       ),
       child: TextFormField(
+        textCapitalization: TextCapitalization.words,
         onEditingComplete: () => FocusScope.of(context).nextFocus(),
         style: customMontserrat(fontSize: 13),
         cursorColor: AppColors.blackColor,
         cursorHeight: 18,
         cursorWidth: 0.5,
         keyboardType: keyboardType,
+        onChanged: onChanged,
         inputFormatters: [
           LengthLimitingTextInputFormatter(maxInputLength),
           filteringTextInputFormatterRequired

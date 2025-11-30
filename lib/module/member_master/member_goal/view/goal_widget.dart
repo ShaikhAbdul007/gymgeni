@@ -7,7 +7,7 @@ import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
 import '../../../../utils/text_style.dart';
-import '../../widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 import '../view_model/goal_viewmodel.dart';
 import '../widget/member_goal_member_table.dart';
 
@@ -37,7 +37,7 @@ class GoalWidget extends GetView<GoalViewmodel> {
                       headerLabel: 'Add Goal Name',
                       labelHintText: 'Goal Name',
                       submitOnPress: () {
-                        if (traingModeKey.currentState!.validate()) {
+                        if (commonAddWidgetKey.currentState!.validate()) {
                           controller.addGoalName(context);
                         }
                       },
@@ -78,7 +78,7 @@ class GoalWidget extends GetView<GoalViewmodel> {
                             headerLabel: 'Edit Goal Name',
                             labelHintText: 'Goal Name',
                             submitOnPress: () {
-                              if (traingModeKey.currentState!.validate()) {
+                              if (commonAddWidgetKey.currentState!.validate()) {
                                 controller.updateGoalName(
                                   context: context,
                                   id: goal.id ?? '',

@@ -7,7 +7,7 @@ import 'package:gymgeni/utils/sizebox.dart';
 import '../../../../helper/button.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 import '../view_model/training_mode_view_model.dart';
 import '../widget/training_mode_member_table.dart';
 
@@ -37,7 +37,7 @@ class TrainingModeWidget extends GetView<TrainingModeViewModel> {
                       headerLabel: 'Add Training Mode',
                       labelHintText: 'Training Mode',
                       submitOnPress: () {
-                        if (traingModeKey.currentState!.validate()) {
+                        if (commonAddWidgetKey.currentState!.validate()) {
                           controller.addTraining(context);
                         }
                       },
@@ -79,7 +79,7 @@ class TrainingModeWidget extends GetView<TrainingModeViewModel> {
                             headerLabel: 'Edit Training Mode',
                             labelHintText: 'Training Mode',
                             submitOnPress: () {
-                              if (traingModeKey.currentState!.validate()) {
+                              if (commonAddWidgetKey.currentState!.validate()) {
                                 controller.updateTraining(
                                   context: context,
                                   id: member.id ?? '',

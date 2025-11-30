@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/helper/textfield.dart';
 import 'package:gymgeni/module/employee_master/employee_master_type/view_model/employee_type_view_model.dart';
+import 'package:gymgeni/utils/sizebox.dart';
 import '../../../../helper/button.dart';
 import '../../../../helper/common_nodatafound.dart';
 import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../../member_master/widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 import '../widget/empolyee_type_table.dart';
 
 class EmployeeTypeView extends GetView<EmployeeTypeViewModel> {
@@ -22,9 +24,22 @@ class EmployeeTypeView extends GetView<EmployeeTypeViewModel> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Spacer(),
+            SizedBox(
+              height: 40,
+              width: 200,
+              child: CustomTextField(
+                suffixIcon: Icon(Icons.search),
+                controller: controller.searchEmpolyeeTypeController,
+                onChanged: (s) {
+                  controller.searchEmployeeType(s);
+                },
+                hintText: 'Search',
+              ),
+            ),
+            setWidth(width: 10),
             CustomButton(
               height: 40,
-              width: 90,
+              width: 100,
               label: 'Add Type',
               onPress: () {
                 Constant.customShowDialog(
@@ -32,12 +47,12 @@ class EmployeeTypeView extends GetView<EmployeeTypeViewModel> {
                     () => CommonAddWidget(
                       errorLabel: 'Enter Type',
                       isLoading: controller.isAddLoading.value,
-                      controller: controller.newLeadCategorieController,
+                      controller: controller.newEmpolyeeTypeController,
                       headerLabel: 'Add Type',
-                      labelHintText: 'Tyoe',
+                      labelHintText: 'Type',
                       submitOnPress: () {
-                        if (leadCategorieKey.currentState!.validate()) {
-                          //controller.addGroup(context);
+                        if (commonAddWidgetKey.currentState!.validate()) {
+                          controller.addEmployeeType(context);
                         }
                       },
                       cancelOnPress: () {
@@ -57,26 +72,26 @@ class EmployeeTypeView extends GetView<EmployeeTypeViewModel> {
                   ? CommonProgressBar(
                     circularProgressColor: AppColors.blackColor,
                   )
-                  : controller.categorieName.isEmpty
-                  ? CommonNoDataFound(label: 'No data found')
+                  : controller.employeeTypeeName.isEmpty
+                  ? CommonNoDataFound(label: 'No employee type data found')
                   : EmployeeTypeTable(
-                    editOnTap: (group) {
-                      // controller.setData(traingName: group.name ?? '');
+                    editOnTap: (employeeType) {
+                      controller.setData(employeeType: employeeType.name ?? "");
                       Constant.customShowDialog(
                         content: Obx(
                           () => CommonAddWidget(
-                            errorLabel: 'Enter Categorie',
+                            errorLabel: 'Enter Type',
                             isLoading: controller.isAddLoading.value,
-                            controller: controller.newLeadCategorieController,
-                            headerLabel: 'Add Categorie',
-                            labelHintText: 'Categorie',
+                            controller: controller.newEmpolyeeTypeController,
+                            headerLabel: 'Add Type',
+                            labelHintText: 'Type',
                             submitOnPress: () {
-                              // if (traingModeKey.currentState!.validate()) {
-                              //   controller.updateGroup(
-                              //     context: context,
-                              //     id: group.id ?? '',
-                              //   );
-                              // }
+                              if (commonAddWidgetKey.currentState!.validate()) {
+                                controller.updateEmployeeType(
+                                  context: context,
+                                  id: employeeType.id ?? '',
+                                );
+                              }
                             },
                             cancelOnPress: () {
                               controller.clear();
@@ -86,14 +101,14 @@ class EmployeeTypeView extends GetView<EmployeeTypeViewModel> {
                         context: context,
                       );
                     },
-                    deleteOnTap: (group) {
-                      // controller.deleteGroup(
-                      //   context: context,
-                      //   id: group.id ?? '',
-                      // );
+                    deleteOnTap: (employeeType) {
+                      controller.deleteEmployeeType(
+                        context: context,
+                        id: employeeType.id ?? '',
+                      );
                     },
                     columnNames: controller.columnName,
-                    groupType: controller.categorieName,
+                    employeeType: controller.employeeTypeeName,
                   ),
         ),
       ],

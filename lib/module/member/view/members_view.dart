@@ -9,6 +9,7 @@ import 'package:gymgeni/module/member/widget/inactive_member.dart';
 import 'package:gymgeni/module/member/widget/pending_member.dart';
 import 'package:gymgeni/module/member_master/view/member_master_view.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
+import '../../../utils/keys.dart';
 import '../view_model/member_view_model.dart';
 
 class MembersView extends GetView<MemberViewModel> {
@@ -20,7 +21,7 @@ class MembersView extends GetView<MemberViewModel> {
       desktop: MemberDesktop(controller: controller),
       tablet: Table(),
       mobile: Mobile(),
-      scaffoldKey: controller.scaffoldKey,
+      scaffoldKey: memberScaffoldKey,
       endDrawer: CreateNewMember(controller: controller),
     );
   }
@@ -32,9 +33,6 @@ class MemberDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-      'controller.tabController.index is ${controller.tabController?.index}',
-    );
     return CommonBody(
       tabBarChildren: [
         Obx(

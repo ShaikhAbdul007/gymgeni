@@ -7,7 +7,7 @@ import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
 import '../../../../utils/sizebox.dart';
-import '../../widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 import '../view_model/training_type_viewmodel.dart';
 import '../widget/training_type_member_table.dart';
 
@@ -37,7 +37,7 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
                       headerLabel: 'Add Training type',
                       labelHintText: 'Training Type',
                       submitOnPress: () {
-                        if (traingModeKey.currentState!.validate()) {
+                        if (commonAddWidgetKey.currentState!.validate()) {
                           controller.addTrainingType(context);
                         }
                       },
@@ -80,7 +80,7 @@ class TrainingTypeWidget extends GetView<TrainingTypeViewmodel> {
                             headerLabel: 'Edit Training Type',
                             labelHintText: 'Training Type',
                             submitOnPress: () {
-                              if (traingModeKey.currentState!.validate()) {
+                              if (commonAddWidgetKey.currentState!.validate()) {
                                 controller.updateTrainingType(
                                   context: context,
                                   id: type.id ?? '',

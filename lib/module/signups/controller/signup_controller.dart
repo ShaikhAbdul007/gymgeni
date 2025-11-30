@@ -85,7 +85,6 @@ class SignupViewModel extends GetxController with CacheManager {
         Constant.showSnackBar(
           context: context,
           errorMessage: response.message ?? '',
-
           errorStatus: true,
         );
         Future.delayed(Duration(seconds: 1), () {

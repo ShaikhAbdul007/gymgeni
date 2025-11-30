@@ -7,7 +7,7 @@ import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../../member_master/widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 import '../view_model/lead_categories_view_model.dart';
 import '../widget/lead_categorie_table.dart';
 
@@ -37,8 +37,8 @@ class LeadCategoriesView extends GetView<LeadCategoriesViewModel> {
                       headerLabel: 'Add Categorie',
                       labelHintText: 'Categorie',
                       submitOnPress: () {
-                        if (leadCategorieKey.currentState!.validate()) {
-                          //controller.addGroup(context);
+                        if (commonAddWidgetKey.currentState!.validate()) {
+                          controller.addLeadCategories(context);
                         }
                       },
                       cancelOnPress: () {
@@ -61,8 +61,10 @@ class LeadCategoriesView extends GetView<LeadCategoriesViewModel> {
                   : controller.categorieName.isEmpty
                   ? CommonNoDataFound(label: 'No data found')
                   : LeadCategorieTable(
-                    editOnTap: (group) {
-                      // controller.setData(traingName: group.name ?? '');
+                    editOnTap: (leadCategorie) {
+                      controller.setData(
+                        leadCategorie: leadCategorie.name ?? '',
+                      );
                       Constant.customShowDialog(
                         content: Obx(
                           () => CommonAddWidget(
@@ -72,12 +74,12 @@ class LeadCategoriesView extends GetView<LeadCategoriesViewModel> {
                             headerLabel: 'Add Categorie',
                             labelHintText: 'Categorie',
                             submitOnPress: () {
-                              // if (traingModeKey.currentState!.validate()) {
-                              //   controller.updateGroup(
-                              //     context: context,
-                              //     id: group.id ?? '',
-                              //   );
-                              // }
+                              if (commonAddWidgetKey.currentState!.validate()) {
+                                controller.updateLeadCategories(
+                                  context: context,
+                                  id: leadCategorie.id ?? '',
+                                );
+                              }
                             },
                             cancelOnPress: () {
                               controller.clear();
@@ -87,14 +89,14 @@ class LeadCategoriesView extends GetView<LeadCategoriesViewModel> {
                         context: context,
                       );
                     },
-                    deleteOnTap: (group) {
-                      // controller.deleteGroup(
-                      //   context: context,
-                      //   id: group.id ?? '',
-                      // );
+                    deleteOnTap: (leadCategorie) {
+                      controller.deleteLeadCategories(
+                        context: context,
+                        id: leadCategorie.id ?? '',
+                      );
                     },
                     columnNames: controller.columnName,
-                    groupType: controller.categorieName,
+                    leadCategories: controller.categorieName,
                   ),
         ),
       ],

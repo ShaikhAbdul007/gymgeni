@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../helper/common_data_table.dart';
+import '../../../helper/common_member_data_table.dart';
 import '../model/members_model.dart';
 
 class FreezedMemberWidget extends StatelessWidget {

@@ -9,7 +9,7 @@ class GroupViewmodel extends GetxController {
   final groupRepo = GroupRepo();
   TextEditingController newTrainingController = TextEditingController();
   TextEditingController searchController = TextEditingController();
-  List<String> columnName = ['Group Name', 'Action'];
+  List<String> columnName = ['Name', 'Action'];
   RxBool isAddLoading = false.obs;
   RxBool isUpdateLoading = false.obs;
   RxBool isDeleteLoading = false.obs;
@@ -31,7 +31,7 @@ class GroupViewmodel extends GetxController {
     newTrainingController.text = traingName;
   }
 
-  getGroupName() async {
+  void getGroupName() async {
     isdataLoading.value = true;
     try {
       var res = await groupRepo.getGroup();
@@ -55,7 +55,7 @@ class GroupViewmodel extends GetxController {
     }
   }
 
-  addGroup(BuildContext context) async {
+  void addGroup(BuildContext context) async {
     isAddLoading.value = true;
     Map<String, dynamic> body = {"name": newTrainingController.text.trim()};
     try {
@@ -86,7 +86,7 @@ class GroupViewmodel extends GetxController {
     }
   }
 
-  updateGroup({required BuildContext context, required String id}) async {
+  void updateGroup({required BuildContext context, required String id}) async {
     isUpdateLoading.value = true;
     Map<String, dynamic> body = {
       "name": newTrainingController.text.trim(),
@@ -121,7 +121,7 @@ class GroupViewmodel extends GetxController {
     }
   }
 
-  deleteGroup({required BuildContext context, required String id}) async {
+  void deleteGroup({required BuildContext context, required String id}) async {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {

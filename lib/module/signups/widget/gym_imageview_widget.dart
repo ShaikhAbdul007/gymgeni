@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../../../helper/button.dart';
-import '../../../utils/sizebox.dart';
 
 class GymImageViewWidget extends StatelessWidget {
   final Uint8List image;

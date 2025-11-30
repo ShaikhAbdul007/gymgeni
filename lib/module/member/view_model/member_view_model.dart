@@ -1,44 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/repository/finance_payment_method_repo.dart';
 import 'package:gymgeni/repository/member_master_goal_repo.dart';
+import 'package:gymgeni/repository/member_master_group_repo.dart';
 import 'package:gymgeni/repository/member_master_plan_repo.dart';
 import 'package:gymgeni/repository/member_master_trainingtype_repo.dart';
 import 'package:gymgeni/repository/member_repo.dart';
+import 'package:gymgeni/repository/source_repo.dart';
 import 'package:gymgeni/utils/errorstrings.dart';
-
+import '../../../repository/member_master_trainingmode_repo.dart';
 import '../../../utils/constant.dart';
+import '../../../utils/keys.dart';
+import '../../finance_master/finance_payment_method/model/all_payment_method_model.dart';
+import '../../lead_master/lead_source/model/lead_source_model.dart';
 import '../../member_master/member_goal/model/member_allgoal_model.dart';
+import '../../member_master/member_group/model/member_allgroup_model.dart';
 import '../../member_master/member_plan/model/member_allplan_model.dart';
 import '../../member_master/member_trainingtype/model/member_alltrainingtype_model.dart';
+import '../../member_master/member_triaingmode/model/member_alltraining_model.dart';
 import '../model/members_model.dart';
 
 class MemberViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
   final goalRepo = GoalRepo();
   final planRepo = PlanRepo();
+  final group = GroupRepo();
   final traingTypeRepo = TraingTypeRepo();
+  final traingModeRepo = TraingModeRepo();
   final memberRepo = MemberRepo();
+  final sources = SourceRepo();
+  final paymentMode = FinancePaymentMethodRepo();
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   TextEditingController age = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController email = TextEditingController();
-  TextEditingController contactNo = TextEditingController();
-  TextEditingController alternateContactNo = TextEditingController();
-  TextEditingController goal = TextEditingController();
+  TextEditingController amount = TextEditingController();
+  TextEditingController discount = TextEditingController();
+  TextEditingController afterdiscountAmount = TextEditingController();
+  TextEditingController amountpaid = TextEditingController();
+  TextEditingController balanceAmount = TextEditingController();
+  TextEditingController pendingDate = TextEditingController();
+  TextEditingController mobileNumber = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController goalListController = TextEditingController();
+  TextEditingController planListController = TextEditingController();
+  TextEditingController trainingModeListController = TextEditingController();
+  TextEditingController trainingTypeListController = TextEditingController();
   TextEditingController healthCondition = TextEditingController();
-  TextEditingController dob = TextEditingController();
+  TextEditingController joiningDate = TextEditingController();
   TextEditingController search = TextEditingController();
   TextEditingController source = TextEditingController();
+  TextEditingController alternateNumber = TextEditingController();
+  TextEditingController paymentModeListController = TextEditingController();
+  TextEditingController groupListController = TextEditingController();
   TabController? tabController;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final List<String> genderList = ['Male', 'Female', 'Other'];
   RxList<MemberAllPlanData> planList = <MemberAllPlanData>[].obs;
   RxList<MemberAllGoalData> goalList = <MemberAllGoalData>[].obs;
   RxList<MemberAllTrainingTypeData> trainingTypeList =
       <MemberAllTrainingTypeData>[].obs;
+  RxList<MemberAllTrainingData> trainingModeList =
+      <MemberAllTrainingData>[].obs;
   RxList<Members> getMember = <Members>[].obs;
+  RxList<LeadSourceData> sourceList = <LeadSourceData>[].obs;
+  RxList<AllPaymentData> paymentList = <AllPaymentData>[].obs;
+  RxList<MemberAllGroupData> groupList = <MemberAllGroupData>[].obs;
   final RxBool isMembersLoading = false.obs;
+  final RxBool isDropDownLoading = false.obs;
   final List<String> columnNames = [
     'Member',
     'Plan',
@@ -58,6 +87,20 @@ class MemberViewModel extends GetxController
     Tab(child: Text('Attendence')),
     Tab(child: Text('Configuration')),
   ];
+
+  @override
+  void onInit() {
+    tabController = TabController(length: tabs.length, vsync: this);
+    data();
+    getPlanData();
+    getGoalData();
+    getSourceData();
+    getTraingTypeData();
+    getTraingModeData();
+    getPaymentModeData();
+    getGroupData();
+    super.onInit();
+  }
 
   data() {
     tabController!.addListener(() {
@@ -84,63 +127,158 @@ class MemberViewModel extends GetxController
   }
 
   void openDrawer() {
-    scaffoldKey.currentState?.openEndDrawer();
+    memberScaffoldKey.currentState?.openEndDrawer();
   }
 
   void closeDrawer() {
-    scaffoldKey.currentState?.closeEndDrawer();
+    memberScaffoldKey.currentState?.closeEndDrawer();
   }
 
-  @override
-  void onInit() {
-    tabController = TabController(length: tabs.length, vsync: this);
-    data();
-    getPlanData();
-    getGoalData();
-    getTraingTypeData();
-    super.onInit();
+  void setPlanListAmount(value) {
+    planListController.text = value;
+    for (int i = 0; i < planList.length; i++) {
+      if (value == planList[i].id) {
+        amount.text = planList[i].price ?? '';
+      }
+    }
   }
 
-  getPlanData() async {
+  void discountValue() {
+    final discountPercentage = int.tryParse(discount.text) ?? 0;
+    print('amount.text ${amount.text}');
+    final totalPlanAmount = double.tryParse(amount.text) ?? 0;
+    final discountValue = (totalPlanAmount * discountPercentage) / 100;
+    final afterDiscountAmount = totalPlanAmount - discountValue;
+    afterdiscountAmount.text = afterDiscountAmount.toStringAsFixed(0);
+  }
+
+  void getPlanData() async {
+    isDropDownLoading.value = true;
     var res = await planRepo.getPlan();
-    if (res.status == success) {
-      planList.value = res.memberAllPlanData ?? [];
-    } else {
-      Constant.showSnackBar(
-        context: Get.context!,
-        errorMessage: res.message ?? '',
-        errorStatus: false,
-      );
+    try {
+      if (res.status == success) {
+        planList.value = res.memberAllPlanData ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDropDownLoading.value = false;
     }
   }
 
-  getGoalData() async {
-    var res = await goalRepo.getGoal();
-    if (res.status == success) {
-      goalList.value = res.memberAllGoalData ?? [];
-    } else {
-      Constant.showSnackBar(
-        context: Get.context!,
-        errorMessage: res.message ?? '',
-        errorStatus: false,
-      );
+  void getGroupData() async {
+    isDropDownLoading.value = true;
+    var res = await group.getGroup();
+    try {
+      if (res.status == success) {
+        groupList.value = res.memberAllGroupData ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDropDownLoading.value = false;
     }
   }
 
-  getTraingTypeData() async {
-    var res = await traingTypeRepo.getTraingTypeMode();
-    if (res.status == success) {
-      trainingTypeList.value = res.memberAllTrainingTypeData ?? [];
-    } else {
-      Constant.showSnackBar(
-        context: Get.context!,
-        errorMessage: res.message ?? '',
-        errorStatus: false,
-      );
+  void getPaymentModeData() async {
+    isDropDownLoading.value = true;
+    var res = await paymentMode.getFinancePaymentMethod();
+    try {
+      if (res.status == success) {
+        paymentList.value = res.data ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDropDownLoading.value = false;
     }
   }
 
-  getMemberData({required String memberStatus}) async {
+  void getSourceData() async {
+    isDropDownLoading.value = true;
+    try {
+      var res = await sources.getSource();
+      if (res.status == success) {
+        sourceList.value = res.data ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDropDownLoading.value = false;
+    }
+  }
+
+  void getGoalData() async {
+    isDropDownLoading.value = true;
+    try {
+      var res = await goalRepo.getGoal();
+      if (res.status == success) {
+        goalList.value = res.memberAllGoalData ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDropDownLoading.value = false;
+    }
+  }
+
+  void getTraingTypeData() async {
+    isDropDownLoading.value = true;
+    try {
+      var res = await traingTypeRepo.getTraingTypeMode();
+      if (res.status == success) {
+        trainingTypeList.value = res.memberAllTrainingTypeData ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDropDownLoading.value = false;
+    }
+  }
+
+  void getTraingModeData() async {
+    isDropDownLoading.value = true;
+    try {
+      var res = await traingModeRepo.getTraingMode();
+      if (res.status == success) {
+        trainingModeList.value = res.memberAllTrainingData ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isDropDownLoading.value = false;
+    }
+  }
+
+  void getMemberData({required String memberStatus}) async {
     isMembersLoading.value = true;
     try {
       var res = await memberRepo.getMemberData(memberStatus: memberStatus);

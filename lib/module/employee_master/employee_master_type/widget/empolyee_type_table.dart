@@ -7,13 +7,13 @@ import '../../../../utils/text_style.dart';
 
 class EmployeeTypeTable extends StatelessWidget {
   final List<String> columnNames;
-  final List<EmployeeTypeData> groupType;
-  final void Function(EmployeeTypeData group)? deleteOnTap;
-  final void Function(EmployeeTypeData group)? editOnTap;
+  final List<EmployeeTypeData> employeeType;
+  final void Function(EmployeeTypeData employeeType)? deleteOnTap;
+  final void Function(EmployeeTypeData employeeType)? editOnTap;
   const EmployeeTypeTable({
     super.key,
     required this.columnNames,
-    required this.groupType,
+    required this.employeeType,
     this.deleteOnTap,
     this.editOnTap,
   });
@@ -45,16 +45,19 @@ class EmployeeTypeTable extends StatelessWidget {
                 );
               }).toList(),
           rows:
-              groupType.map((group) {
+              employeeType.map((employeeType) {
                 return DataRow(
                   cells: [
                     DataCell(
-                      Text(group.name ?? '', style: customNunito(fontSize: 14)),
+                      Text(
+                        employeeType.name ?? '',
+                        style: customNunito(fontSize: 14),
+                      ),
                     ),
                     DataCell(
                       CommonAction(
-                        deleteOnTap: () => deleteOnTap?.call(group),
-                        editOnTap: () => editOnTap?.call(group),
+                        deleteOnTap: () => deleteOnTap?.call(employeeType),
+                        editOnTap: () => editOnTap?.call(employeeType),
                       ),
                     ),
                   ],

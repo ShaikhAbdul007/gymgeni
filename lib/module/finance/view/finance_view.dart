@@ -5,6 +5,7 @@ import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive
 import '../../../helper/common_body.dart';
 import '../../finance_master/view/finance_master_payment_method_view.dart';
 import '../viewmodel/finance_viewmodel.dart';
+import '../widget/finance_pending_payment.dart';
 
 class FinanceView extends GetView<FinanceViewmodel> {
   const FinanceView({super.key});
@@ -28,7 +29,7 @@ class Desktop extends StatelessWidget {
       tabBarChildren: [
         Text('All'),
         Text('Sale'),
-        Text('Pending'),
+        FinancePendingPayment(columnNames: [], isDataLoading: false),
         FinanceMasterPaymentMethodView(),
       ],
       heading: 'Finance',

@@ -7,15 +7,16 @@ import '../model/lead_categories_model.dart';
 
 class LeadCategorieTable extends StatelessWidget {
   final List<String> columnNames;
-  final List<LeadCategoryData> groupType;
-  final void Function(LeadCategoryData group)? deleteOnTap;
-  final void Function(LeadCategoryData group)? editOnTap;
+  final List<LeadCategoryData> leadCategories;
+  final void Function(LeadCategoryData leadCategorie)? deleteOnTap;
+  final void Function(LeadCategoryData leadCategorie)? editOnTap;
   const LeadCategorieTable({
     super.key,
     required this.columnNames,
-    required this.groupType,
+
     this.deleteOnTap,
     this.editOnTap,
+    required this.leadCategories,
   });
 
   @override
@@ -45,16 +46,19 @@ class LeadCategorieTable extends StatelessWidget {
                 );
               }).toList(),
           rows:
-              groupType.map((group) {
+              leadCategories.map((leadCategorie) {
                 return DataRow(
                   cells: [
                     DataCell(
-                      Text(group.name ?? '', style: customNunito(fontSize: 14)),
+                      Text(
+                        leadCategorie.name ?? '',
+                        style: customNunito(fontSize: 14),
+                      ),
                     ),
                     DataCell(
                       CommonAction(
-                        deleteOnTap: () => deleteOnTap?.call(group),
-                        editOnTap: () => editOnTap?.call(group),
+                        deleteOnTap: () => deleteOnTap?.call(leadCategorie),
+                        editOnTap: () => editOnTap?.call(leadCategorie),
                       ),
                     ),
                   ],

@@ -5,6 +5,7 @@ import 'package:gymgeni/module/finance_master/view_model/finance_view_model.dart
 import '../../../utils/colors.dart';
 import '../../../utils/text_style.dart';
 import '../../responsive_layout/responsive_dimension/dimension.dart';
+import '../finance_payment_method/view/finance_payment_method.dart';
 
 class FinanceMasterPaymentMethodView extends GetView<FinanceMasterViewModel> {
   const FinanceMasterPaymentMethodView({super.key});
@@ -37,7 +38,7 @@ class FinanceMasterPaymentMethodView extends GetView<FinanceMasterViewModel> {
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
               controller: controller.tabController,
-              children: [Text('FinanceMasterPaymentMethodView')],
+              children: [FinancePaymentMethod()],
             ),
           ),
         ],

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../helper/textfield.dart';
-import '../../../utils/keys.dart';
-import '../../../utils/text_style.dart';
-import '../../../helper/button.dart';
-import '../../../helper/svg_assetes.dart';
-import '../../../utils/divider.dart';
-import '../../../utils/sizebox.dart';
+import 'package:gymgeni/helper/common_appbar_with_cancelbutton.dart';
+import 'textfield.dart';
+import '../utils/keys.dart';
+import '../utils/text_style.dart';
+import 'button.dart';
+import 'svg_assetes.dart';
+import '../utils/divider.dart';
+import '../utils/sizebox.dart';
 
 class CommonAddWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -29,23 +30,15 @@ class CommonAddWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: traingModeKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: commonAddWidgetKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           setHeight(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(headerLabel, style: customNato(fontSize: 16)),
-              InkWell(
-                onTap: cancelOnPress,
-                child: CustomImageAssets(
-                  svgAssets: 'assets/cancel.png',
-                  height: 15,
-                ),
-              ),
-            ],
+          CommonAppbarWithCancelbutton(
+            headerLabel: headerLabel,
+            cancelOnPress: cancelOnPress,
           ),
           setHeight(height: 15),
           customDivider(isParameterGiven: true, endIndent: 0, indent: 0),

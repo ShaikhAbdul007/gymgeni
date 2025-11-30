@@ -7,7 +7,7 @@ import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../../member_master/widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 import '../widget/lead_source_table.dart';
 
 class LeadSourceView extends GetView<LeadSourceViewModel> {
@@ -36,8 +36,8 @@ class LeadSourceView extends GetView<LeadSourceViewModel> {
                       headerLabel: 'Add Source',
                       labelHintText: 'Source',
                       submitOnPress: () {
-                        if (leadFollowTypeKey.currentState!.validate()) {
-                          // controller.addLeadFollowType(context);
+                        if (commonAddWidgetKey.currentState!.validate()) {
+                          controller.addLeadSource(context);
                         }
                       },
                       cancelOnPress: () {
@@ -58,15 +58,13 @@ class LeadSourceView extends GetView<LeadSourceViewModel> {
                   ? CommonProgressBar(
                     circularProgressColor: AppColors.blackColor,
                   )
-                  : controller.followUpName.isEmpty
-                  ? const CommonNoDataFound(label: 'No Lead Follow Types Found')
+                  : controller.source.isEmpty
+                  ? const CommonNoDataFound(label: 'No source found')
                   : LeadSourceTable(
                     columnNames: controller.columnName,
-                    groupType: controller.followUpName,
-
-                    editOnTap: (item) {
-                      // controller.setEditData(name: item.name ?? '');
-
+                    sourceName: controller.source,
+                    editOnTap: (sourceNames) {
+                      controller.setData(sourceName: sourceNames.name ?? '');
                       Constant.customShowDialog(
                         context: context,
                         content: Obx(
@@ -77,12 +75,12 @@ class LeadSourceView extends GetView<LeadSourceViewModel> {
                             headerLabel: 'Add Source',
                             labelHintText: 'Source',
                             submitOnPress: () {
-                              // if (leadFollowTypeKey.currentState!.validate()) {
-                              //   controller.updateLeadFollowType(
-                              //     context: context,
-                              //     id: item.id ?? '',
-                              //   );
-                              // }
+                              if (commonAddWidgetKey.currentState!.validate()) {
+                                controller.updateLeadSource(
+                                  context: context,
+                                  id: sourceNames.id ?? '',
+                                );
+                              }
                             },
                             cancelOnPress: () {
                               controller.clear();
@@ -92,11 +90,11 @@ class LeadSourceView extends GetView<LeadSourceViewModel> {
                       );
                     },
 
-                    deleteOnTap: (item) {
-                      // controller.deleteLeadFollowType(
-                      //   context: context,
-                      //   id: item.id ?? '',
-                      // );
+                    deleteOnTap: (sourceNames) {
+                      controller.deleteLeadSource(
+                        context: context,
+                        id: sourceNames.id ?? '',
+                      );
                     },
                   ),
         ),

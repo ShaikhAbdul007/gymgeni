@@ -40,7 +40,8 @@ class CommonAddNewPlanWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: traingModeKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: commonAddWidgetKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

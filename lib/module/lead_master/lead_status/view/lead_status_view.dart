@@ -6,7 +6,7 @@ import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../../member_master/widget/common_add_widget.dart';
+import '../../../../helper/common_add_widget.dart';
 import '../view_model/lead_status_view_model.dart';
 import '../widget/lead_status_table.dart';
 
@@ -36,7 +36,7 @@ class LeadStatusView extends GetView<LeadStatusViewModel> {
                       headerLabel: 'Add Status',
                       labelHintText: 'Status',
                       submitOnPress: () {
-                        if (leadFollowTypeKey.currentState!.validate()) {
+                        if (commonAddWidgetKey.currentState!.validate()) {
                           // controller.addLeadFollowType(context);
                         }
                       },
@@ -58,31 +58,31 @@ class LeadStatusView extends GetView<LeadStatusViewModel> {
                   ? CommonProgressBar(
                     circularProgressColor: AppColors.blackColor,
                   )
-                  : controller.followUpName.isEmpty
-                  ? const CommonNoDataFound(label: 'No Lead Follow Types Found')
+                  : controller.status.isEmpty
+                  ? const CommonNoDataFound(label: 'No status found')
                   : LeadStatusTable(
                     columnNames: controller.columnName,
-                    groupType: controller.followUpName,
+                    statusName: controller.status,
 
-                    editOnTap: (item) {
-                      // controller.setEditData(name: item.name ?? '');
+                    editOnTap: (statusNames) {
+                      controller.setData(statusName: statusNames.name ?? '');
 
                       Constant.customShowDialog(
                         context: context,
                         content: Obx(
                           () => CommonAddWidget(
-                            errorLabel: 'Enter Lead Follow Type',
+                            errorLabel: 'Enter status',
                             isLoading: controller.isAddLoading.value,
                             controller: controller.newLeadSourceController,
-                            headerLabel: 'Edit Lead Follow Type',
-                            labelHintText: 'Lead Follow Type',
+                            headerLabel: 'Edit status',
+                            labelHintText: 'Status',
                             submitOnPress: () {
-                              // if (leadFollowTypeKey.currentState!.validate()) {
-                              //   controller.updateLeadFollowType(
-                              //     context: context,
-                              //     id: item.id ?? '',
-                              //   );
-                              // }
+                              if (commonAddWidgetKey.currentState!.validate()) {
+                                controller.updateLeadStatus(
+                                  context: context,
+                                  id: statusNames.id ?? '',
+                                );
+                              }
                             },
                             cancelOnPress: () {
                               controller.clear();
@@ -92,11 +92,11 @@ class LeadStatusView extends GetView<LeadStatusViewModel> {
                       );
                     },
 
-                    deleteOnTap: (item) {
-                      // controller.deleteLeadFollowType(
-                      //   context: context,
-                      //   id: item.id ?? '',
-                      // );
+                    deleteOnTap: (statusNames) {
+                      controller.deleteLeadSource(
+                        context: context,
+                        id: statusNames.id ?? '',
+                      );
                     },
                   ),
         ),
