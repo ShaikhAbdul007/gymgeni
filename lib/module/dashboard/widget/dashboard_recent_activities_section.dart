@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:gymgeni/helper/common_nodatafound.dart';
+import 'package:gymgeni/helper/common_progress_bar.dart';
 import 'package:gymgeni/module/dashboard/widget/pie_chart.dart';
 import '../../../../utils/text_style.dart';
+import '../../../utils/colors.dart';
 import '../../../utils/container.dart';
+import '../model/expiry_member_model.dart';
+import '../model/recent_acitivity_model.dart';
 import 'dashboard_recent_activites_component.dart';
 import 'revenue_charts.dart';
 
 class WebRecentActivityComponent extends StatelessWidget {
-  const WebRecentActivityComponent({super.key});
+  final List<ExpiryMembers> expiryMembers;
+  final List<RecentActivityData> recentActivityData;
+  const WebRecentActivityComponent({
+    super.key,
+    required this.expiryMembers,
+    required this.recentActivityData,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +29,7 @@ class WebRecentActivityComponent extends StatelessWidget {
           child: CustomContainer(
             height: 400,
             width: 600,
-            margin: EdgeInsets.only(left: 15, right: 5),
+            margin: EdgeInsets.only(left: 5, right: 5),
             child: Column(
               children: [
                 Padding(
@@ -50,17 +61,21 @@ class WebRecentActivityComponent extends StatelessWidget {
                 ),
                 Flexible(
                   flex: 2,
-                  child: ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return DashBoardRecentActivitesComponent(
-                        memberText: '',
-                        image: 'assets/employee.png',
-                        title: 'Sarah',
-                        subTitle: 'Prenium Plan',
-                      );
-                    },
-                  ),
+                  child:
+                      recentActivityData.isEmpty
+                          ? CommonNoDataFound(label: 'No recent activity found')
+                          : ListView.builder(
+                            itemCount: recentActivityData.length,
+                            itemBuilder: (context, index) {
+                              var recentData = recentActivityData[index];
+                              return DashBoardRecentActivitesComponent(
+                                memberText: '',
+                                image: recentData.imageUrl ?? '',
+                                title: recentData.name ?? '',
+                                subTitle: recentData.planName ?? '',
+                              );
+                            },
+                          ),
                 ),
               ],
             ),
@@ -71,7 +86,7 @@ class WebRecentActivityComponent extends StatelessWidget {
           child: CustomContainer(
             height: 400,
             width: 600,
-            margin: EdgeInsets.only(right: 15),
+            margin: EdgeInsets.only(right: 5),
             child: Column(
               children: [
                 Padding(
@@ -85,7 +100,7 @@ class WebRecentActivityComponent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Upcoming Session',
+                        'Expiry Members',
                         style: customMontserrat(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
@@ -103,17 +118,21 @@ class WebRecentActivityComponent extends StatelessWidget {
                 ),
                 Flexible(
                   //height: 280,
-                  child: ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return DashBoardRecentActivitesComponent(
-                        memberText: '8 Members',
-                        image: 'assets/cardio.png',
-                        title: 'Carido',
-                        subTitle: '10:00 AM - 11:00 AM',
-                      );
-                    },
-                  ),
+                  child:
+                      recentActivityData.isEmpty
+                          ? CommonNoDataFound(label: 'No expiry found')
+                          : ListView.builder(
+                            itemCount: expiryMembers.length,
+                            itemBuilder: (context, index) {
+                              var expiryData = expiryMembers[index];
+                              return DashBoardRecentActivitesComponent(
+                                memberText: expiryData.planName ?? '',
+                                image: expiryData.imageUrl ?? '',
+                                title: expiryData.name ?? '',
+                                subTitle: expiryData.expiryDate ?? '',
+                              );
+                            },
+                          ),
                 ),
               ],
             ),
@@ -365,10 +384,12 @@ class MobileRecentActivityComponent extends StatelessWidget {
 class WebRevenueCharts extends StatelessWidget {
   final Map<String, double> dataMap;
   final List<Color> colorList;
+  final bool isPieDataLoading;
   const WebRevenueCharts({
     super.key,
     required this.dataMap,
     required this.colorList,
+    required this.isPieDataLoading,
   });
 
   @override
@@ -376,7 +397,9 @@ class WebRevenueCharts extends StatelessWidget {
     return Row(
       children: [
         RevenueChartsComponent(),
-        CustomPieChart(dataMap: dataMap, colorList: colorList),
+        isPieDataLoading
+            ? CommonProgressBar(circularProgressColor: AppColors.blackColor)
+            : CustomPieChart(dataMap: dataMap, colorList: colorList),
       ],
     );
   }

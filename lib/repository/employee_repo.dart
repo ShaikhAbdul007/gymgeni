@@ -5,6 +5,7 @@ import '../data/apiendpoint.dart';
 import '../data/networking.dart';
 import '../module/employee/model/all_employee_model.dart';
 import '../module/employee/model/create_new_employee_model.dart';
+import '../utils/constant.dart';
 
 class EmployeeRepo {
   final networking = Networking();
@@ -37,7 +38,7 @@ class EmployeeRepo {
         fileName: fileName ?? '',
       );
       var ress = CreatNewEmployeeModel.fromJson(res);
-      print(ress);
+      Constant.customPrintLog(ress);
       return ress;
     } catch (e) {
       return throw (e);

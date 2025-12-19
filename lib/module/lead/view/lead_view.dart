@@ -4,6 +4,7 @@ import 'package:gymgeni/module/lead/viewmodel/lead_view_model.dart';
 import 'package:gymgeni/module/lead_master/view/lead_master_view.dart';
 
 import '../../../helper/common_body.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/keys.dart';
 import '../../responsive_layout/responsive_dimension/responsive_tempate.dart';
 import '../widget/all_lead.dart';
@@ -47,7 +48,7 @@ class Desktop extends StatelessWidget {
       subHeading: 'Manage all your leads in one place',
       buttonLabel: 'Add Lead',
       buttonOnPress: () {
-        print('lead new ');
+        Constant.customPrintLog('lead new ');
         controller.openDrawer();
       },
       tabs: controller.tabs,

@@ -33,7 +33,7 @@ class CreateNewLead extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 },
-                child: CustomImageAssets(
+                child: CustomNetworkOrAssetImage(
                   svgAssets: 'assets/cancel.png',
                   height: 10,
                 ),
@@ -55,7 +55,6 @@ class CreateNewLead extends StatelessWidget {
                   height: 80,
                 ),
               ),
-
               Column(
                 children: [
                   Row(
@@ -64,7 +63,6 @@ class CreateNewLead extends StatelessWidget {
                         textController: controller.firstname,
                         label: 'First Name',
                         labelHintText: 'Enter first name',
-
                         validator: (v) {
                           if (v == null || v.trim().isEmpty) {
                             return "Enter first name";
@@ -86,9 +84,7 @@ class CreateNewLead extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   setHeight(height: 10),
-
                   Row(
                     children: [
                       NewEnquireComponentWithDropDown(
@@ -98,7 +94,7 @@ class CreateNewLead extends StatelessWidget {
                         error: 'Enter gender',
                         listItems: controller.genderList,
                         notifyParent: (value) {
-                          //controller.selectedGender.value = value;
+                          controller.selectedGender.text = value;
                         },
                       ),
                       setWidth(width: 25),
@@ -155,7 +151,7 @@ class CreateNewLead extends StatelessWidget {
                           label: 'plan',
                           listItems: controller.planList,
                           notifyParent: (value) {
-                            //  controller.selectedEmployeeType.value = value;
+                            controller.planListId.text = value;
                           },
                         ),
               ),
@@ -173,54 +169,13 @@ class CreateNewLead extends StatelessWidget {
                           label: 'Status',
                           listItems: controller.statusList,
                           notifyParent: (value) {
-                            //  controller.selectedEmployeeType.value = value;
+                            controller.statusListId.text = value;
                           },
                         ),
               ),
-              // NewEnquireComponent(
-              //   maxInputLength: 3,
-              //   keyboardType: TextInputType.number,
-              //   validator: (v) {
-              //     if (v == null || v.trim().isEmpty) {
-              //       return "Enter age";
-              //     }
-              //     return null;
-              //   },
-
-              //   textController: controller.age,
-              //   label: 'Age',
-              //   labelHintText: 'Enter age',
-              // ),
-              // NewEnquireComponent(
-              //   filteringTextInputFormatterRequired: true,
-              //   maxInputLength: 8,
-              //   validator: (v) {
-              //     if (v == null || v.trim().isEmpty) {
-              //       return "Enter salary";
-              //     }
-              //     return null;
-              //   },
-              //   textController: controller.salary,
-              //   label: 'Salary',
-              //   labelHintText: 'Enter salary',
-              // ),
             ],
           ),
           setHeight(height: 10),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     // NewEnquireComponent(
-          //     //   readOnly: true,
-          //     //   isDatePicker: true,
-          //     //   textController: controller.anniversaryDate,
-          //     //   label: 'Anniversary Date',
-          //     //   labelHintText: 'Select anniversary date',
-          //     //   width: 200,
-          //     // ),
-          //   ],
-          // ),
-          // setHeight(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -238,7 +193,7 @@ class CreateNewLead extends StatelessWidget {
                           label: 'Categorie',
                           listItems: controller.categoryList,
                           notifyParent: (value) {
-                            //  controller.selectedEmployeeType.value = value;
+                            controller.categorieListId.text = value;
                           },
                         ),
               ),
@@ -256,7 +211,7 @@ class CreateNewLead extends StatelessWidget {
                           label: 'Follow Up',
                           listItems: controller.followUpTypeList,
                           notifyParent: (value) {
-                            //  controller.selectedEmployeeType.value = value;
+                            controller.followUpListId.text = value;
                           },
                         ),
               ),
@@ -274,11 +229,50 @@ class CreateNewLead extends StatelessWidget {
                           label: 'Source',
                           listItems: controller.sourceList,
                           notifyParent: (value) {
-                            //  controller.selectedEmployeeType.value = value;
+                            controller.sourceListId.text = value;
                           },
                         ),
               ),
             ],
+          ),
+          setHeight(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              NewEnquireComponent(
+                readOnly: true,
+                isDatePicker: true,
+                textController: controller.expectedDate,
+                label: 'Expected Date',
+                labelHintText: 'Expected Date',
+                validator: (v) {
+                  if (v == null || v.trim().isEmpty) {
+                    return "Select expected date";
+                  }
+                  return null;
+                },
+                width: 200,
+              ),
+              Container(width: 200),
+              Container(width: 200),
+            ],
+          ),
+          setHeight(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: NewEnquireComponent(
+              validator: (v) {
+                if (v == null || v.trim().isEmpty) {
+                  return "Enter description";
+                }
+                return null;
+              },
+              minLines: 3,
+              maxLines: 3,
+              textController: controller.description,
+              label: 'Description',
+              labelHintText: 'Enter description',
+            ),
           ),
           setHeight(height: 10),
           Padding(
@@ -290,82 +284,48 @@ class CreateNewLead extends StatelessWidget {
                 }
                 return null;
               },
-
-              minLines: 5,
-              maxLines: 5,
+              minLines: 3,
+              maxLines: 3,
               textController: controller.address,
               label: 'Address',
               labelHintText: 'Enter full address',
             ),
           ),
           setHeight(height: 10),
-          // customDivider(isParameterGiven: true, indent: 0, endIndent: 0),
-          // setHeight(height: 10),
-          // Text(
-          //   "Permissions",
-          //   style: customNunito(fontSize: 16, fontWeight: FontWeight.w600),
-          // ),
-          // setHeight(height: 10),
-          // SizedBox(
-          //   height: 100,
-          //   child: GridView.builder(
-          //     physics: NeverScrollableScrollPhysics(),
-          //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //       crossAxisCount: 3,
-          //       mainAxisSpacing: 4,
-          //       crossAxisSpacing: 4,
-          //       childAspectRatio: 12,
-          //     ),
-          //     itemCount: controller.radioList.length,
-          //     itemBuilder: (context, index) {
-          //       var label = controller.radioList[index];
-          //       return Row(
-          //         children: [
-          //           Obx(
-          //             () => Checkbox(
-          //               activeColor: AppColors.blackColor,
-          //               shape: CircleBorder(),
-          //               value: controller.permissionSelected[index],
-          //               onChanged: (v) {
-          //                 controller.permissionSelected[index] = v!;
-          //               },
-          //             ),
-          //           ),
-          //           Expanded(child: Text(label)),
-          //         ],
-          //       );
-          //     },
-          //   ),
-          // ),
-          setHeight(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomButton(
-                height: 35,
-                width: 130,
-                color: AppColors.darkBackground,
-                label: 'Submit',
-                onPress: () {
-                  if (commonAddWidgetKey.currentState!.validate()) {}
-                  Map body = {
-                    "firstName": "",
-                    "lastName": "",
-                    "gender": "",
-                    "mobile": "",
-                    "email": "",
-                    "age": "",
-                    "salary": "",
-                    "dob": "",
-                    "joiningDate": "",
-                    "anniversaryDate": "",
-                    "employeeType": "",
-                    "address": "",
-                    "permissions": [],
-                  };
-
-                  //controller.submitEmployee(context);
-                },
+              Obx(
+                () => CustomButton(
+                  isLoading: controller.isCreateNewLead.value,
+                  height: 35,
+                  width: 130,
+                  color: AppColors.darkBackground,
+                  label: 'Submit',
+                  onPress: () {
+                    if (commonAddWidgetKey.currentState!.validate()) {
+                      String name =
+                          '${controller.firstname.text.trim()}${controller.lastname.text.trim()}';
+                      Map body = {
+                        "name": name,
+                        "plan": controller.planListId.text.trim(),
+                        "expected_date": controller.expectedDate.text.trim(),
+                        "gender": controller.selectedGender.text.trim(),
+                        "mobile": controller.contactNo.text.trim(),
+                        "email": controller.email.text.trim(),
+                        "leadsource_id": controller.sourceListId.text.trim(),
+                        "leadstatus_id": controller.statusListId.text.trim(),
+                        "leadcategory_id":
+                            controller.categorieListId.text.trim(),
+                        "leadfollowtype_id":
+                            controller.followUpListId.text.trim(),
+                        "address": controller.address.text.trim(),
+                        "description": controller.description.text.trim(),
+                      };
+                      controller.submitNewLead(body);
+                    }
+                  },
+                ),
               ),
               setWidth(width: 15),
               CustomButtonWithOutBackGroudColor(

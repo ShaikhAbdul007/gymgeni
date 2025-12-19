@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:gymgeni/data/apiendpoint.dart';
 import 'package:gymgeni/module/signups/model/signup_model.dart';
+import 'package:gymgeni/utils/constant.dart';
 import '../data/networking.dart';
 
 class SignupRepo {
@@ -25,7 +26,7 @@ class SignupRepo {
         fileName: fileName ?? '',
       );
       var ress = SignupModel.fromJson(res);
-      print(ress);
+      Constant.customPrintLog(ress);
       return ress;
     } catch (e) {
       return throw (e);

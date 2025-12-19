@@ -43,7 +43,9 @@ class Header extends StatelessWidget {
                           horizontal: 0,
                         ),
                         radius: 15,
-                        child: CustomImageAssets(svgAssets: 'assets/bell.png'),
+                        child: CustomNetworkOrAssetImage(
+                          svgAssets: 'assets/bell.png',
+                        ),
                       ),
                       setWidth(width: 8),
                       CustomContainer(
@@ -59,7 +61,9 @@ class Header extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomImageAssets(svgAssets: 'assets/admin.png'),
+                            CustomNetworkOrAssetImage(
+                              svgAssets: 'assets/admin.png',
+                            ),
                             Text(
                               'Abdul Shaikh',
                               style: customMontserrat(
@@ -137,7 +141,7 @@ class Header extends StatelessWidget {
                             //             ),
                             //             textStyle: styleNunito(),
                             //             titleText: '');
-                            //         print('object');
+                            //           Constant.customPrintLog(('object');
                             //       },
                             //     ),
                             //   ],

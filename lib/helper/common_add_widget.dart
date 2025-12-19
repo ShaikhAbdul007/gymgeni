@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymgeni/helper/common_appbar_with_cancelbutton.dart';
 import 'textfield.dart';
 import '../utils/keys.dart';
-import '../utils/text_style.dart';
 import 'button.dart';
-import 'svg_assetes.dart';
 import '../utils/divider.dart';
 import '../utils/sizebox.dart';
 

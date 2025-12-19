@@ -52,7 +52,7 @@ class EmployeeTypeView extends GetView<EmployeeTypeViewModel> {
                       labelHintText: 'Type',
                       submitOnPress: () {
                         if (commonAddWidgetKey.currentState!.validate()) {
-                          controller.addEmployeeType(context);
+                          controller.addEmployeeType();
                         }
                       },
                       cancelOnPress: () {

@@ -20,7 +20,10 @@ class CommonAppbarWithCancelbutton extends StatelessWidget {
         Text(headerLabel, style: customNato(fontSize: 16)),
         InkWell(
           onTap: cancelOnPress,
-          child: CustomImageAssets(svgAssets: 'assets/cancel.png', height: 15),
+          child: CustomNetworkOrAssetImage(
+            svgAssets: 'assets/cancel.png',
+            height: 15,
+          ),
         ),
       ],
     );

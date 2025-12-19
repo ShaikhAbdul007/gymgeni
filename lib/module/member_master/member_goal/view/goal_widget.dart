@@ -6,7 +6,6 @@ import '../../../../helper/common_progress_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/constant.dart';
 import '../../../../utils/keys.dart';
-import '../../../../utils/text_style.dart';
 import '../../../../helper/common_add_widget.dart';
 import '../view_model/goal_viewmodel.dart';
 import '../widget/member_goal_member_table.dart';

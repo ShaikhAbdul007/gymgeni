@@ -39,7 +39,7 @@ class DashBoardBusinessOverAllComponenetContainer extends StatelessWidget {
                   ),
                   setHeight(height: 10),
                   Text(
-                    mainHeroListItem.amount,
+                    mainHeroListItem.amount.toString(),
                     style: customMontserrat(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -50,7 +50,7 @@ class DashBoardBusinessOverAllComponenetContainer extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: mainHeroListItem.color,
                 radius: 25,
-                child: CustomImageAssets(
+                child: CustomNetworkOrAssetImage(
                   svgAssets: mainHeroListItem.image,
                   height: 24,
                 ),
@@ -128,7 +128,7 @@ class MobileDashBoardBusinessOverAllComponenetContainer
                   ),
                   setHeight(height: 10),
                   Text(
-                    mainHeroListItem.amount,
+                    mainHeroListItem.amount.toString(),
                     style: customMontserrat(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -139,7 +139,7 @@ class MobileDashBoardBusinessOverAllComponenetContainer
               CircleAvatar(
                 backgroundColor: mainHeroListItem.color,
                 radius: 25,
-                child: CustomImageAssets(
+                child: CustomNetworkOrAssetImage(
                   svgAssets: mainHeroListItem.image,
                   height: 24,
                 ),
@@ -217,7 +217,7 @@ class TabletDashBoardBusinessOverAllComponenetContainer
                   ),
                   setHeight(height: 10),
                   Text(
-                    mainHeroListItem.amount,
+                    mainHeroListItem.amount.toString(),
                     style: customMontserrat(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -228,7 +228,7 @@ class TabletDashBoardBusinessOverAllComponenetContainer
               CircleAvatar(
                 backgroundColor: mainHeroListItem.color,
                 radius: 25,
-                child: CustomImageAssets(
+                child: CustomNetworkOrAssetImage(
                   svgAssets: mainHeroListItem.image,
                   height: 24,
                 ),

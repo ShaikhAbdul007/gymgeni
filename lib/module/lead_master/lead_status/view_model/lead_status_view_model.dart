@@ -33,13 +33,11 @@ class LeadStatusViewModel extends GetxController {
         status.value = res.data ?? [];
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -56,7 +54,6 @@ class LeadStatusViewModel extends GetxController {
       var res = await leadStatusRepo.addLeadStatus(body);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -64,13 +61,11 @@ class LeadStatusViewModel extends GetxController {
         getLeadStatus();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -91,10 +86,9 @@ class LeadStatusViewModel extends GetxController {
     };
     try {
       var res = await leadStatusRepo.updateLeadStatus(body);
-      print(res);
+      Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -102,13 +96,11 @@ class LeadStatusViewModel extends GetxController {
         getLeadStatus();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -128,20 +120,17 @@ class LeadStatusViewModel extends GetxController {
       var res = await leadStatusRepo.deletLeadStatus(body);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getLeadStatus();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

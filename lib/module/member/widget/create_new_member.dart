@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/helper/common_appbar_with_cancelbutton.dart';
+import 'package:gymgeni/utils/constant.dart';
 import 'package:gymgeni/utils/keys.dart';
 import '../../../helper/button.dart';
-import '../../../helper/svg_assetes.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/divider.dart';
 import '../../../utils/sizebox.dart';
@@ -23,21 +24,13 @@ class CreateNewMember extends StatelessWidget {
         shrinkWrap: true,
         children: [
           setHeight(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('New Member', style: customNunito(fontSize: 16)),
-              InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: CustomImageAssets(
-                  svgAssets: 'assets/cancel.png',
-                  height: 10,
-                ),
-              ),
-            ],
+          CommonAppbarWithCancelbutton(
+            headerLabel: 'New Member',
+            cancelOnPress: () {
+              Get.back();
+            },
           ),
+
           setHeight(height: 15),
           customDivider(isParameterGiven: true, endIndent: 0, indent: 0),
           setHeight(height: 20),
@@ -56,7 +49,47 @@ class CreateNewMember extends StatelessWidget {
                     ),
                   ),
                   setHeight(height: 10),
-                  Text('Edit', style: customNunito(color: AppColors.blueColor)),
+                  InkWell(
+                    onTap: () {
+                      //controller.pickImage();
+                      Constant.customShowDialog(
+                        context: context,
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CommonAppbarWithCancelbutton(
+                              headerLabel: 'Select Option',
+                              cancelOnPress: () {
+                                Get.back();
+                              },
+                            ),
+                            Row(
+                              children: [
+                                CustomButton(
+                                  height: 30,
+                                  width: 100,
+                                  label: 'Camera',
+                                  onPress: () {},
+                                ),
+                                CustomButton(
+                                  height: 30,
+                                  width: 100,
+                                  label: 'File',
+                                  onPress: () {
+                                    //  controller.pickImage();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Upload Image',
+                      style: customNunito(color: AppColors.blueColor),
+                    ),
+                  ),
                 ],
               ),
               Column(
@@ -110,7 +143,7 @@ class CreateNewMember extends StatelessWidget {
                       ),
                       setWidth(width: 25),
                       NewEnquireComponent(
-                        textController: controller.mobileNumber,
+                        textController: controller.alternateNumber,
                         filteringTextInputFormatterRequired: true,
                         keyboardType: TextInputType.number,
                         maxInputLength: 10,
@@ -370,12 +403,311 @@ class CreateNewMember extends StatelessWidget {
                 },
               ),
               Container(width: 200),
-              Container(width: 200),
+              SizedBox(
+                width: 200,
+                child: InkWell(
+                  onTap: () {
+                    controller.isBMRClick.value = !controller.isBMRClick.value;
+                  },
+                  child: Text(
+                    textAlign: TextAlign.end,
+                    'BMR & Body Metrics',
+                    style: customNunito(
+                      fontSize: 12,
+                      color: AppColors.blueColor,
+                    ),
+                  ),
+                ),
+              ),
             ],
+          ),
+          Obx(
+            () => Visibility(
+              visible: controller.isBMRClick.value,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    setHeight(height: 10),
+                    customDivider(
+                      isParameterGiven: true,
+                      endIndent: 10,
+                      indent: 10,
+                      thickness: 0.5,
+                      color: AppColors.blackColor,
+                    ),
+                    setHeight(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NewEnquireComponent(
+                          textController: controller.weightController,
+                          label: 'Weight',
+                          labelHintText: 'Weight',
+                          filteringTextInputFormatterRequired: true,
+                          maxInputLength: 3,
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter first name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.heightController,
+                          filteringTextInputFormatterRequired: true,
+                          maxInputLength: 3,
+                          label: 'Height',
+                          labelHintText: 'Height',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.professionController,
+                          label: 'Profession',
+                          labelHintText: 'Profession',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                      ],
+                    ),
+                    setHeight(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NewEnquireComponent(
+                          textController: controller.chestController,
+                          label: 'Chest',
+                          labelHintText: 'Chest',
+                          filteringTextInputFormatterRequired: true,
+                          maxInputLength: 3,
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter first name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.hipsController,
+                          label: 'Hips',
+                          labelHintText: 'Hips',
+                          filteringTextInputFormatterRequired: true,
+                          maxInputLength: 3,
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.stomachController,
+                          label: 'Stomach',
+                          labelHintText: 'Stomach',
+                          filteringTextInputFormatterRequired: true,
+                          maxInputLength: 3,
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                      ],
+                    ),
+                    setHeight(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NewEnquireComponent(
+                          textController: controller.thighController,
+                          label: 'Thigh',
+                          labelHintText: 'Thigh',
+                          filteringTextInputFormatterRequired: true,
+                          maxInputLength: 3,
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.bodyAgeController,
+                          label: 'Body Age',
+                          labelHintText: 'Body Age',
+                          filteringTextInputFormatterRequired: true,
+                          maxInputLength: 3,
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter first name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.sitReachController,
+                          label: 'Sit Reach',
+                          labelHintText: 'Sit Reach',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                      ],
+                    ),
+                    setHeight(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NewEnquireComponent(
+                          textController: controller.breakfastController,
+                          label: 'Break Fast',
+                          labelHintText: 'Break Fast',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.lunchController,
+                          label: 'Lunch',
+                          labelHintText: 'Lunch',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter first name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.dinnerController,
+                          label: 'Dinner',
+                          labelHintText: 'Dinner',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                      ],
+                    ),
+                    setHeight(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NewEnquireComponent(
+                          textController: controller.pushUpStrengthController,
+                          label: 'Push Up Stength',
+                          labelHintText: 'Push Up Stength',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.curlUpController,
+                          label: 'Curl Up',
+                          labelHintText: 'Curl Up',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter first name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController: controller.mobilityController,
+                          label: 'Mobility',
+                          labelHintText: 'Mobility',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                      ],
+                    ),
+                    setHeight(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        NewEnquireComponent(
+                          textController: controller.heartRateController,
+                          label: 'Heart Rate',
+                          labelHintText: 'Heart Rate',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter last name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+
+                        setWidth(width: 25),
+                        NewEnquireComponent(
+                          textController:
+                              controller.heartRateTreadmillController,
+                          label: 'Heart Rate Treadmill',
+                          labelHintText: 'Heart Rate Treadmill',
+                          // validator: (v) {
+                          //   if (v == null || v.trim().isEmpty) {
+                          //     return "Enter first name";
+                          //   }
+                          //   return null;
+                          // },
+                        ),
+                        setWidth(width: 25),
+                        Container(width: 200),
+                      ],
+                    ),
+                    setHeight(height: 10),
+                    customDivider(
+                      isParameterGiven: true,
+                      endIndent: 10,
+                      indent: 10,
+                      thickness: 0.5,
+                      color: AppColors.blackColor,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
           setHeight(height: 10),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: NewEnquireComponent(
               minLines: 5,
               maxLines: 6,
@@ -461,8 +793,9 @@ class CreateNewMember extends StatelessWidget {
                       "balance_date": controller.pendingDate,
                       "payment_mode": controller.paymentModeListController,
                       'image': '',
+                      'discount': controller.discount,
                     };
-                    print(body);
+                    Constant.customPrintLog(body);
                   }
                 },
               ),

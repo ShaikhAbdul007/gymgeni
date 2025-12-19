@@ -303,7 +303,6 @@ class SignupTablet extends StatelessWidget {
                             if (signUpKey.currentState!.validate()) {
                               if (!controller.isTermAndConditionSelect.value) {
                                 Constant.showSnackBar(
-                                  context: context,
                                   errorMessage: 'Select term and condtion',
                                   errorStatus: null,
                                 );
@@ -365,7 +364,7 @@ class SignupTablet extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 70),
                 height: h,
                 width: w,
-                child: CustomImageAssets(
+                child: CustomNetworkOrAssetImage(
                   svgAssets: 'assets/signup.png',
                   height: 500,
                   width: 500,

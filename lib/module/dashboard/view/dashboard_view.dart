@@ -60,23 +60,28 @@ class Desktop extends StatelessWidget {
             ],
           ),
         ),
-        customDivider(
-          isParameterGiven: true,
-          endIndent: 5,
-          indent: 5,
-          color: AppColors.blackColors,
+        customDivider(isParameterGiven: true, endIndent: 5, indent: 5),
+        setHeight(height: 10),
+        Obx(
+          () => DashBoardBusinessOverAllSection(
+            isDataLoading: controller.isdataLoading.value,
+            dashBoardBusinessOverAllListItem: controller.mainHeroList,
+          ),
         ),
         setHeight(height: 10),
-        DashBoardBusinessOverAllSection(
-          dashBoardBusinessOverAllListItem: controller.mainHeroList,
+
+        WebRecentActivityComponent(
+          expiryMembers: controller.expiryMembersList,
+          recentActivityData: controller.recentActivitesList,
         ),
         setHeight(height: 10),
-        WebRevenueCharts(
-          colorList: controller.colorList,
-          dataMap: controller.dataMap,
+        Obx(
+          () => WebRevenueCharts(
+            isPieDataLoading: controller.isPieDataLoading.value,
+            colorList: controller.colorList,
+            dataMap: controller.dataMap,
+          ),
         ),
-        setHeight(height: 10),
-        WebRecentActivityComponent(),
         setHeight(height: 10),
       ],
     );

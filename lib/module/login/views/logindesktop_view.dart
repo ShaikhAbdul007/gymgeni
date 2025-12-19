@@ -6,6 +6,7 @@ import 'package:gymgeni/utils/divider.dart';
 import 'package:gymgeni/utils/keys.dart';
 import '../../../helper/svg_assetes.dart';
 import '../../../utils/colors.dart';
+import '../../../utils/constant.dart';
 import '../controllers/loginscreen_controller.dart';
 import 'package:gymgeni/routes/routes_path.dart';
 import 'package:gymgeni/utils/text_style.dart';
@@ -141,7 +142,7 @@ class LoginDeskTop extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          print('tapped');
+                          Constant.customPrintLog('tapped');
                           RoutesPaths.navigateToRoute(
                             routeName: RoutesPaths.signUpView,
                           );
@@ -176,7 +177,7 @@ class LoginDeskTop extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 70),
                 height: h / 1.5,
                 width: w / 3,
-                child: CustomImageAssets(
+                child: CustomNetworkOrAssetImage(
                   svgAssets: 'assets/login1.png',
                   height: 500,
                   width: 500,

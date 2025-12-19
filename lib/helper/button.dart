@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gymgeni/helper/common_progress_bar.dart';
-import 'package:gymgeni/helper/lottie.dart';
 import 'package:gymgeni/utils/text_style.dart';
 import '../utils/colors.dart';
 

@@ -3,22 +3,21 @@ import 'package:gymgeni/helper/common_nodatafound.dart';
 import 'package:gymgeni/helper/common_progress_bar.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/dimension.dart';
 import 'package:gymgeni/utils/colors.dart';
-import '../module/lead/model/all_lead_model.dart';
 import '../module/member_master/model/member_master_model.dart';
 import '../utils/text_style.dart';
 import 'common_action.dart';
 
-class CommonLeadDataTable extends StatelessWidget {
+class CommonFinanceDataTable extends StatelessWidget {
   final List<String> columnNames;
-  final List<Leads> leads;
+  final List<dynamic> paymentList;
   final VoidCallback? deleteOnTap;
   final VoidCallback? editOnTap;
   final bool isDataLoading;
   final String noDataFound;
-  const CommonLeadDataTable({
+  const CommonFinanceDataTable({
     super.key,
     required this.columnNames,
-    required this.leads,
+    required this.paymentList,
     this.deleteOnTap,
     this.editOnTap,
     required this.isDataLoading,
@@ -34,7 +33,7 @@ class CommonLeadDataTable extends StatelessWidget {
         child:
             isDataLoading
                 ? CommonProgressBar(circularProgressColor: AppColors.blackColor)
-                : leads.isNotEmpty
+                : paymentList.isNotEmpty
                 ? DataTable(
                   dataRowMinHeight: 8,
                   dataRowMaxHeight: 60,
@@ -55,7 +54,7 @@ class CommonLeadDataTable extends StatelessWidget {
                         );
                       }).toList(),
                   rows:
-                      leads.map((lead) {
+                      paymentList.map((member) {
                         return DataRow(
                           cells: [
                             DataCell(
@@ -72,41 +71,70 @@ class CommonLeadDataTable extends StatelessWidget {
                                   child: Image.network(
                                     width: 200,
                                     height: 200,
-                                    lead.imageUrl ?? '',
+                                    member.imageUrl ?? '',
                                     fit: BoxFit.contain,
                                   ),
                                 ),
                                 title: Text(
-                                  lead.name ?? '',
+                                  member.memberName ?? '',
                                   style: customNunito(fontSize: 15),
                                 ),
                                 subtitle: Text(
-                                  lead.name ?? '',
+                                  member.planName ?? '',
                                   style: customNunito(fontSize: 13),
                                 ),
                               ),
                             ),
                             DataCell(
                               Text(
-                                lead.planName ?? '',
+                                member.planName ?? '',
                                 style: customNunito(fontSize: 12),
                               ),
                             ),
                             DataCell(
                               Text(
-                                lead.description ?? '',
+                                member.paidAmount ?? '',
                                 style: customNunito(fontSize: 12),
                               ),
                             ),
                             DataCell(
                               Text(
-                                lead.status ?? '',
+                                member.pendingAmount ?? '',
+                                style: customNunito(fontSize: 12),
+                              ),
+                            ),
+                            DataCell(
+                              Container(
+                                height: 40,
+                                width: 90,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  // color:
+                                  //     member.status == 'Paid'
+                                  //         ? Colors.green.shade300
+                                  //         : member.status == 'Pending'
+                                  //         ? Colors.yellow
+                                  //         : member.status == 'Inactive'
+                                  //         ? Colors.red.shade400
+                                  //         : Colors.grey.shade100,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    member.status ?? '',
+                                    style: customNunito(fontSize: 10),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                member.date ?? '',
                                 style: customNunito(fontSize: 12),
                               ),
                             ),
                             DataCell(
                               Text(
-                                lead.expectedDate ?? '',
+                                member.pendingAmount ?? '',
                                 style: customNunito(fontSize: 12),
                               ),
                             ),

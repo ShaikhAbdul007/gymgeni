@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gymgeni/repository/finance_payment_method_repo.dart';
@@ -54,7 +56,23 @@ class MemberViewModel extends GetxController
   TextEditingController alternateNumber = TextEditingController();
   TextEditingController paymentModeListController = TextEditingController();
   TextEditingController groupListController = TextEditingController();
-  TabController? tabController;
+  TextEditingController weightController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController professionController = TextEditingController();
+  TextEditingController chestController = TextEditingController();
+  TextEditingController hipsController = TextEditingController();
+  TextEditingController stomachController = TextEditingController();
+  TextEditingController thighController = TextEditingController();
+  TextEditingController bodyAgeController = TextEditingController();
+  TextEditingController breakfastController = TextEditingController();
+  TextEditingController lunchController = TextEditingController();
+  TextEditingController dinnerController = TextEditingController();
+  TextEditingController pushUpStrengthController = TextEditingController();
+  TextEditingController curlUpController = TextEditingController();
+  TextEditingController mobilityController = TextEditingController();
+  TextEditingController heartRateController = TextEditingController();
+  TextEditingController heartRateTreadmillController = TextEditingController();
+  TextEditingController sitReachController = TextEditingController();
   final List<String> genderList = ['Male', 'Female', 'Other'];
   RxList<MemberAllPlanData> planList = <MemberAllPlanData>[].obs;
   RxList<MemberAllGoalData> goalList = <MemberAllGoalData>[].obs;
@@ -68,6 +86,11 @@ class MemberViewModel extends GetxController
   RxList<MemberAllGroupData> groupList = <MemberAllGroupData>[].obs;
   final RxBool isMembersLoading = false.obs;
   final RxBool isDropDownLoading = false.obs;
+  final RxBool isBMRClick = false.obs;
+  Rx<Uint8List?> selectedImage = Rx<Uint8List?>(null);
+  RxString fileName = ''.obs;
+
+  TabController? tabController;
   final List<String> columnNames = [
     'Member',
     'Plan',
@@ -100,6 +123,27 @@ class MemberViewModel extends GetxController
     getPaymentModeData();
     getGroupData();
     super.onInit();
+  }
+
+  void pickImage() {
+    final html.FileUploadInputElement input = html.FileUploadInputElement();
+
+    input.accept = 'image/*';
+    input.click();
+
+    input.onChange.listen((event) {
+      final file = input.files?.first;
+      if (file == null) return;
+
+      fileName.value = file.name;
+
+      final reader = html.FileReader();
+      reader.readAsArrayBuffer(file);
+
+      reader.onLoadEnd.listen((event) {
+        selectedImage.value = reader.result as Uint8List;
+      });
+    });
   }
 
   data() {
@@ -145,7 +189,7 @@ class MemberViewModel extends GetxController
 
   void discountValue() {
     final discountPercentage = int.tryParse(discount.text) ?? 0;
-    print('amount.text ${amount.text}');
+    Constant.customPrintLog('amount.text ${amount.text}');
     final totalPlanAmount = double.tryParse(amount.text) ?? 0;
     final discountValue = (totalPlanAmount * discountPercentage) / 100;
     final afterDiscountAmount = totalPlanAmount - discountValue;
@@ -160,7 +204,6 @@ class MemberViewModel extends GetxController
         planList.value = res.memberAllPlanData ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -178,7 +221,6 @@ class MemberViewModel extends GetxController
         groupList.value = res.memberAllGroupData ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -196,7 +238,6 @@ class MemberViewModel extends GetxController
         paymentList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -214,7 +255,6 @@ class MemberViewModel extends GetxController
         sourceList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -232,7 +272,6 @@ class MemberViewModel extends GetxController
         goalList.value = res.memberAllGoalData ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -250,7 +289,6 @@ class MemberViewModel extends GetxController
         trainingTypeList.value = res.memberAllTrainingTypeData ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -268,7 +306,6 @@ class MemberViewModel extends GetxController
         trainingModeList.value = res.memberAllTrainingData ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -286,7 +323,6 @@ class MemberViewModel extends GetxController
         getMember.value = res.data?.members ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

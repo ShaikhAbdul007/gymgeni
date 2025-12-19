@@ -35,7 +35,11 @@ class DashBoardRecentActivitesComponent extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        leading: CustomImageAssets(svgAssets: image, height: 40),
+        leading: CustomNetworkOrAssetImage(
+          isNetworkAssets: true,
+          svgAssets: image,
+          height: 40,
+        ),
         title: Text(
           title,
           style: customMontserrat(fontSize: 14, fontWeight: FontWeight.bold),

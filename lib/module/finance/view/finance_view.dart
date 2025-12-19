@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
-
 import '../../../helper/common_body.dart';
 import '../../finance_master/view/finance_master_payment_method_view.dart';
 import '../viewmodel/finance_viewmodel.dart';
+import '../widget/all_finance_paymnet.dart';
 import '../widget/finance_pending_payment.dart';
+import '../widget/today_sale.dart';
 
 class FinanceView extends GetView<FinanceViewmodel> {
   const FinanceView({super.key});
@@ -27,9 +28,21 @@ class Desktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonBody(
       tabBarChildren: [
-        Text('All'),
-        Text('Sale'),
-        FinancePendingPayment(columnNames: [], isDataLoading: false),
+        AllFinancePayment(
+          columnNames: controller.columns,
+          isDataLoading: controller.isAllFinanceDataLoading.value,
+          paymentList: controller.allFinanceList,
+        ),
+        TodayFinancePayment(
+          columnNames: controller.columns,
+          isDataLoading: controller.isTodayDataLoading.value,
+          paymentList: controller.todayFinanceList,
+        ),
+        FinancePendingPayment(
+          columnNames: controller.columns,
+          isDataLoading: controller.isPendingFinanceDataLoading.value,
+          paymentList: controller.pendingFinanceList,
+        ),
         FinanceMasterPaymentMethodView(),
       ],
       heading: 'Finance',

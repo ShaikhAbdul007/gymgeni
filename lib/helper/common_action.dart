@@ -16,7 +16,7 @@ class CommonAction extends StatelessWidget {
       children: [
         InkWell(
           onTap: editOnTap,
-          child: CustomImageAssets(
+          child: CustomNetworkOrAssetImage(
             svgAssets: 'assets/editicon.png',
             height: 50,
             width: 20,
@@ -25,7 +25,7 @@ class CommonAction extends StatelessWidget {
         SizedBox(width: 8),
         InkWell(
           onTap: deleteOnTap,
-          child: CustomImageAssets(
+          child: CustomNetworkOrAssetImage(
             svgAssets: 'assets/deleteicon.png',
             height: 50,
             width: 20,

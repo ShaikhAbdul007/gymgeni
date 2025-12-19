@@ -36,7 +36,6 @@ class FinanceMasterPaymentViewModel extends GetxController {
         paymentList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -53,7 +52,6 @@ class FinanceMasterPaymentViewModel extends GetxController {
       var res = await financePaymentMethodRepo.addFinancePaymentMethod(body);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -61,13 +59,11 @@ class FinanceMasterPaymentViewModel extends GetxController {
         getFinancePaymentData();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -88,10 +84,9 @@ class FinanceMasterPaymentViewModel extends GetxController {
     };
     try {
       var res = await financePaymentMethodRepo.updateFinancePaymentMethod(body);
-      print(res);
+      Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -99,13 +94,11 @@ class FinanceMasterPaymentViewModel extends GetxController {
         getFinancePaymentData();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -125,20 +118,17 @@ class FinanceMasterPaymentViewModel extends GetxController {
       var res = await financePaymentMethodRepo.deletFinancePaymentMethod(body);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getFinancePaymentData();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

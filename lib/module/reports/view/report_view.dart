@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gymgeni/module/responsive_layout/responsive_dimension/dimension.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
 
 import '../../../utils/colors.dart';

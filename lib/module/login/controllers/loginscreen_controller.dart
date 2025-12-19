@@ -38,7 +38,6 @@ class LoginViewModel extends GetxController with CacheManager {
       if (res.success == success) {
         saveToken(res.loginData?.token ?? '');
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -49,14 +48,12 @@ class LoginViewModel extends GetxController with CacheManager {
       } else if (res.success == failed) {
         isLoading.value = false;
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         isLoading.value = false;
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

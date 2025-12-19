@@ -31,7 +31,7 @@ class SignupDesktop extends StatelessWidget {
             SizedBox(
               height: h,
               width: w / 2,
-              child: CustomImageAssets(
+              child: CustomNetworkOrAssetImage(
                 svgAssets: 'assets/signup.png',
                 height: 500,
                 width: 500,
@@ -320,7 +320,6 @@ class SignupDesktop extends StatelessWidget {
                                     .isTermAndConditionSelect
                                     .value) {
                                   Constant.showSnackBar(
-                                    context: context,
                                     errorMessage: 'Select term and condtion',
                                     errorStatus: null,
                                   );

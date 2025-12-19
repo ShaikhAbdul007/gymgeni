@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:gymgeni/helper/common_body.dart';
 import 'package:gymgeni/module/employee/widget/employee_attendance.dart';
 
+import '../../../utils/constant.dart';
 import '../../../utils/keys.dart';
 import '../../employee_master/view/employee_master_view.dart';
 import '../../responsive_layout/responsive_dimension/responsive_tempate.dart';
@@ -51,7 +52,7 @@ class Desktop extends StatelessWidget {
       subHeading: 'Manage all your employees in one place',
       buttonLabel: 'Add Employe',
       buttonOnPress: () {
-        print('employee Pressed');
+        Constant.customPrintLog('employee Pressed');
         controller.openDrawer();
       },
       tabs: controller.tabs,

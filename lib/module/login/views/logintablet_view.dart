@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gymgeni/helper/textfield.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/dimension.dart';
-import 'package:gymgeni/utils/constant.dart';
 import 'package:gymgeni/utils/divider.dart';
 import 'package:gymgeni/utils/keys.dart';
 import '../../../helper/svg_assetes.dart';
@@ -174,7 +173,7 @@ class LoginTablet extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 70),
                 height: h / 1.5,
                 width: w,
-                child: CustomImageAssets(
+                child: CustomNetworkOrAssetImage(
                   svgAssets: 'assets/login1.png',
                   height: 500,
                   width: 500,

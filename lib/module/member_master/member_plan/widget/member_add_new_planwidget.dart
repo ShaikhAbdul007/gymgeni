@@ -18,6 +18,7 @@ class CommonAddNewPlanWidget extends StatelessWidget {
   final String labelHintText2;
   final String labelHintText3;
   final bool isLoading;
+  final bool readOnly;
   final void Function() submitOnPress;
   final void Function() cancelOnPress;
   const CommonAddNewPlanWidget({
@@ -35,6 +36,7 @@ class CommonAddNewPlanWidget extends StatelessWidget {
     required this.durationController,
     required this.labelHintText3,
     required this.errorLabel3,
+    this.readOnly = false,
   });
 
   @override
@@ -83,6 +85,7 @@ class CommonAddNewPlanWidget extends StatelessWidget {
           ),
           setHeight(height: 10),
           CustomTextField(
+            readOnly: readOnly,
             minLines: 2,
             maxLines: 5,
             filteringTextInputFormatterRequired: true,

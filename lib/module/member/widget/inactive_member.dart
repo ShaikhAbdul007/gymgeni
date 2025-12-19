@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../helper/common_member_data_table.dart';
 
 import '../model/members_model.dart';
-import '../view_model/member_view_model.dart';
 
 class InactiveMemberWidget extends StatelessWidget {
   final List<String> columnNames;

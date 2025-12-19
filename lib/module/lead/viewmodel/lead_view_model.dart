@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gymgeni/module/lead_master/lead_source/model/lead_source_model.dart';
@@ -7,6 +9,7 @@ import 'package:gymgeni/repository/lead_repo.dart';
 import 'package:gymgeni/repository/lead_status_repo.dart';
 import 'package:gymgeni/repository/source_repo.dart';
 import 'package:gymgeni/utils/keys.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../repository/member_master_plan_repo.dart';
 import '../../../utils/constant.dart';
@@ -28,20 +31,33 @@ class LeadViewModel extends GetxController
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   TextEditingController contactNo = TextEditingController();
+  TextEditingController selectedGender = TextEditingController();
+  TextEditingController expectedDate = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController address = TextEditingController();
-  // TextEditingController firstname = TextEditingController();
-  // TextEditingController firstname = TextEditingController();
-  // TextEditingController firstname = TextEditingController();
-  // TextEditingController firstname = TextEditingController();
-  // TextEditingController firstname = TextEditingController();
+  TextEditingController description = TextEditingController();
+  TextEditingController sourceListId = TextEditingController();
+  TextEditingController followUpListId = TextEditingController();
+  TextEditingController statusListId = TextEditingController();
+  TextEditingController categorieListId = TextEditingController();
+  TextEditingController planListId = TextEditingController();
   TabController? tabController;
+  Rx<Uint8List> webImage = Uint8List(0).obs;
+  XFile? resImage;
+
   List<Tab> tabs = [
     Tab(child: Text('All')),
     Tab(child: Text('Follow History')),
     Tab(child: Text('Configuration')),
   ];
-  List<String> columns = ['Member Name', 'Plan', 'Status', 'Date', 'Action'];
+  List<String> columns = [
+    'Member Name',
+    'Plan',
+    'Description',
+    'Status',
+    'Date',
+    'Action',
+  ];
   List<String> genderList = ['Male', 'Female', 'Other'];
   RxList<Leads> allleadList = <Leads>[].obs;
   RxList<MemberAllPlanData> planList = <MemberAllPlanData>[].obs;
@@ -50,6 +66,7 @@ class LeadViewModel extends GetxController
   RxList<LeadSourceData> sourceList = <LeadSourceData>[].obs;
   RxList<LeadFollowUpTypeData> followUpTypeList = <LeadFollowUpTypeData>[].obs;
   RxBool isAllLeaLoading = false.obs;
+  RxBool isCreateNewLead = false.obs;
   RxBool isdataLoading = false.obs;
   @override
   void onInit() {
@@ -75,7 +92,6 @@ class LeadViewModel extends GetxController
         allleadList.value = res.data?.leads ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -93,7 +109,6 @@ class LeadViewModel extends GetxController
         planList.value = res.memberAllPlanData ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -111,7 +126,6 @@ class LeadViewModel extends GetxController
         categoryList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -129,7 +143,6 @@ class LeadViewModel extends GetxController
         statusList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -147,7 +160,6 @@ class LeadViewModel extends GetxController
         sourceList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -165,13 +177,39 @@ class LeadViewModel extends GetxController
         followUpTypeList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       }
     } finally {
       isAllLeaLoading.value = false;
+    }
+  }
+
+  void submitNewLead(dynamic body) async {
+    isCreateNewLead.value = true;
+    try {
+      var res = await allLeadRepo.addNewLeadData(
+        body: body,
+        fileBytes: webImage.value,
+        fileField: 'image',
+        fileName: resImage?.name ?? '',
+      );
+      if (res.status == success) {
+        Get.back();
+        Constant.showSnackBar(
+          errorMessage: res.message ?? '',
+          errorStatus: true,
+        );
+        getAllLeadData();
+      } else {
+        Constant.showSnackBar(
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isCreateNewLead.value = false;
     }
   }
 }

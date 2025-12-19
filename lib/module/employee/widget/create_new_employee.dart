@@ -32,7 +32,7 @@ class CreateNewEmployee extends StatelessWidget {
                 onTap: () {
                   Get.back();
                 },
-                child: CustomImageAssets(
+                child: CustomNetworkOrAssetImage(
                   svgAssets: 'assets/cancel.png',
                   height: 10,
                 ),

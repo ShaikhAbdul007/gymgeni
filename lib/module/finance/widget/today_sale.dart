@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gymgeni/helper/common_finance_data_table.dart';
-import '../model/finance_pending_model.dart';
 
-class FinancePendingPayment extends StatelessWidget {
+class TodayFinancePayment extends StatelessWidget {
   final bool isDataLoading;
   final List<String> columnNames;
-  final List<Payments> paymentList;
-  const FinancePendingPayment({
+  final List<dynamic> paymentList;
+  const TodayFinancePayment({
     super.key,
     required this.isDataLoading,
     required this.columnNames,
@@ -19,7 +18,7 @@ class FinancePendingPayment extends StatelessWidget {
       columnNames: columnNames,
       paymentList: paymentList,
       isDataLoading: isDataLoading,
-      noDataFound: 'No pending payment found',
+      noDataFound: 'No sale found',
     );
   }
 }

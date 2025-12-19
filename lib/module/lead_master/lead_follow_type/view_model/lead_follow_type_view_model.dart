@@ -34,13 +34,11 @@ class LeadFollowTypeViewModel extends GetxController {
         followUpName.value = res.data ?? [];
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -59,7 +57,6 @@ class LeadFollowTypeViewModel extends GetxController {
       var res = await leadFollowTypeRepo.addLeadMasterFollowType(body);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -67,13 +64,11 @@ class LeadFollowTypeViewModel extends GetxController {
         getLeadFollowType();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -94,10 +89,9 @@ class LeadFollowTypeViewModel extends GetxController {
     };
     try {
       var res = await leadFollowTypeRepo.updateLeadMasterFollowType(body);
-      print(res);
+      Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -105,13 +99,11 @@ class LeadFollowTypeViewModel extends GetxController {
         getLeadFollowType();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -131,20 +123,17 @@ class LeadFollowTypeViewModel extends GetxController {
       var res = await leadFollowTypeRepo.deletLeadMasterFollowType(body);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getLeadFollowType();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

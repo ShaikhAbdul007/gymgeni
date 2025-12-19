@@ -20,8 +20,8 @@ class EmployeeTypeModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = status;
     data['msg'] = message;
-    if (this.employeeTypeData != null) {
-      data['data'] = this.employeeTypeData!.map((v) => v.toJson()).toList();
+    if (employeeTypeData != null) {
+      data['data'] = employeeTypeData!.map((v) => v.toJson()).toList();
     }
     return data;
   }

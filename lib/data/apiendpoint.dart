@@ -125,10 +125,10 @@ class ApiEndPoint {
   static final String employeeAttendance = "employee-attendance";
 
   // ---------------- SALES ----------------
-  static final String getTodaySales = "sales/today";
+  static final String getTodaySales = "sales/today?date=";
 
   // ---------------- PAYMENT ----------------
-  static final String getAllPayments = "payments/pending";
+  static final String getAllPayments = "payments";
   static final String getPendingPayments = "payments/pending";
 
   // payment modes
@@ -139,4 +139,23 @@ class ApiEndPoint {
 
   // payment status (failed / pending)
   static final String paymentStatus = "payments/pending";
+
+  //Dashboard
+  static final String dashboardStats = 'dashboard/stats';
+
+  //PIE DIAGRA
+  static final String pieDaigram = 'dashboard/plan-stats';
+
+  //Recent Activities
+  static final String recentActivities = 'dashboard/recent-activity';
+
+  //Upcomming Sessions
+
+  static final String expiryMembersData = 'dashboard/upcomming-sessions';
+
+  //Create BRM
+  static final String createBmr = 'bmr';
+  static final String updateBmr = 'bmr';
+  static final String deleteBmr = 'bmr';
+  static final String getBmr = 'bmr';
 }

@@ -77,6 +77,7 @@ class Leads {
   String? leadsourceName;
   String? status;
   String? imageUrl;
+  String? des;
 
   Leads({
     this.id,

@@ -9,6 +9,7 @@ import 'package:gymgeni/module/member/widget/inactive_member.dart';
 import 'package:gymgeni/module/member/widget/pending_member.dart';
 import 'package:gymgeni/module/member_master/view/member_master_view.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
+import '../../../utils/constant.dart';
 import '../../../utils/keys.dart';
 import '../view_model/member_view_model.dart';
 
@@ -83,7 +84,7 @@ class MemberDesktop extends StatelessWidget {
       subHeading: 'Manage all your members in one place',
       buttonLabel: 'Add Member',
       buttonOnPress: () {
-        print('tapped');
+        Constant.customPrintLog('tapped');
         controller.openDrawer();
       },
       tabs: controller.tabs,

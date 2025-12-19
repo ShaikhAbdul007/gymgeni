@@ -50,7 +50,6 @@ class EmployeeTypeViewModel extends GetxController {
         originalList.value = employeeTypeeName;
       } else {
         Constant.showSnackBar(
-          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -60,14 +59,13 @@ class EmployeeTypeViewModel extends GetxController {
     }
   }
 
-  void addEmployeeType(BuildContext context) async {
+  void addEmployeeType() async {
     isAddLoading.value = true;
     Map<String, dynamic> body = {"name": newEmpolyeeTypeController.text.trim()};
     try {
       var res = await employeeTypeRepo.addEmployeeType(body);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -75,13 +73,11 @@ class EmployeeTypeViewModel extends GetxController {
         getEmployeeTypeData();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -102,10 +98,9 @@ class EmployeeTypeViewModel extends GetxController {
     };
     try {
       var res = await employeeTypeRepo.updateEmployeeType(body);
-      print(res);
+      Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -113,13 +108,11 @@ class EmployeeTypeViewModel extends GetxController {
         getEmployeeTypeData();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -139,20 +132,17 @@ class EmployeeTypeViewModel extends GetxController {
       var res = await employeeTypeRepo.deletemployeeType(body);
       if (res.status == success) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getEmployeeTypeData();
       } else if (res.status == failed) {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
-          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

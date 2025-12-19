@@ -13,7 +13,7 @@ class RevenueChartsComponent extends StatelessWidget {
       child: CustomContainer(
         height: 400,
         width: 750,
-        margin: EdgeInsets.symmetric(horizontal: 8),
+        margin: EdgeInsets.symmetric(horizontal: 5),
         child: ListView(
           children: [
             Padding(
@@ -62,7 +62,7 @@ class RevenueChartsTabletComponent extends StatelessWidget {
       child: CustomContainer(
         height: 400,
         width: 750,
-        margin: EdgeInsets.symmetric(horizontal: 8),
+        margin: EdgeInsets.symmetric(horizontal: 5),
         child: ListView(
           children: [
             Padding(
