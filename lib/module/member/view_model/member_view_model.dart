@@ -204,6 +204,7 @@ class MemberViewModel extends GetxController
         planList.value = res.memberAllPlanData ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -221,6 +222,7 @@ class MemberViewModel extends GetxController
         groupList.value = res.memberAllGroupData ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -238,6 +240,7 @@ class MemberViewModel extends GetxController
         paymentList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -255,6 +258,7 @@ class MemberViewModel extends GetxController
         sourceList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -272,6 +276,7 @@ class MemberViewModel extends GetxController
         goalList.value = res.memberAllGoalData ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -289,6 +294,7 @@ class MemberViewModel extends GetxController
         trainingTypeList.value = res.memberAllTrainingTypeData ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -306,6 +312,7 @@ class MemberViewModel extends GetxController
         trainingModeList.value = res.memberAllTrainingData ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -323,6 +330,7 @@ class MemberViewModel extends GetxController
         getMember.value = res.data?.members ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

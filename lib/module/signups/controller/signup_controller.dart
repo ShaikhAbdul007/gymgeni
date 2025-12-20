@@ -83,6 +83,8 @@ class SignupViewModel extends GetxController with CacheManager {
       );
       if (response.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: response.message ?? '',
           errorStatus: true,
         );
@@ -93,12 +95,16 @@ class SignupViewModel extends GetxController with CacheManager {
       } else if (response.status == failed) {
         isSignUpLoading.value = false;
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: response.message ?? '',
           errorStatus: false,
         );
       } else {
         isSignUpLoading.value = false;
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: response.message ?? '',
           errorStatus: false,
         );

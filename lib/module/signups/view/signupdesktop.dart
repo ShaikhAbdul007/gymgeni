@@ -320,6 +320,8 @@ class SignupDesktop extends StatelessWidget {
                                     .isTermAndConditionSelect
                                     .value) {
                                   Constant.showSnackBar(
+                                    context: context,
+
                                     errorMessage: 'Select term and condtion',
                                     errorStatus: null,
                                   );

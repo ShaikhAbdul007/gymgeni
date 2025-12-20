@@ -48,11 +48,15 @@ class PlanViewmodel extends GetxController {
         planName.value = res.memberAllPlanData ?? [];
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -73,6 +77,7 @@ class PlanViewmodel extends GetxController {
       var res = await planRepo.addNewPlan(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -80,11 +85,13 @@ class PlanViewmodel extends GetxController {
         getPlan();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -107,6 +114,7 @@ class PlanViewmodel extends GetxController {
       Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -114,11 +122,13 @@ class PlanViewmodel extends GetxController {
         getPlan();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -135,17 +145,20 @@ class PlanViewmodel extends GetxController {
       var res = await planRepo.deletePlan(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getPlan();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

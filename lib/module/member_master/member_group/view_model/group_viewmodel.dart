@@ -39,11 +39,15 @@ class GroupViewmodel extends GetxController {
         groupName.value = res.memberAllGroupData ?? [];
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -60,6 +64,8 @@ class GroupViewmodel extends GetxController {
       var res = await groupRepo.addNewGroup(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -67,11 +73,15 @@ class GroupViewmodel extends GetxController {
         getGroupName();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -92,6 +102,8 @@ class GroupViewmodel extends GetxController {
       Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -99,11 +111,15 @@ class GroupViewmodel extends GetxController {
         getGroupName();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -120,17 +136,23 @@ class GroupViewmodel extends GetxController {
       var res = await groupRepo.deleteGroup(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getGroupName();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

@@ -38,11 +38,13 @@ class GoalViewmodel extends GetxController {
         goalName.value = res.memberAllGoalData ?? [];
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -59,6 +61,7 @@ class GoalViewmodel extends GetxController {
       var res = await goalRepo.addNewGroup(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -66,11 +69,13 @@ class GoalViewmodel extends GetxController {
         getGoalName();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -94,6 +99,8 @@ class GoalViewmodel extends GetxController {
       Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -101,11 +108,15 @@ class GoalViewmodel extends GetxController {
         getGoalName();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -125,17 +136,23 @@ class GoalViewmodel extends GetxController {
       var res = await goalRepo.deleteGroup(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getGoalName();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

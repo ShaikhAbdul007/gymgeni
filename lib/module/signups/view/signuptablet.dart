@@ -303,6 +303,8 @@ class SignupTablet extends StatelessWidget {
                             if (signUpKey.currentState!.validate()) {
                               if (!controller.isTermAndConditionSelect.value) {
                                 Constant.showSnackBar(
+                                  context: context,
+
                                   errorMessage: 'Select term and condtion',
                                   errorStatus: null,
                                 );

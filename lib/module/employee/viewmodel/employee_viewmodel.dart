@@ -106,6 +106,7 @@ class EmployeeViewmodel extends GetxController
         employeeTypeeName.value = res.employeeTypeData ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -123,11 +124,13 @@ class EmployeeViewmodel extends GetxController
         groupName.value = res.memberAllGroupData ?? [];
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -145,6 +148,7 @@ class EmployeeViewmodel extends GetxController
         employeeList.value = res.data?.employees ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -162,6 +166,7 @@ class EmployeeViewmodel extends GetxController
         employeeAttendanceList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

@@ -34,11 +34,15 @@ class LeadSourceViewModel extends GetxController {
         source.value = res.data ?? [];
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -55,6 +59,8 @@ class LeadSourceViewModel extends GetxController {
       var res = await sourceRepo.addSource(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -62,11 +68,13 @@ class LeadSourceViewModel extends GetxController {
         getLeadSource();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -90,6 +98,7 @@ class LeadSourceViewModel extends GetxController {
       Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -97,11 +106,13 @@ class LeadSourceViewModel extends GetxController {
         getLeadSource();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -121,17 +132,20 @@ class LeadSourceViewModel extends GetxController {
       var res = await sourceRepo.deletSource(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getLeadSource();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

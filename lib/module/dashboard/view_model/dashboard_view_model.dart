@@ -73,6 +73,7 @@ class DashboardViewModel extends GetxController {
         getMainList();
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -90,6 +91,7 @@ class DashboardViewModel extends GetxController {
         recentActivitesList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -107,6 +109,7 @@ class DashboardViewModel extends GetxController {
         expiryMembersList.value = res.data?.members ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -125,6 +128,7 @@ class DashboardViewModel extends GetxController {
         getPieStatsMetricData();
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

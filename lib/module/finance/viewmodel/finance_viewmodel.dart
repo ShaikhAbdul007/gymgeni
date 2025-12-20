@@ -50,6 +50,7 @@ class FinanceViewmodel extends GetxController
         allFinanceList.value = res.data?.payments ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -67,6 +68,7 @@ class FinanceViewmodel extends GetxController
         pendingFinanceList.value = res.data?.payments ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -85,6 +87,7 @@ class FinanceViewmodel extends GetxController
         todayFinanceList.value = res.data?.salesDetails ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

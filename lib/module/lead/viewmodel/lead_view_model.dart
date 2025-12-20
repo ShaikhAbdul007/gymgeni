@@ -92,6 +92,8 @@ class LeadViewModel extends GetxController
         allleadList.value = res.data?.leads ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -109,6 +111,8 @@ class LeadViewModel extends GetxController
         planList.value = res.memberAllPlanData ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -126,6 +130,8 @@ class LeadViewModel extends GetxController
         categoryList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -143,6 +149,8 @@ class LeadViewModel extends GetxController
         statusList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -160,6 +168,8 @@ class LeadViewModel extends GetxController
         sourceList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -177,6 +187,8 @@ class LeadViewModel extends GetxController
         followUpTypeList.value = res.data ?? [];
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -198,12 +210,16 @@ class LeadViewModel extends GetxController
       if (res.status == success) {
         Get.back();
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getAllLeadData();
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

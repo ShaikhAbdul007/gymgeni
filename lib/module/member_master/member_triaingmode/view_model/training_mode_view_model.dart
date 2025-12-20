@@ -40,11 +40,15 @@ class TrainingModeViewModel extends GetxController {
         trainingModes.value = res.memberAllTrainingData ?? [];
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: Get.context!,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -61,6 +65,8 @@ class TrainingModeViewModel extends GetxController {
       var res = await memberMasterRepo.addNewTraingMode(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -68,11 +74,15 @@ class TrainingModeViewModel extends GetxController {
         getTraingMode();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -93,6 +103,8 @@ class TrainingModeViewModel extends GetxController {
       Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -100,11 +112,15 @@ class TrainingModeViewModel extends GetxController {
         getTraingMode();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
@@ -121,17 +137,23 @@ class TrainingModeViewModel extends GetxController {
       var res = await memberMasterRepo.deleteTraingMode(body);
       if (res.status == success) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
         getTraingMode();
       } else if (res.status == failed) {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       } else {
         Constant.showSnackBar(
+          context: context,
+
           errorMessage: res.message ?? '',
           errorStatus: false,
         );

@@ -140,11 +140,12 @@ class Constant {
 
   static void customPrintLog(logMessage) {
     if (kDebugMode) {
-      customPrintLog(logMessage);
+      print(logMessage);
     }
   }
 
   static showSnackBar({
+    required BuildContext context,
     required String errorMessage,
     required bool? errorStatus,
   }) {
@@ -183,6 +184,6 @@ class Constant {
       behavior: SnackBarBehavior.floating,
       duration: Duration(seconds: 2),
     );
-    ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
