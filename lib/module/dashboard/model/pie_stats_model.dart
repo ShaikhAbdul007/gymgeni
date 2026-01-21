@@ -23,9 +23,9 @@ class PieStatsModel {
 }
 
 class PieStatsData {
-  int? monthlyPercentage;
-  int? quarterlyPercentage;
-  int? yearlyPercentage;
+  num? monthlyPercentage;
+  num? quarterlyPercentage;
+  num? yearlyPercentage;
 
   PieStatsData({
     this.monthlyPercentage,

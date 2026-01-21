@@ -13,10 +13,14 @@ import 'revenue_charts.dart';
 class WebRecentActivityComponent extends StatelessWidget {
   final List<ExpiryMembers> expiryMembers;
   final List<RecentActivityData> recentActivityData;
+  final bool isRecentDataLoading;
+  final bool isexiryMemberDataLoading;
   const WebRecentActivityComponent({
     super.key,
     required this.expiryMembers,
     required this.recentActivityData,
+    required this.isRecentDataLoading,
+    required this.isexiryMemberDataLoading,
   });
 
   @override
@@ -62,7 +66,11 @@ class WebRecentActivityComponent extends StatelessWidget {
                 Flexible(
                   flex: 2,
                   child:
-                      recentActivityData.isEmpty
+                      isexiryMemberDataLoading
+                          ? CommonProgressBar(
+                            circularProgressColor: AppColors.blackColor,
+                          )
+                          : recentActivityData.isEmpty
                           ? CommonNoDataFound(label: 'No recent activity found')
                           : ListView.builder(
                             itemCount: recentActivityData.length,
@@ -117,9 +125,12 @@ class WebRecentActivityComponent extends StatelessWidget {
                   ),
                 ),
                 Flexible(
-                  //height: 280,
                   child:
-                      recentActivityData.isEmpty
+                      isexiryMemberDataLoading
+                          ? CommonProgressBar(
+                            circularProgressColor: AppColors.blackColor,
+                          )
+                          : expiryMembers.isEmpty
                           ? CommonNoDataFound(label: 'No expiry found')
                           : ListView.builder(
                             itemCount: expiryMembers.length,

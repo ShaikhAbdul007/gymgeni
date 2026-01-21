@@ -30,7 +30,6 @@ class CreateNewMember extends StatelessWidget {
               Get.back();
             },
           ),
-
           setHeight(height: 15),
           customDivider(isParameterGiven: true, endIndent: 0, indent: 0),
           setHeight(height: 20),
@@ -39,44 +38,57 @@ class CreateNewMember extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  CircleAvatar(
-                    backgroundColor: AppColors.blackColor,
-                    radius: 55,
-                    child: Icon(
-                      Icons.person,
-                      size: 90,
-                      color: AppColors.whiteColor,
+                  Obx(
+                    () => CircleAvatar(
+                      backgroundColor: AppColors.blackColor,
+                      radius: 55,
+                      backgroundImage:
+                          controller.selectedImage.value != null
+                              ? MemoryImage(controller.selectedImage.value!)
+                              : null,
+                      child:
+                          controller.selectedImage.value != null
+                              ? null
+                              : Icon(
+                                Icons.person,
+                                size: 90,
+                                color: AppColors.whiteColor,
+                              ),
                     ),
                   ),
                   setHeight(height: 10),
                   InkWell(
                     onTap: () {
-                      //controller.pickImage();
                       Constant.customShowDialog(
                         context: context,
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            setHeight(height: 10),
                             CommonAppbarWithCancelbutton(
-                              headerLabel: 'Select Option',
+                              headerLabel: 'Select',
                               cancelOnPress: () {
                                 Get.back();
                               },
                             ),
+                            setHeight(height: 8),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 CustomButton(
                                   height: 30,
                                   width: 100,
                                   label: 'Camera',
-                                  onPress: () {},
+                                  onPress: () {
+                                    controller.pickFromCamera();
+                                  },
                                 ),
                                 CustomButton(
                                   height: 30,
                                   width: 100,
                                   label: 'File',
                                   onPress: () {
-                                    //  controller.pickImage();
+                                    controller.pickFromGallery();
                                   },
                                 ),
                               ],

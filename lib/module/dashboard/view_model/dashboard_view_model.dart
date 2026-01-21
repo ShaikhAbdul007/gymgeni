@@ -124,7 +124,13 @@ class DashboardViewModel extends GetxController {
     try {
       var res = await pieStatsRepo.getPieStats();
       if (res.status == success) {
-        pieStatMetricData.value = res.data ?? PieStatsData();
+        pieStatMetricData.value =
+            res.data ??
+            PieStatsData(
+              monthlyPercentage: 0,
+              quarterlyPercentage: 0,
+              yearlyPercentage: 0,
+            );
         getPieStatsMetricData();
       } else {
         Constant.showSnackBar(

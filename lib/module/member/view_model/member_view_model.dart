@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:typed_data';
-import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gymgeni/repository/finance_payment_method_repo.dart';
@@ -10,6 +10,7 @@ import 'package:gymgeni/repository/member_master_trainingtype_repo.dart';
 import 'package:gymgeni/repository/member_repo.dart';
 import 'package:gymgeni/repository/source_repo.dart';
 import 'package:gymgeni/utils/errorstrings.dart';
+import 'package:web/web.dart' as webk;
 import '../../../repository/member_master_trainingmode_repo.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/keys.dart';
@@ -21,6 +22,8 @@ import '../../member_master/member_plan/model/member_allplan_model.dart';
 import '../../member_master/member_trainingtype/model/member_alltrainingtype_model.dart';
 import '../../member_master/member_triaingmode/model/member_alltraining_model.dart';
 import '../model/members_model.dart';
+import 'package:camera_web/camera_web.dart';
+import 'dart:typed_data';
 
 class MemberViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -87,8 +90,13 @@ class MemberViewModel extends GetxController
   final RxBool isMembersLoading = false.obs;
   final RxBool isDropDownLoading = false.obs;
   final RxBool isBMRClick = false.obs;
+  final RxBool isCreateMembersLoading = false.obs;
   Rx<Uint8List?> selectedImage = Rx<Uint8List?>(null);
   RxString fileName = ''.obs;
+
+  //Rx<CameraController?> cam = Rx<CameraController?>(null);
+  RxBool isInitialized = false.obs;
+  Rx<Uint8List?> capturedImage = Rx<Uint8List?>(null);
 
   TabController? tabController;
   final List<String> columnNames = [
@@ -125,25 +133,81 @@ class MemberViewModel extends GetxController
     super.onInit();
   }
 
-  void pickImage() {
-    final html.FileUploadInputElement input = html.FileUploadInputElement();
+  // Future<void> initCamera() async {
+  //   final cameras = await availableCameras();
 
-    input.accept = 'image/*';
+  //   final camera = cameras.first; // front/back jo bhi pehla mile
+
+  //   cam.value = CameraController(
+  //     camera,
+  //     ResolutionPreset.medium,
+  //     enableAudio: false,
+  //   );
+
+  //   await cam.value!.initialize();
+  //   isInitialized.value = true;
+  // }
+
+  // Future<void> takePhoto() async {
+  //   final file = await cam.value!.takePicture();
+
+  //   capturedImage.value = await file.readAsBytes();
+  // }
+
+  @override
+  void onClose() {
+    // cam.value?.dispose();
+    super.onClose();
+  }
+
+  Future<void> pickFromGallery() async {
+    await _pickImage(captureFromCamera: false);
+  }
+
+  Future<void> pickFromCamera() async {
+    await _pickImage(captureFromCamera: true);
+  }
+
+  Future<void> _pickImage({required bool captureFromCamera}) async {
+    final input =
+        webk.HTMLInputElement()
+          ..type = 'file'
+          ..accept = 'image/*';
+
+    if (captureFromCamera) {
+      input.capture = "environment"; // or "user"
+    }
+
     input.click();
 
+    final completer = Completer<Uint8List?>();
+
     input.onChange.listen((event) {
-      final file = input.files?.first;
-      if (file == null) return;
+      final file = input.files?.item(0);
+
+      if (file == null) {
+        completer.complete(null);
+        return;
+      }
 
       fileName.value = file.name;
 
-      final reader = html.FileReader();
+      final reader = webk.FileReader();
       reader.readAsArrayBuffer(file);
 
       reader.onLoadEnd.listen((event) {
-        selectedImage.value = reader.result as Uint8List;
+        final buffer = reader.result as ByteBuffer?;
+
+        if (buffer == null) {
+          completer.complete(null);
+          return;
+        }
+
+        completer.complete(buffer.asUint8List());
       });
     });
+    Get.back();
+    selectedImage.value = await completer.future;
   }
 
   data() {
@@ -337,6 +401,24 @@ class MemberViewModel extends GetxController
       }
     } finally {
       isMembersLoading.value = false;
+    }
+  }
+
+  void createMemberData({required String memberStatus}) async {
+    isCreateMembersLoading.value = true;
+    try {
+      var res = await memberRepo.getMemberData(memberStatus: memberStatus);
+      if (res.status == success) {
+        getMember.value = res.data?.members ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isCreateMembersLoading.value = false;
     }
   }
 }

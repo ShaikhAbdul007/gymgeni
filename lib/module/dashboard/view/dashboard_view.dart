@@ -69,10 +69,13 @@ class Desktop extends StatelessWidget {
           ),
         ),
         setHeight(height: 10),
-
-        WebRecentActivityComponent(
-          expiryMembers: controller.expiryMembersList,
-          recentActivityData: controller.recentActivitesList,
+        Obx(
+          () => WebRecentActivityComponent(
+            isRecentDataLoading: controller.isRecentDataLoading.value,
+            isexiryMemberDataLoading: controller.isexiryMemberDataLoading.value,
+            expiryMembers: controller.expiryMembersList,
+            recentActivityData: controller.recentActivitesList,
+          ),
         ),
         setHeight(height: 10),
         Obx(

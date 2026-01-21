@@ -41,7 +41,14 @@ class Desktop extends StatelessWidget {
             leads: controller.allleadList,
           ),
         ),
-        FollowUpType(),
+        // FollowUpType(),
+        Obx(
+          () => AllLead(
+            columnNames: controller.columns,
+            isDataLoading: controller.isAllLeaLoading.value,
+            leads: controller.allleadList,
+          ),
+        ),
         LeadMasterView(),
       ],
       heading: 'Lead',

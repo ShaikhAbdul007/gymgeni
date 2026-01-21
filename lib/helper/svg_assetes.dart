@@ -5,6 +5,7 @@ class CustomNetworkOrAssetImage extends StatelessWidget {
   final double width;
   final String svgAssets;
   final bool isNetworkAssets;
+
   const CustomNetworkOrAssetImage({
     super.key,
     this.height = 80,
@@ -16,7 +17,16 @@ class CustomNetworkOrAssetImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isNetworkAssets
-        ? Image.network(height: height, width: width, svgAssets)
-        : Image.asset(height: height, width: width, svgAssets);
+        ? Image.network(
+          svgAssets,
+          height: height,
+          width: width,
+
+          // ⬇️ fallback here
+          errorBuilder: (context, error, stackTrace) {
+            return Image.asset('assets/user.png', height: height, width: width);
+          },
+        )
+        : Image.asset(svgAssets, height: height, width: width);
   }
 }

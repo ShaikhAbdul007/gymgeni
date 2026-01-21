@@ -39,6 +39,7 @@ class DashBoardRecentActivitesComponent extends StatelessWidget {
           isNetworkAssets: true,
           svgAssets: image,
           height: 40,
+          width: 50,
         ),
         title: Text(
           title,

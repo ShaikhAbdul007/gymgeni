@@ -75,6 +75,14 @@ class CommonMemberDataTable extends StatelessWidget {
                                     height: 200,
                                     member.imageUrl ?? '',
                                     fit: BoxFit.contain,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                        'assets/user.png',
+                                        height: 200,
+                                        width: 100,
+                                        fit: BoxFit.contain,
+                                      );
+                                    },
                                   ),
                                 ),
                                 title: Text(
