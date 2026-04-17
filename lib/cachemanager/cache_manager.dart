@@ -1,4 +1,5 @@
 import 'package:get_storage/get_storage.dart';
+import 'package:gymgeni/module/user/model/user_model.dart';
 
 mixin class CacheManager {
   final box = GetStorage();
@@ -9,20 +10,35 @@ mixin class CacheManager {
     box.write(Key.userLoginIn.toString(), value);
   }
 
+  saveUserDetails(UserData userProfileResponse) {
+    final userDetails = userProfileResponse.toJson();
+    box.write(Key.userProfileResponse.toString(), userDetails);
+  }
+
   saveToken(String token) {
     box.write(Key.tokenKey.toString(), token);
   }
 
   //----------------- Retrieve all the value------------------------------------------------------------------------------
 
-  String retriveToken() {
+  String retrieveToken() {
     // box.writeIfNull(Key.tokenKey.toString(), '');
     return box.read(Key.tokenKey.toString()) ?? '';
   }
 
-  Future<bool> retriveUserLoggedIn() async {
+  Future<bool> retrieveUserLoggedIn() async {
     box.writeIfNull(Key.userLoginIn.toString(), false);
     return box.read(Key.userLoginIn.toString());
+  }
+
+  UserData retrieveUserDetails() {
+    final userDetails = box.read(Key.userProfileResponse.toString());
+    if (userDetails != null) {
+      return UserData.fromJson(userDetails);
+    }
+    return UserData(
+      
+    );
   }
 
   //----------------- checking expire token------------------------------------------------------------------------------
