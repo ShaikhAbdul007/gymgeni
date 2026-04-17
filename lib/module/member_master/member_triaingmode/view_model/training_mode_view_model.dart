@@ -35,7 +35,7 @@ class TrainingModeViewModel extends GetxController {
   getTraingMode() async {
     isdataLoading.value = true;
     try {
-      var res = await memberMasterRepo.getTraingMode();
+      var res = await memberMasterRepo.getTrainingMode();
       if (res.status == success) {
         trainingModes.value = res.memberAllTrainingData ?? [];
       } else if (res.status == failed) {
@@ -62,7 +62,7 @@ class TrainingModeViewModel extends GetxController {
     isAddLoading.value = true;
     Map<String, dynamic> body = {"name": newTrainingController.text.trim()};
     try {
-      var res = await memberMasterRepo.addNewTraingMode(body);
+      var res = await memberMasterRepo.addNewTrainingMode(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,
@@ -99,7 +99,7 @@ class TrainingModeViewModel extends GetxController {
       "id": id,
     };
     try {
-      var res = await memberMasterRepo.updateTraingMode(body);
+      var res = await memberMasterRepo.updateTrainingMode(body);
       Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
@@ -134,7 +134,7 @@ class TrainingModeViewModel extends GetxController {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {
-      var res = await memberMasterRepo.deleteTraingMode(body);
+      var res = await memberMasterRepo.deleteTrainingMode(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,

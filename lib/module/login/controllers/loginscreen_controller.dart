@@ -35,7 +35,7 @@ class LoginViewModel extends GetxController with CacheManager {
     };
     try {
       var res = await loginRepo.login(body);
-      if (res.success == success) {
+      if (res.status == success) {
         saveToken(res.loginData?.token ?? '');
         Constant.showSnackBar(
           context: context,
@@ -46,7 +46,7 @@ class LoginViewModel extends GetxController with CacheManager {
           RoutesPaths.navigateToRoute(routeName: RoutesPaths.dashboardView);
           isLoading.value = false;
         });
-      } else if (res.success == failed) {
+      } else if (res.status == failed) {
         isLoading.value = false;
         Constant.showSnackBar(
           context: context,

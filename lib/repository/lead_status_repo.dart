@@ -13,7 +13,7 @@ class LeadStatusRepo {
       );
       return LeadStatusModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return LeadStatusModel(status: false, message: e.toString());
     }
   }
 
@@ -25,7 +25,7 @@ class LeadStatusRepo {
       );
       return AddUpdateStatusModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateStatusModel(status: false, message: e.toString());
     }
   }
 
@@ -37,11 +37,11 @@ class LeadStatusRepo {
       );
       return AddUpdateStatusModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateStatusModel(status: false, message: e.toString());
     }
   }
 
-  Future<AddUpdateStatusModel> deletLeadStatus(dynamic body) async {
+  Future<AddUpdateStatusModel> deleteLeadStatus(dynamic body) async {
     try {
       var res = await networking.deleteData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deleteLeadStatus}',
@@ -49,7 +49,7 @@ class LeadStatusRepo {
       );
       return AddUpdateStatusModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateStatusModel(status: false, message: e.toString());
     }
   }
 }

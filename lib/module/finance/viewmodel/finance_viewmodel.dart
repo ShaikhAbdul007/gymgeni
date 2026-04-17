@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gymgeni/module/finance/model/finance_today_model.dart';
+import 'package:gymgeni/module/finance/model/revenue_model.dart';
 import 'package:gymgeni/repository/finance_repo.dart';
 import 'package:gymgeni/utils/constant.dart';
 import 'package:gymgeni/utils/errorstrings.dart';
@@ -11,6 +12,9 @@ import '../model/finance_pending_model.dart';
 class FinanceViewmodel extends GetxController
     with GetSingleTickerProviderStateMixin {
   RxBool isAllFinanceDataLoading = false.obs;
+  RxBool isTodayRevenueLoading = false.obs;
+  RxBool isWeeklyRevenueLoading = false.obs;
+  RxBool isMonthlyRevenueLoading = false.obs;
   RxBool isPendingFinanceDataLoading = false.obs;
   RxBool isTodayDataLoading = false.obs;
   RxBool isDataLoading = false.obs;
@@ -25,6 +29,9 @@ class FinanceViewmodel extends GetxController
   RxList<Payments> allFinanceList = <Payments>[].obs;
   RxList<Payments> pendingFinanceList = <Payments>[].obs;
   RxList<SalesDetails> todayFinanceList = <SalesDetails>[].obs;
+  Rx<RevenueData> todayRevenueData = RevenueData().obs;
+  Rx<RevenueData> weeklyRevenueData = RevenueData().obs;
+  Rx<RevenueData> monthlyRevenueData = RevenueData().obs;
   List<String> columns = [
     'Name',
     'Plan',
@@ -39,6 +46,12 @@ class FinanceViewmodel extends GetxController
   @override
   void onInit() {
     tabController = TabController(length: tabs.length, vsync: this);
+    getAllFinanceData();
+    getPendingFinanceData();
+    getTodayFinanceData();
+    getMonthlyRevenueData();
+    getTodayRevenueData();
+    getWeeklyRevenueData();
     super.onInit();
   }
 
@@ -57,6 +70,60 @@ class FinanceViewmodel extends GetxController
       }
     } finally {
       isAllFinanceDataLoading.value = false;
+    }
+  }
+
+  void getTodayRevenueData() async {
+    isTodayRevenueLoading.value = true;
+    try {
+      var res = await financeRepo.getTotalRevenueData();
+      if (res.status == success) {
+        todayRevenueData.value = res.data ?? RevenueData();
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isTodayRevenueLoading.value = false;
+    }
+  }
+
+  void getWeeklyRevenueData() async {
+    isWeeklyRevenueLoading.value = true;
+    try {
+      var res = await financeRepo.getWeeklyRevenueData();
+      if (res.status == success) {
+        weeklyRevenueData.value = res.data ?? RevenueData();
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isWeeklyRevenueLoading.value = false;
+    }
+  }
+
+  void getMonthlyRevenueData() async {
+    isMonthlyRevenueLoading.value = true;
+    try {
+      var res = await financeRepo.getMonthlyRevenueData();
+      if (res.status == success) {
+        monthlyRevenueData.value = res.data ?? RevenueData();
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isMonthlyRevenueLoading.value = false;
     }
   }
 
@@ -79,10 +146,10 @@ class FinanceViewmodel extends GetxController
   }
 
   void getTodayFinanceData() async {
-    String dateee = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    // String dateee = DateFormat('yyyy-MM-dd').format(DateTime.now());
     isTodayDataLoading.value = true;
     try {
-      var res = await financeRepo.getTodayFinanceData(dateee: dateee);
+      var res = await financeRepo.getTodayFinanceData();
       if (res.status == success) {
         todayFinanceList.value = res.data?.salesDetails ?? [];
       } else {

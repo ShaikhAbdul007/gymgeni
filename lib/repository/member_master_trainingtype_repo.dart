@@ -4,10 +4,10 @@ import '../module/member_master/member_trainingtype/model/member_addtrainingtype
 import '../module/member_master/member_trainingtype/model/member_alltrainingtype_model.dart';
 import '../module/member_master/member_trainingtype/model/member_updatetrainingtype_model.dart';
 
-class TraingTypeRepo {
+class TrainingTypeRepo {
   final networking = Networking();
 
-  Future<MemberAddtrainingTypeModel> addNewTraingTypeMode(
+  Future<MemberAddTrainingTypeModel> addNewTrainingTypeMode(
     Map<String, dynamic> body,
   ) async {
     try {
@@ -15,24 +15,24 @@ class TraingTypeRepo {
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.createTrainingType}',
         body: body,
       );
-      return MemberAddtrainingTypeModel.fromJson(res);
+      return MemberAddTrainingTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAddTrainingTypeModel(status: false, message: e.toString());
     }
   }
 
-  Future<MemberAllTrainingTypeModel> getTraingTypeMode() async {
+  Future<MemberAllTrainingTypeModel> getTrainingTypeMode() async {
     try {
       var res = await networking.getData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.getTrainingType}',
       );
       return MemberAllTrainingTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAllTrainingTypeModel(status: false, message: e.toString());
     }
   }
 
-  Future<MemberUpdatetrainingTypeModel> updateTraingTypeMode(
+  Future<MemberUpdateTrainingTypeModel> updateTrainingTypeMode(
     Map<String, dynamic> body,
   ) async {
     try {
@@ -40,13 +40,16 @@ class TraingTypeRepo {
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.updateTrainingType}',
         body: body,
       );
-      return MemberUpdatetrainingTypeModel.fromJson(res);
+      return MemberUpdateTrainingTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberUpdateTrainingTypeModel(
+        status: false,
+        message: e.toString(),
+      );
     }
   }
 
-  Future<MemberUpdatetrainingTypeModel> deleteTraingTypeMode(
+  Future<MemberUpdateTrainingTypeModel> deleteTrainingTypeMode(
     Map<String, dynamic> body,
   ) async {
     try {
@@ -54,9 +57,12 @@ class TraingTypeRepo {
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deleteTrainingType}',
         body: body,
       );
-      return MemberUpdatetrainingTypeModel.fromJson(res);
+      return MemberUpdateTrainingTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberUpdateTrainingTypeModel(
+        status: false,
+        message: e.toString(),
+      );
     }
   }
 }

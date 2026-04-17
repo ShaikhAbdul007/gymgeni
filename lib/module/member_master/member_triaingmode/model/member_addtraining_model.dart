@@ -1,15 +1,15 @@
-class MemberAddtrainingModel {
+class MemberAddTrainingModel {
   final bool? status;
   final String? message;
   final MemberAddtrainingData? memberAddtrainingData;
-  MemberAddtrainingModel({
+  MemberAddTrainingModel({
     this.memberAddtrainingData,
     this.message,
     this.status,
   });
 
-  factory MemberAddtrainingModel.fromJson(Map<String, dynamic> json) {
-    return MemberAddtrainingModel(
+  factory MemberAddTrainingModel.fromJson(Map<String, dynamic> json) {
+    return MemberAddTrainingModel(
       memberAddtrainingData: MemberAddtrainingData.fromJson(json['data'] ?? {}),
       message: json['msg'],
       status: json['success'] ?? false,

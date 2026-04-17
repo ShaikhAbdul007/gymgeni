@@ -2,7 +2,7 @@ import 'package:gymgeni/module/dashboard/model/recent_acitivity_model.dart';
 import '../data/apiendpoint.dart';
 import '../data/networking.dart';
 
-class RecentActivitesRepo {
+class RecentActivitiesRepo {
   final networking = Networking();
 
   Future<RecentActivityModel> getRecentActivities() async {
@@ -12,7 +12,7 @@ class RecentActivitesRepo {
       );
       return RecentActivityModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return RecentActivityModel(status: false, message: e.toString());
     }
   }
 }

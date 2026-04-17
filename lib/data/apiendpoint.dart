@@ -125,11 +125,15 @@ class ApiEndPoint {
   static final String employeeAttendance = "employee-attendance";
 
   // ---------------- SALES ----------------
-  static final String getTodaySales = "sales/today?date=";
+  static final String getTodaySales = "sales/today";
 
   // ---------------- PAYMENT ----------------
   static final String getAllPayments = "payments";
   static final String getPendingPayments = "payments/pending";
+  static final String revenueWeekly = "revenue/weekly";
+  static final String revenueMonthly = "revenue/monthly";
+  static final String revenueTotal = "revenue/total";
+  static final String revenueToday = "revenue/today";
 
   // payment modes
   static final String getPaymentModes = "payment-modes";
@@ -138,7 +142,7 @@ class ApiEndPoint {
   static final String deletePaymentModes = "payment-modes";
 
   // payment status (failed / pending)
-  static final String paymentStatus = "payments/pending";
+  //static final String paymentStatus = "payments/pending";
 
   //Dashboard
   static final String dashboardStats = 'dashboard/stats';

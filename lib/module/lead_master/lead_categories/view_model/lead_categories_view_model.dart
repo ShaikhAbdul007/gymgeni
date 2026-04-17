@@ -134,7 +134,7 @@ class LeadCategoriesViewModel extends GetxController {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {
-      var res = await leadMasterCategoryRepo.deletLeadMasterCategory(body);
+      var res = await leadMasterCategoryRepo.deleteLeadMasterCategory(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,

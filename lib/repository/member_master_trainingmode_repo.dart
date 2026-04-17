@@ -8,7 +8,7 @@ import '../module/member_master/member_triaingmode/model/member_updatetraining_m
 class TraingModeRepo {
   final networking = Networking();
 
-  Future<MemberAddtrainingModel> addNewTraingMode(
+  Future<MemberAddTrainingModel> addNewTrainingMode(
     Map<String, dynamic> body,
   ) async {
     try {
@@ -17,24 +17,24 @@ class TraingModeRepo {
             '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.createTrainingModeEndPoint}',
         body: body,
       );
-      return MemberAddtrainingModel.fromJson(res);
+      return MemberAddTrainingModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAddTrainingModel(status: false, message: e.toString());
     }
   }
 
-  Future<MemberAllTrainingModel> getTraingMode() async {
+  Future<MemberAllTrainingModel> getTrainingMode() async {
     try {
       var res = await networking.getData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.getTrainingMode}',
       );
       return MemberAllTrainingModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAllTrainingModel(status: false, message: e.toString());
     }
   }
 
-  Future<MemberAllTrainingUpdateModel> updateTraingMode(
+  Future<MemberAllTrainingUpdateModel> updateTrainingMode(
     Map<String, dynamic> body,
   ) async {
     try {
@@ -44,11 +44,11 @@ class TraingModeRepo {
       );
       return MemberAllTrainingUpdateModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAllTrainingUpdateModel(status: false, message: e.toString());
     }
   }
 
-  Future<MemberAllTrainingUpdateModel> deleteTraingMode(
+  Future<MemberAllTrainingUpdateModel> deleteTrainingMode(
     Map<String, dynamic> body,
   ) async {
     try {
@@ -58,7 +58,7 @@ class TraingModeRepo {
       );
       return MemberAllTrainingUpdateModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAllTrainingUpdateModel(status: false, message: e.toString());
     }
   }
 }

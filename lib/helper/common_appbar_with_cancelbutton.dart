@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../utils/text_style.dart';
 import 'svg_assetes.dart';
 
-class CommonAppbarWithCancelbutton extends StatelessWidget {
+class CommonAppBarWithCancelButton extends StatelessWidget {
   final String headerLabel;
   final void Function() cancelOnPress;
-  const CommonAppbarWithCancelbutton({
+  const CommonAppBarWithCancelButton({
     super.key,
     required this.headerLabel,
     required this.cancelOnPress,

@@ -38,6 +38,8 @@ class MemberDesktop extends StatelessWidget {
       tabBarChildren: [
         Obx(
           () => AllMemberWidget(
+            deleteOnTap: () {},
+            editOnTap: () {},
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
@@ -48,6 +50,8 @@ class MemberDesktop extends StatelessWidget {
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            deleteOnTap: () {},
+            editOnTap: () {},
           ),
         ),
         Obx(
@@ -62,6 +66,8 @@ class MemberDesktop extends StatelessWidget {
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            deleteOnTap: () {},
+            editOnTap: () {},
           ),
         ),
         Obx(
@@ -69,6 +75,8 @@ class MemberDesktop extends StatelessWidget {
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            deleteOnTap: () {},
+            editOnTap: () {},
           ),
         ),
         Obx(
@@ -76,6 +84,8 @@ class MemberDesktop extends StatelessWidget {
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            deleteOnTap: () {},
+            editOnTap: () {},
           ),
         ),
         MemberMasterView(),

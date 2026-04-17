@@ -13,7 +13,7 @@ class DashboardRepo {
       );
       return DashboardModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return DashboardModel(status: false, message: e.toString());
     }
   }
 }

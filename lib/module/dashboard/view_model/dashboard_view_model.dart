@@ -13,7 +13,7 @@ import '../model/dashboard_business_overall_componenet_model.dart';
 
 class DashboardViewModel extends GetxController {
   final dashBoardRepo = DashboardRepo();
-  final recentActivitesRepo = RecentActivitesRepo();
+  final recentActivitesRepo = RecentActivitiesRepo();
   final expiryMemberRepo = ExpiryMemberRepo();
   final pieStatsRepo = PieStatsRepo();
   final RxString hoverRoute = ''.obs;

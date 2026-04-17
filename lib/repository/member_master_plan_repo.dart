@@ -16,7 +16,7 @@ class PlanRepo {
       );
       return MemberAddPlanModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAddPlanModel(status: false, message: e.toString());
     }
   }
 
@@ -27,7 +27,7 @@ class PlanRepo {
       );
       return MemberAllPlanModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAllPlanModel(status: false, message: e.toString());
     }
   }
 
@@ -39,7 +39,7 @@ class PlanRepo {
       );
       return MemberUpdatePlanModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberUpdatePlanModel(status: false, message: e.toString());
     }
   }
 
@@ -51,7 +51,7 @@ class PlanRepo {
       );
       return MemberUpdatePlanModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberUpdatePlanModel(status: false, message: e.toString());
     }
   }
 }

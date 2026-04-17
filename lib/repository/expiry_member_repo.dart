@@ -12,7 +12,7 @@ class ExpiryMemberRepo {
       );
       return ExpiryMemberModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return ExpiryMemberModel(status: false, message: e.toString());
     }
   }
 }

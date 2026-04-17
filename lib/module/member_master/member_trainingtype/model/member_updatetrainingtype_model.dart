@@ -1,15 +1,15 @@
-class MemberUpdatetrainingTypeModel {
+class MemberUpdateTrainingTypeModel {
   final bool? status;
   final String? message;
   final MemberUpdatetrainingTypeData? memberAddGroupData;
-  MemberUpdatetrainingTypeModel({
+  MemberUpdateTrainingTypeModel({
     this.memberAddGroupData,
     this.message,
     this.status,
   });
 
-  factory MemberUpdatetrainingTypeModel.fromJson(Map<String, dynamic> json) {
-    return MemberUpdatetrainingTypeModel(
+  factory MemberUpdateTrainingTypeModel.fromJson(Map<String, dynamic> json) {
+    return MemberUpdateTrainingTypeModel(
       memberAddGroupData: MemberUpdatetrainingTypeData.fromJson(
         json['data'] ?? {},
       ),

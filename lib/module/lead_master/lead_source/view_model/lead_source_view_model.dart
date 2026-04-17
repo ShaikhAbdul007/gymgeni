@@ -129,7 +129,7 @@ class LeadSourceViewModel extends GetxController {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {
-      var res = await sourceRepo.deletSource(body);
+      var res = await sourceRepo.deleteSource(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,

@@ -14,7 +14,7 @@ class LeadMasterCategoryRepo {
       );
       return LeadCategoryModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return LeadCategoryModel(status: false, message: e.toString());
     }
   }
 
@@ -26,7 +26,7 @@ class LeadMasterCategoryRepo {
       );
       return AddUpdateLeadCategoryModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateLeadCategoryModel(status: false, message: e.toString());
     }
   }
 
@@ -40,11 +40,11 @@ class LeadMasterCategoryRepo {
       );
       return AddUpdateLeadCategoryModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateLeadCategoryModel(status: false, message: e.toString());
     }
   }
 
-  Future<AddUpdateLeadCategoryModel> deletLeadMasterCategory(
+  Future<AddUpdateLeadCategoryModel> deleteLeadMasterCategory(
     dynamic body,
   ) async {
     try {
@@ -54,7 +54,7 @@ class LeadMasterCategoryRepo {
       );
       return AddUpdateLeadCategoryModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateLeadCategoryModel(status: false, message: e.toString());
     }
   }
 }

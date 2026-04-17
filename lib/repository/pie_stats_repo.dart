@@ -12,7 +12,7 @@ class PieStatsRepo {
       );
       return PieStatsModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return PieStatsModel(status: false, message: e.toString());
     }
   }
 }

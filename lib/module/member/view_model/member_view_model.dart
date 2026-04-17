@@ -30,7 +30,7 @@ class MemberViewModel extends GetxController
   final goalRepo = GoalRepo();
   final planRepo = PlanRepo();
   final group = GroupRepo();
-  final traingTypeRepo = TraingTypeRepo();
+  final traingTypeRepo = TrainingTypeRepo();
   final traingModeRepo = TraingModeRepo();
   final memberRepo = MemberRepo();
   final sources = SourceRepo();
@@ -353,7 +353,7 @@ class MemberViewModel extends GetxController
   void getTraingTypeData() async {
     isDropDownLoading.value = true;
     try {
-      var res = await traingTypeRepo.getTraingTypeMode();
+      var res = await traingTypeRepo.getTrainingTypeMode();
       if (res.status == success) {
         trainingTypeList.value = res.memberAllTrainingTypeData ?? [];
       } else {
@@ -371,7 +371,7 @@ class MemberViewModel extends GetxController
   void getTraingModeData() async {
     isDropDownLoading.value = true;
     try {
-      var res = await traingModeRepo.getTraingMode();
+      var res = await traingModeRepo.getTrainingMode();
       if (res.status == success) {
         trainingModeList.value = res.memberAllTrainingData ?? [];
       } else {

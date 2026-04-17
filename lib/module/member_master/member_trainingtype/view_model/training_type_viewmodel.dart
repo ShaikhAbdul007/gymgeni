@@ -6,7 +6,7 @@ import '../../../../repository/member_master_trainingtype_repo.dart';
 import '../model/member_alltrainingtype_model.dart';
 
 class TrainingTypeViewmodel extends GetxController {
-  final memberTraingTypeRepo = TraingTypeRepo();
+  final memberTraingTypeRepo = TrainingTypeRepo();
   TextEditingController newTrainingController = TextEditingController();
   TextEditingController searchController = TextEditingController();
   RxBool isAddLoading = false.obs;
@@ -35,7 +35,7 @@ class TrainingTypeViewmodel extends GetxController {
   getTraingMode() async {
     isdataLoading.value = true;
     try {
-      var res = await memberTraingTypeRepo.getTraingTypeMode();
+      var res = await memberTraingTypeRepo.getTrainingTypeMode();
       if (res.status == success) {
         trainingType.value = res.memberAllTrainingTypeData ?? [];
       } else if (res.status == failed) {
@@ -62,7 +62,7 @@ class TrainingTypeViewmodel extends GetxController {
     isAddLoading.value = true;
     Map<String, dynamic> body = {"name": newTrainingController.text.trim()};
     try {
-      var res = await memberTraingTypeRepo.addNewTraingTypeMode(body);
+      var res = await memberTraingTypeRepo.addNewTrainingTypeMode(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,
@@ -102,7 +102,7 @@ class TrainingTypeViewmodel extends GetxController {
       "id": id,
     };
     try {
-      var res = await memberTraingTypeRepo.updateTraingTypeMode(body);
+      var res = await memberTraingTypeRepo.updateTrainingTypeMode(body);
       Constant.customPrintLog(res);
       if (res.status == success) {
         Constant.showSnackBar(
@@ -140,7 +140,7 @@ class TrainingTypeViewmodel extends GetxController {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {
-      var res = await memberTraingTypeRepo.deleteTraingTypeMode(body);
+      var res = await memberTraingTypeRepo.deleteTrainingTypeMode(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,

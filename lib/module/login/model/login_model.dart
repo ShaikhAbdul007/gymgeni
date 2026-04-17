@@ -1,20 +1,20 @@
 class LoginModel {
-  bool? success;
+  bool? status;
   String? message;
   LoginData? loginData;
 
-  LoginModel({this.success, this.message, this.loginData});
+  LoginModel({this.status, this.message, this.loginData});
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
       loginData: LoginData.fromJson(json['data'] ?? {}),
       message: json['msg'],
-      success: json['success'] ?? false,
+      status: json['success'] ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {'status': success, 'msg': message, 'data': loginData?.toJson()};
+    return {'status': status, 'msg': message, 'data': loginData?.toJson()};
   }
 }
 

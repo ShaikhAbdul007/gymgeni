@@ -122,7 +122,7 @@ class FinanceMasterPaymentViewModel extends GetxController {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {
-      var res = await financePaymentMethodRepo.deletFinancePaymentMethod(body);
+      var res = await financePaymentMethodRepo.deleteFinancePaymentMethod(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,

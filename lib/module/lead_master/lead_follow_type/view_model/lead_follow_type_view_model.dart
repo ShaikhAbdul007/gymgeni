@@ -136,7 +136,7 @@ class LeadFollowTypeViewModel extends GetxController {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {
-      var res = await leadFollowTypeRepo.deletLeadMasterFollowType(body);
+      var res = await leadFollowTypeRepo.deleteLeadMasterFollowType(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: Get.context!,

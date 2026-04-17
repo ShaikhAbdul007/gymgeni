@@ -17,7 +17,7 @@ class MemberRepo {
       );
       return MembersModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MembersModel(status: false, message: e.toString());
     }
   }
 
@@ -39,7 +39,7 @@ class MemberRepo {
       );
       return CreateMemberModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return CreateMemberModel(status: false, message: e.toString());
     }
   }
 }

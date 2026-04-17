@@ -48,7 +48,7 @@ class CommonAddNewPlanWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           setHeight(height: 20),
-          CommonAppbarWithCancelbutton(
+          CommonAppBarWithCancelButton(
             headerLabel: headerLabel,
             cancelOnPress: cancelOnPress,
           ),

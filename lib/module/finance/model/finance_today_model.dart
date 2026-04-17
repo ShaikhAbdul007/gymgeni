@@ -1,11 +1,11 @@
-class TodayFinanceModel {
+class TodaySaleModel {
   bool? status;
   String? message;
   TodayFinanceData? data;
 
-  TodayFinanceModel({this.status, this.message, this.data});
+  TodaySaleModel({this.status, this.message, this.data});
 
-  TodayFinanceModel.fromJson(Map<String, dynamic> json) {
+  TodaySaleModel.fromJson(Map<String, dynamic> json) {
     status = json['success'];
     message = json['msg'];
     data =

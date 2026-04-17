@@ -14,7 +14,7 @@ class SourceRepo {
       );
       return LeadSourceModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return LeadSourceModel(status: false, message: e.toString());
     }
   }
 
@@ -26,7 +26,7 @@ class SourceRepo {
       );
       return AddUpdateSourceModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateSourceModel(status: false, message: e.toString());
     }
   }
 
@@ -38,11 +38,11 @@ class SourceRepo {
       );
       return AddUpdateSourceModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateSourceModel(status: false, message: e.toString());
     }
   }
 
-  Future<AddUpdateSourceModel> deletSource(dynamic body) async {
+  Future<AddUpdateSourceModel> deleteSource(dynamic body) async {
     try {
       var res = await networking.deleteData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deleteLeadSource}',
@@ -50,7 +50,7 @@ class SourceRepo {
       );
       return AddUpdateSourceModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateSourceModel(status: false, message: e.toString());
     }
   }
 }

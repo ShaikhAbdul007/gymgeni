@@ -15,7 +15,7 @@ class GoalRepo {
       );
       return MemberAddGoalModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAddGoalModel(status: false, message: e.toString());
     }
   }
 
@@ -26,7 +26,7 @@ class GoalRepo {
       );
       return MemberAllGoalModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAllGoalModel(status: false, message: e.toString());
     }
   }
 
@@ -38,7 +38,7 @@ class GoalRepo {
       );
       return MemberUpdateGoalModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberUpdateGoalModel(status: false, message: e.toString());
     }
   }
 
@@ -50,7 +50,7 @@ class GoalRepo {
       );
       return MemberUpdateGoalModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberUpdateGoalModel(status: false, message: e.toString());
     }
   }
 }

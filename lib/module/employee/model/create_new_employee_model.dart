@@ -1,11 +1,11 @@
-class CreatNewEmployeeModel {
+class CreateNewEmployeeModel {
   bool? status;
   String? message;
   CreatNewEmployeeData? data;
 
-  CreatNewEmployeeModel({this.status, this.message, this.data});
+  CreateNewEmployeeModel({this.status, this.message, this.data});
 
-  CreatNewEmployeeModel.fromJson(Map<String, dynamic> json) {
+  CreateNewEmployeeModel.fromJson(Map<String, dynamic> json) {
     status = json['success'];
     message = json['msg'];
     data =

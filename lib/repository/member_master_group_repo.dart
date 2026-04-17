@@ -16,7 +16,7 @@ class GroupRepo {
       );
       return MemberAddGroupModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAddGroupModel(status: false, message: e.toString());
     }
   }
 
@@ -27,7 +27,7 @@ class GroupRepo {
       );
       return MemberAllGroupModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberAllGroupModel(status: false, message: e.toString());
     }
   }
 
@@ -39,7 +39,7 @@ class GroupRepo {
       );
       return MemberUpdateGroupModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberUpdateGroupModel(status: false, message: e.toString());
     }
   }
 
@@ -51,7 +51,7 @@ class GroupRepo {
       );
       return MemberUpdateGroupModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return MemberUpdateGroupModel(status: false, message: e.toString());
     }
   }
 }

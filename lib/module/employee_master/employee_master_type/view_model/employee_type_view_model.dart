@@ -136,7 +136,7 @@ class EmployeeTypeViewModel extends GetxController {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {
-      var res = await employeeTypeRepo.deletemployeeType(body);
+      var res = await employeeTypeRepo.deleteEmployeeType(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,

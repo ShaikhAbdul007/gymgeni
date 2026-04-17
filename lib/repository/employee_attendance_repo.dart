@@ -13,7 +13,7 @@ class EmployeeAttendanceRepo {
       );
       return EmployeeAttendanceModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return EmployeeAttendanceModel(status: false, message: e.toString());
     }
   }
 

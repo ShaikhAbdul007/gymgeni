@@ -6,15 +6,16 @@ import '../data/apiendpoint.dart';
 class UserRepository {
   final networking = Networking();
 
-  Future<UserDataModel> getUserData() async {
+  Future<UserDataModel> getUserData({required dynamic body}) async {
     try {
-      var res = await networking.getData(
+      var res = await networking.postData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.userData}',
+        body: body,
       );
       var response = UserDataModel.fromJson(res);
       return response;
     } catch (e) {
-      return throw (e);
+      return UserDataModel(status: false, message: e.toString());
     }
   }
 }

@@ -17,7 +17,7 @@ class LeadRepo {
       );
       return AllLeadModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AllLeadModel(status: false, message: e.toString());
     }
   }
 
@@ -37,11 +37,11 @@ class LeadRepo {
         fileField: fileField ?? '',
         fileName: fileName ?? '',
       );
-      var ress = AddLeadModel.fromJson(res);
-      Constant.customPrintLog('res is from multipart $ress');
-      return ress;
+      var leadModelRes = AddLeadModel.fromJson(res);
+      Constant.customPrintLog('res is from multipart $leadModelRes');
+      return leadModelRes;
     } catch (e) {
-      return throw (e);
+      return AddLeadModel(status: false, message: e.toString());
     }
   }
 }

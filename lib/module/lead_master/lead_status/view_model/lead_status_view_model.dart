@@ -125,7 +125,7 @@ class LeadStatusViewModel extends GetxController {
     isDeleteLoading.value = true;
     Map<String, dynamic> body = {"id": id};
     try {
-      var res = await leadStatusRepo.deletLeadStatus(body);
+      var res = await leadStatusRepo.deleteLeadStatus(body);
       if (res.status == success) {
         Constant.showSnackBar(
           context: context,

@@ -14,7 +14,7 @@ class FinancePaymentMethodRepo {
       );
       return AllPaymentModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AllPaymentModel(status: false, message: e.toString());
     }
   }
 
@@ -26,7 +26,7 @@ class FinancePaymentMethodRepo {
       );
       return AddUpdatePaymentModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdatePaymentModel(status: false, message: e.toString());
     }
   }
 
@@ -38,11 +38,11 @@ class FinancePaymentMethodRepo {
       );
       return AddUpdatePaymentModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdatePaymentModel(status: false, message: e.toString());
     }
   }
 
-  Future<AddUpdatePaymentModel> deletFinancePaymentMethod(dynamic body) async {
+  Future<AddUpdatePaymentModel> deleteFinancePaymentMethod(dynamic body) async {
     try {
       var res = await networking.deleteData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deletePaymentModes}',
@@ -50,7 +50,7 @@ class FinancePaymentMethodRepo {
       );
       return AddUpdatePaymentModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdatePaymentModel(status: false, message: e.toString());
     }
   }
 }

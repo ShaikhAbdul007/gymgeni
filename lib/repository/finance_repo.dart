@@ -1,3 +1,4 @@
+import 'package:gymgeni/module/finance/model/revenue_model.dart';
 import '../data/apiendpoint.dart';
 import '../data/networking.dart';
 import '../module/finance/model/finance_pending_model.dart';
@@ -13,7 +14,7 @@ class FinanceRepo {
       );
       return FinanceModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return FinanceModel(status: false, message: e.toString());
     }
   }
 
@@ -24,20 +25,62 @@ class FinanceRepo {
       );
       return FinanceModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return FinanceModel(status: false, message: e.toString());
     }
   }
 
-  Future<TodayFinanceModel> getTodayFinanceData({
-    required String dateee,
-  }) async {
+  Future<TodaySaleModel> getTodayFinanceData() async {
     try {
       var res = await networking.getData(
-        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.getTodaySales}$dateee',
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.getTodaySales}',
       );
-      return TodayFinanceModel.fromJson(res);
+      return TodaySaleModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return TodaySaleModel(status: false, message: e.toString());
+    }
+  }
+
+  Future<RevenueModel> getTodayRevenueData() async {
+    try {
+      var res = await networking.getData(
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.revenueToday}',
+      );
+      return RevenueModel.fromJson(res);
+    } catch (e) {
+      return RevenueModel(status: false, message: e.toString());
+    }
+  }
+
+  Future<RevenueModel> getWeeklyRevenueData() async {
+    try {
+      var res = await networking.getData(
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.revenueWeekly}',
+      );
+      return RevenueModel.fromJson(res);
+    } catch (e) {
+      return RevenueModel(status: false, message: e.toString());
+    }
+  }
+
+  Future<RevenueModel> getMonthlyRevenueData() async {
+    try {
+      var res = await networking.getData(
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.revenueMonthly}',
+      );
+      return RevenueModel.fromJson(res);
+    } catch (e) {
+      return RevenueModel(status: false, message: e.toString());
+    }
+  }
+
+  Future<RevenueModel> getTotalRevenueData() async {
+    try {
+      var res = await networking.getData(
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.revenueTotal}',
+      );
+      return RevenueModel.fromJson(res);
+    } catch (e) {
+      return RevenueModel(status: false, message: e.toString());
     }
   }
 }

@@ -15,7 +15,7 @@ class LoginRepo {
       var response = LoginModel.fromJson(res);
       return response;
     } catch (e) {
-      return throw (e);
+      return LoginModel(status: false, message: e.toString());
     }
   }
 }

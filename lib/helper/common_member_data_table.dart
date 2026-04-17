@@ -12,6 +12,7 @@ import 'common_action.dart';
 class CommonMemberDataTable extends StatelessWidget {
   final List<String> columnNames;
   final List<Members> members;
+  final List<Widget>? actionButtons;
   final VoidCallback? deleteOnTap;
   final VoidCallback? editOnTap;
   final bool isDataLoading;
@@ -20,6 +21,7 @@ class CommonMemberDataTable extends StatelessWidget {
     super.key,
     required this.columnNames,
     required this.members,
+    this.actionButtons,
     this.deleteOnTap,
     this.editOnTap,
     required this.isDataLoading,
@@ -152,6 +154,7 @@ class CommonMemberDataTable extends StatelessWidget {
                               CommonAction(
                                 deleteOnTap: deleteOnTap ?? () {},
                                 editOnTap: editOnTap ?? () {},
+                                actionButtons: actionButtons ?? [],
                               ),
                             ),
                           ],

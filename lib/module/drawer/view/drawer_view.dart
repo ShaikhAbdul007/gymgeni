@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/helper/common_progress_bar.dart';
+import 'package:gymgeni/helper/svg_assetes.dart';
 import 'package:gymgeni/utils/sizebox.dart';
 import '../../../utils/colors.dart';
 import '../../../utils/text_style.dart';
@@ -25,9 +27,22 @@ class CustomDrawer extends GetView {
           Expanded(
             child: CircleAvatar(
               radius: 50,
-              child: Text('Ab', style: customNato(fontSize: 25)),
+              child: Obx(
+                () =>
+                    controller.isUserDataLoading.value
+                        ? CommonProgressBar(
+                          circularProgressColor: AppColors.blackColor,
+                        )
+                        : CustomNetworkOrAssetImage(
+                          svgAssets: controller.userData.value.gymImage ?? '',
+                          height: 80,
+                          width: 80,
+                          isNetworkAssets: true,
+                        ),
+              ),
             ),
           ),
+
           Expanded(
             flex: 4,
             child: ListView.builder(

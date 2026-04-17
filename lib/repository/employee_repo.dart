@@ -17,11 +17,11 @@ class EmployeeRepo {
       );
       return AllEmployeeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AllEmployeeModel(status: false, message: e.toString());
     }
   }
 
-  Future<CreatNewEmployeeModel> signUpFun({
+  Future<CreateNewEmployeeModel> signUpFun({
     required Map<String, String> body,
     File? file,
     Uint8List? fileBytes,
@@ -37,11 +37,11 @@ class EmployeeRepo {
         fileField: fileField ?? '',
         fileName: fileName ?? '',
       );
-      var ress = CreatNewEmployeeModel.fromJson(res);
-      Constant.customPrintLog(ress);
-      return ress;
+      var employeeModelRes = CreateNewEmployeeModel.fromJson(res);
+      Constant.customPrintLog(employeeModelRes);
+      return employeeModelRes;
     } catch (e) {
-      return throw (e);
+      return CreateNewEmployeeModel(status: false, message: e.toString());
     }
   }
 

@@ -13,7 +13,7 @@ class LeadMasterFollowTypeRepo {
       );
       return LeadFollowUpTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return LeadFollowUpTypeModel(status: false, message: e.toString());
     }
   }
 
@@ -27,7 +27,10 @@ class LeadMasterFollowTypeRepo {
       );
       return AddUpdateLeadFollowUpTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateLeadFollowUpTypeModel(
+        status: false,
+        message: e.toString(),
+      );
     }
   }
 
@@ -41,11 +44,14 @@ class LeadMasterFollowTypeRepo {
       );
       return AddUpdateLeadFollowUpTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateLeadFollowUpTypeModel(
+        status: false,
+        message: e.toString(),
+      );
     }
   }
 
-  Future<AddUpdateLeadFollowUpTypeModel> deletLeadMasterFollowType(
+  Future<AddUpdateLeadFollowUpTypeModel> deleteLeadMasterFollowType(
     dynamic body,
   ) async {
     try {
@@ -55,7 +61,10 @@ class LeadMasterFollowTypeRepo {
       );
       return AddUpdateLeadFollowUpTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return AddUpdateLeadFollowUpTypeModel(
+        status: false,
+        message: e.toString(),
+      );
     }
   }
 }

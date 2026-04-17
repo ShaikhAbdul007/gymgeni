@@ -19,12 +19,12 @@ class CreateNewMember extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: creatMemberKey,
+      key: createMemberKey,
       child: ListView(
         shrinkWrap: true,
         children: [
           setHeight(height: 20),
-          CommonAppbarWithCancelbutton(
+          CommonAppBarWithCancelButton(
             headerLabel: 'New Member',
             cancelOnPress: () {
               Get.back();
@@ -65,7 +65,7 @@ class CreateNewMember extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             setHeight(height: 10),
-                            CommonAppbarWithCancelbutton(
+                            CommonAppBarWithCancelButton(
                               headerLabel: 'Select',
                               cancelOnPress: () {
                                 Get.back();
@@ -782,30 +782,30 @@ class CreateNewMember extends StatelessWidget {
                 width: 120,
                 label: 'Submit',
                 onPress: () {
-                  if (creatMemberKey.currentState!.validate()) {
-                    var name = '${controller.firstname}${controller.lastname}';
+                  if (createMemberKey.currentState!.validate()) {
+                    var name = '${controller.firstname.text} ${controller.lastname.text}';
                     var body = {
                       "name": name,
-                      "gender": controller.genderController,
-                      "mobile_number": controller.mobileNumber,
-                      "alternate_mobile": controller.alternateNumber,
-                      "email": controller.email,
-                      "age": controller.age,
-                      "plan_id": controller.planListController,
-                      "training_mode_id": controller.trainingModeListController,
-                      "training_type_id": controller.trainingTypeListController,
-                      "goal_id": controller.goalListController,
-                      "group_id": controller.groupListController,
-                      "source_id": controller.source,
-                      "joining_date": controller.joiningDate,
-                      "healthCondition": controller.healthCondition,
-                      "amount": controller.amountpaid,
-                      "address": controller.address,
-                      "balanceAmount": controller.balanceAmount,
-                      "balance_date": controller.pendingDate,
-                      "payment_mode": controller.paymentModeListController,
+                      "gender": controller.genderController.text,
+                      "mobile_number": controller.mobileNumber.text,
+                      "alternate_mobile": controller.alternateNumber.text,
+                      "email": controller.email.text,
+                      "age": controller.age.text,
+                      "plan_id": controller.planListController.text,
+                      "training_mode_id": controller.trainingModeListController.text,
+                      "training_type_id": controller.trainingTypeListController.text,
+                      "goal_id": controller.goalListController.text,
+                      "group_id": controller.groupListController.text,
+                      "source_id": controller.source.text,
+                      "joining_date": controller.joiningDate.text,
+                      "healthCondition": controller.healthCondition.text,
+                      "amount": controller.amountpaid.text,
+                      "address": controller.address.text,
+                      "balanceAmount": controller.balanceAmount.text,
+                      "balance_date": controller.pendingDate.text,
+                      "payment_mode": controller.paymentModeListController.text,
                       'image': '',
-                      'discount': controller.discount,
+                      'discount': controller.discount.text,
                     };
                     Constant.customPrintLog(body);
                   }

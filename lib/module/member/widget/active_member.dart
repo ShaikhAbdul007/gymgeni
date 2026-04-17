@@ -7,9 +7,13 @@ class ActiveMemberWidget extends StatelessWidget {
   final List<String> columnNames;
   final List<Members> members;
   final bool isDataLoading;
+  final VoidCallback deleteOnTap;
+  final VoidCallback editOnTap;
   const ActiveMemberWidget({
     super.key,
     required this.columnNames,
+     required this.deleteOnTap,
+     required this.editOnTap,
     required this.members,
     required this.isDataLoading,
   });
@@ -21,6 +25,8 @@ class ActiveMemberWidget extends StatelessWidget {
       isDataLoading: isDataLoading,
       columnNames: columnNames,
       members: members,
+      deleteOnTap: deleteOnTap,
+      editOnTap: editOnTap,
     );
   }
 }

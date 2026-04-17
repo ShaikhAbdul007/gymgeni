@@ -14,7 +14,7 @@ class EmployeeMasterEmployeeTypeRepo {
       );
       return EmployeeTypeModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return EmployeeTypeModel(status: false, message: e.toString());
     }
   }
 
@@ -26,7 +26,7 @@ class EmployeeMasterEmployeeTypeRepo {
       );
       return EmployeeTypeUpdateModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return EmployeeTypeUpdateModel(status: false, message: e.toString());
     }
   }
 
@@ -38,11 +38,11 @@ class EmployeeMasterEmployeeTypeRepo {
       );
       return EmployeeTypeUpdateModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return EmployeeTypeUpdateModel(status: false, message: e.toString());
     }
   }
 
-  Future<EmployeeTypeUpdateModel> deletemployeeType(dynamic body) async {
+  Future<EmployeeTypeUpdateModel> deleteEmployeeType(dynamic body) async {
     try {
       var res = await networking.deleteData(
         url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deleteEmployeeType}',
@@ -50,7 +50,7 @@ class EmployeeMasterEmployeeTypeRepo {
       );
       return EmployeeTypeUpdateModel.fromJson(res);
     } catch (e) {
-      return throw (e);
+      return EmployeeTypeUpdateModel(status: false, message: e.toString());
     }
   }
 }

@@ -26,31 +26,33 @@ class Desktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonBody(
-      tabBarChildren: [
-        AllFinancePayment(
-          columnNames: controller.columns,
-          isDataLoading: controller.isAllFinanceDataLoading.value,
-          paymentList: controller.allFinanceList,
-        ),
-        TodayFinancePayment(
-          columnNames: controller.columns,
-          isDataLoading: controller.isTodayDataLoading.value,
-          paymentList: controller.todayFinanceList,
-        ),
-        FinancePendingPayment(
-          columnNames: controller.columns,
-          isDataLoading: controller.isPendingFinanceDataLoading.value,
-          paymentList: controller.pendingFinanceList,
-        ),
-        FinanceMasterPaymentMethodView(),
-      ],
-      heading: 'Finance',
-      subHeading: 'Manage all your finances in one place',
-      buttonLabel: 'Add Payment',
-      buttonOnPress: () {},
-      tabs: controller.tabs,
-      tabController: controller.tabController,
+    return Obx(
+      ()=> CommonBody(
+        tabBarChildren: [
+          AllFinancePayment(
+            columnNames: controller.columns,
+            isDataLoading: controller.isAllFinanceDataLoading.value,
+            paymentList: controller.allFinanceList,
+          ),
+          TodayFinancePayment(
+            columnNames: controller.columns,
+            isDataLoading: controller.isTodayDataLoading.value,
+            paymentList: controller.todayFinanceList,
+          ),
+          FinancePendingPayment(
+            columnNames: controller.columns,
+            isDataLoading: controller.isPendingFinanceDataLoading.value,
+            paymentList: controller.pendingFinanceList,
+          ),
+          FinanceMasterPaymentMethodView(),
+        ],
+        heading: 'Finance',
+        subHeading: 'Manage all your finances in one place',
+        buttonLabel: 'Add Payment',
+        buttonOnPress: () {},
+        tabs: controller.tabs,
+        tabController: controller.tabController,
+      ),
     );
   }
 }

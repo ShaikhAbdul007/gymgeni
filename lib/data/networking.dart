@@ -16,7 +16,7 @@ class Networking extends BaseClient with CacheManager {
   factory Networking() => _instance;
   @override
   Future getData({required String url}) async {
-    dynamic jsonGetResposne;
+    dynamic jsonGetResponse;
     String? token;
     token = checkingTokenExpireOrNot();
     Constant.customPrintLog(''' url: $url ,token: $token''');
@@ -29,7 +29,7 @@ class Networking extends BaseClient with CacheManager {
         },
       );
 
-      jsonGetResposne = await fetchResponse(response);
+      jsonGetResponse = await fetchResponse(response);
     } on SocketException {
       return Future.error(internetError);
     } on HttpException {
@@ -37,7 +37,7 @@ class Networking extends BaseClient with CacheManager {
     } on Exception catch (e) {
       return Future.error(e);
     }
-    return jsonGetResposne;
+    return jsonGetResponse;
   }
 
   @override
@@ -71,6 +71,38 @@ class Networking extends BaseClient with CacheManager {
     return jsonPostResponse;
   }
 
+ @override
+  Future putData({
+    required String url,
+    required Map<String, dynamic> body,
+  }) async {
+    dynamic jsonPutResponse;
+    String? token;
+    token = checkingTokenExpireOrNot();
+    Constant.customPrintLog(''' url: $url ,body: $body,token: $token ''');
+    try {
+      var response = await http.put(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Accept': ApiEndPoint.accept,
+          'Content-Type': ApiEndPoint.contentType,
+          'Authorization': "Bearer $token",
+        },
+        body: body,
+      );
+
+      jsonPutResponse = await fetchResponse(response);
+    } on SocketException {
+      return Future.error(internetError);
+    } on HttpException {
+      return Future.error(httpError);
+    } on Exception catch (e) {
+      return Future.error(e);
+    }
+    return jsonPutResponse;
+  }
+
+
   @override
   Future deleteData({
     required String url,
@@ -102,37 +134,7 @@ class Networking extends BaseClient with CacheManager {
     return jsonDeleteResponse;
   }
 
-  @override
-  Future putData({
-    required String url,
-    required Map<String, dynamic> body,
-  }) async {
-    dynamic jsonPutResponse;
-    String? token;
-    token = checkingTokenExpireOrNot();
-    Constant.customPrintLog(''' url: $url ,body: $body,token: $token ''');
-    try {
-      var response = await http.put(
-        Uri.parse(url),
-        headers: <String, String>{
-          'Accept': ApiEndPoint.accept,
-          'Content-Type': ApiEndPoint.contentType,
-          'Authorization': "Bearer $token",
-        },
-        body: body,
-      );
-
-      jsonPutResponse = await fetchResponse(response);
-    } on SocketException {
-      return Future.error(internetError);
-    } on HttpException {
-      return Future.error(httpError);
-    } on Exception catch (e) {
-      return Future.error(e);
-    }
-    return jsonPutResponse;
-  }
-
+ 
   @override
   Future postMultipartRequestData({
     required String url,
@@ -216,7 +218,7 @@ class Networking extends BaseClient with CacheManager {
   }
 
   String? checkingTokenExpireOrNot() {
-    var token = retriveToken();
+    var token = retrieveToken();
     return token;
   }
 }

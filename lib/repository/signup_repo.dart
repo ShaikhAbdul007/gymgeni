@@ -25,11 +25,11 @@ class SignupRepo {
         fileField: fileField ?? '',
         fileName: fileName ?? '',
       );
-      var ress = SignupModel.fromJson(res);
-      Constant.customPrintLog(ress);
-      return ress;
+      var singUpRes = SignupModel.fromJson(res);
+      Constant.customPrintLog(singUpRes);
+      return singUpRes;
     } catch (e) {
-      return throw (e);
+      return SignupModel(status: false, message: e.toString());
     }
   }
 }
