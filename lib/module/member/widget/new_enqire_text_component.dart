@@ -14,6 +14,7 @@ class NewEnquireComponentWithDropDown extends StatelessWidget {
   final String? error;
   final bool isModelDropDownRequired;
   final String? hintText;
+  final dynamic selectedDropDownItem;
   const NewEnquireComponentWithDropDown({
     super.key,
     required this.label,
@@ -23,6 +24,7 @@ class NewEnquireComponentWithDropDown extends StatelessWidget {
     this.isModelDropDownRequired = false,
     this.error,
     this.hintText,
+    this.selectedDropDownItem,
   });
 
   @override
@@ -37,12 +39,14 @@ class NewEnquireComponentWithDropDown extends StatelessWidget {
           setHeight(height: 3),
           isModelDropDownRequired
               ? CustomDropDownWithModel(
+                selectedDropDownItem: selectedDropDownItem,
                 hintText: hintText,
                 error: error,
                 listItems: listItems,
                 notifyParent: notifyParent,
               )
               : CustomDropDown(
+                selectedDropDownItem: selectedDropDownItem,
                 hintText: hintText,
                 error: error,
                 listItems: listItems,

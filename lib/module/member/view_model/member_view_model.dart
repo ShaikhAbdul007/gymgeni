@@ -1,5 +1,4 @@
-import 'dart:async';
-import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gymgeni/repository/finance_payment_method_repo.dart';
@@ -10,7 +9,7 @@ import 'package:gymgeni/repository/member_master_trainingtype_repo.dart';
 import 'package:gymgeni/repository/member_repo.dart';
 import 'package:gymgeni/repository/source_repo.dart';
 import 'package:gymgeni/utils/errorstrings.dart';
-import 'package:web/web.dart' as webk;
+import 'package:image_picker/image_picker.dart';
 import '../../../repository/member_master_trainingmode_repo.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/keys.dart';
@@ -22,8 +21,6 @@ import '../../member_master/member_plan/model/member_allplan_model.dart';
 import '../../member_master/member_trainingtype/model/member_alltrainingtype_model.dart';
 import '../../member_master/member_triaingmode/model/member_alltraining_model.dart';
 import '../model/members_model.dart';
-import 'package:camera_web/camera_web.dart';
-import 'dart:typed_data';
 
 class MemberViewModel extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -91,8 +88,20 @@ class MemberViewModel extends GetxController
   final RxBool isDropDownLoading = false.obs;
   final RxBool isBMRClick = false.obs;
   final RxBool isCreateMembersLoading = false.obs;
+  final RxBool isEditMode = false.obs;
   Rx<Uint8List?> selectedImage = Rx<Uint8List?>(null);
+  Rxn<Members> editingMember = Rxn<Members>();
+  RxnString selectedGender = RxnString();
+  RxnString selectedPlanId = RxnString();
+  RxnString selectedGoalId = RxnString();
+  RxnString selectedTrainingModeId = RxnString();
+  RxnString selectedTrainingTypeId = RxnString();
+  RxnString selectedSourceId = RxnString();
+  RxnString selectedPaymentModeId = RxnString();
+  RxnString selectedGroupId = RxnString();
   RxString fileName = ''.obs;
+  final ImagePicker imagePicker = ImagePicker();
+  XFile? pickedImageFile;
 
   //Rx<CameraController?> cam = Rx<CameraController?>(null);
   RxBool isInitialized = false.obs;
@@ -169,45 +178,25 @@ class MemberViewModel extends GetxController
   }
 
   Future<void> _pickImage({required bool captureFromCamera}) async {
-    final input =
-        webk.HTMLInputElement()
-          ..type = 'file'
-          ..accept = 'image/*';
+    pickedImageFile = await imagePicker.pickImage(
+      source: captureFromCamera ? ImageSource.camera : ImageSource.gallery,
+    );
 
-    if (captureFromCamera) {
-      input.capture = "environment"; // or "user"
+    if (pickedImageFile == null) {
+      return;
     }
 
-    input.click();
+    fileName.value = pickedImageFile!.name;
+    final bytes = await pickedImageFile!.readAsBytes();
+    selectedImage.value = bytes;
 
-    final completer = Completer<Uint8List?>();
+    if (Get.isDialogOpen ?? false) {
+      Get.back();
+    }
 
-    input.onChange.listen((event) {
-      final file = input.files?.item(0);
-
-      if (file == null) {
-        completer.complete(null);
-        return;
-      }
-
-      fileName.value = file.name;
-
-      final reader = webk.FileReader();
-      reader.readAsArrayBuffer(file);
-
-      reader.onLoadEnd.listen((event) {
-        final buffer = reader.result as ByteBuffer?;
-
-        if (buffer == null) {
-          completer.complete(null);
-          return;
-        }
-
-        completer.complete(buffer.asUint8List());
-      });
-    });
-    Get.back();
-    selectedImage.value = await completer.future;
+    if (!kIsWeb) {
+      Constant.customPrintLog('Selected image path: ${pickedImageFile!.path}');
+    }
   }
 
   data() {
@@ -240,6 +229,196 @@ class MemberViewModel extends GetxController
 
   void closeDrawer() {
     memberScaffoldKey.currentState?.closeEndDrawer();
+  }
+
+  void startCreateMember() {
+    isEditMode.value = false;
+    editingMember.value = null;
+    resetMemberForm();
+    openDrawer();
+  }
+
+  void startEditMember(Members member) {
+    resetMemberForm();
+    isEditMode.value = true;
+    editingMember.value = member;
+    _populateMemberForm(member);
+    openDrawer();
+  }
+
+  void resetMemberForm() {
+    firstname.clear();
+    lastname.clear();
+    age.clear();
+    address.clear();
+    email.clear();
+    amount.clear();
+    discount.clear();
+    afterdiscountAmount.clear();
+    amountpaid.clear();
+    balanceAmount.clear();
+    pendingDate.clear();
+    mobileNumber.clear();
+    genderController.clear();
+    goalListController.clear();
+    planListController.clear();
+    trainingModeListController.clear();
+    trainingTypeListController.clear();
+    healthCondition.clear();
+    joiningDate.clear();
+    source.clear();
+    alternateNumber.clear();
+    paymentModeListController.clear();
+    groupListController.clear();
+    weightController.clear();
+    heightController.clear();
+    professionController.clear();
+    chestController.clear();
+    hipsController.clear();
+    stomachController.clear();
+    thighController.clear();
+    bodyAgeController.clear();
+    breakfastController.clear();
+    lunchController.clear();
+    dinnerController.clear();
+    pushUpStrengthController.clear();
+    curlUpController.clear();
+    mobilityController.clear();
+    heartRateController.clear();
+    heartRateTreadmillController.clear();
+    sitReachController.clear();
+    selectedImage.value = null;
+    fileName.value = '';
+    isBMRClick.value = false;
+    selectedGender.value = null;
+    selectedPlanId.value = null;
+    selectedGoalId.value = null;
+    selectedTrainingModeId.value = null;
+    selectedTrainingTypeId.value = null;
+    selectedSourceId.value = null;
+    selectedPaymentModeId.value = null;
+    selectedGroupId.value = null;
+  }
+
+  void _populateMemberForm(Members member) {
+    final fullName = (member.name ?? '').trim();
+    final nameParts =
+        fullName.isEmpty ? <String>[] : fullName.split(RegExp(r'\s+'));
+
+    firstname.text = nameParts.isNotEmpty ? nameParts.first : '';
+    lastname.text =
+        nameParts.length > 1 ? nameParts.skip(1).join(' ') : '';
+    email.text = member.email ?? '';
+    mobileNumber.text = member.mobileNumber ?? '';
+    address.text = member.address ?? '';
+    joiningDate.text = member.joiningDate ?? '';
+    pendingDate.text = member.balanceDate ?? '';
+    amount.text = member.amount ?? '';
+    amountpaid.text = member.amount ?? '';
+    balanceAmount.text = member.balanceAmount ?? '';
+    final normalizedGender = _findMatchingString(
+      items: genderList,
+      targetValue: member.gender,
+    );
+    genderController.text = normalizedGender ?? '';
+    selectedGender.value = normalizedGender;
+
+    _setSelectedValueByName<MemberAllPlanData>(
+      items: planList,
+      targetName: member.planName,
+      getId: (item) => item.id,
+      getName: (item) => item.name,
+      onSelected: (id) {
+        selectedPlanId.value = id;
+        planListController.text = id ?? '';
+        if (id != null) {
+          setPlanListAmount(id);
+        }
+      },
+    );
+    _setSelectedValueByName<MemberAllGoalData>(
+      items: goalList,
+      targetName: member.goalName,
+      getId: (item) => item.id,
+      getName: (item) => item.name,
+      onSelected: (id) {
+        selectedGoalId.value = id;
+        goalListController.text = id ?? '';
+      },
+    );
+    _setSelectedValueByName<MemberAllTrainingData>(
+      items: trainingModeList,
+      targetName: member.trainingModeName,
+      getId: (item) => item.id,
+      getName: (item) => item.name,
+      onSelected: (id) {
+        selectedTrainingModeId.value = id;
+        trainingModeListController.text = id ?? '';
+      },
+    );
+    _setSelectedValueByName<MemberAllTrainingTypeData>(
+      items: trainingTypeList,
+      targetName: member.trainingTypeName,
+      getId: (item) => item.id,
+      getName: (item) => item.name,
+      onSelected: (id) {
+        selectedTrainingTypeId.value = id;
+        trainingTypeListController.text = id ?? '';
+      },
+    );
+    _setSelectedValueByName<LeadSourceData>(
+      items: sourceList,
+      targetName: member.sourceName,
+      getId: (item) => item.id,
+      getName: (item) => item.name,
+      onSelected: (id) {
+        selectedSourceId.value = id;
+        source.text = id ?? '';
+      },
+    );
+  }
+
+  String? _findMatchingString({
+    required List<String> items,
+    required String? targetValue,
+  }) {
+    final normalizedTarget = targetValue?.trim().toLowerCase();
+    if (normalizedTarget == null || normalizedTarget.isEmpty) {
+      return null;
+    }
+
+    for (final item in items) {
+      if (item.trim().toLowerCase() == normalizedTarget) {
+        return item;
+      }
+    }
+
+    return null;
+  }
+
+  void _setSelectedValueByName<T>({
+    required List<T> items,
+    required String? targetName,
+    required String? Function(T item) getId,
+    required String? Function(T item) getName,
+    required void Function(String? id) onSelected,
+  }) {
+    final normalizedTarget = targetName?.trim().toLowerCase();
+    if (normalizedTarget == null || normalizedTarget.isEmpty) {
+      onSelected(null);
+      return;
+    }
+
+    T? selectedItem;
+    for (final item in items) {
+      final itemName = getName(item)?.trim().toLowerCase();
+      if (itemName == normalizedTarget) {
+        selectedItem = item;
+        break;
+      }
+    }
+
+    onSelected(selectedItem != null ? getId(selectedItem) : null);
   }
 
   void setPlanListAmount(value) {

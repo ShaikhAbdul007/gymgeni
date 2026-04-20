@@ -8,8 +8,8 @@ class PendingMemberWidget extends StatelessWidget {
   final List<String> columnNames;
   final List<Members> members;
   final bool isDataLoading;
-  final VoidCallback deleteOnTap;
-  final VoidCallback editOnTap;
+  final void Function(Members member) deleteOnTap;
+  final void Function(Members member) editOnTap;
   const PendingMemberWidget({
     super.key,
     required this.columnNames,

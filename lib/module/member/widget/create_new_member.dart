@@ -17,16 +17,19 @@ class CreateNewMember extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: createMemberKey,
-      child: ListView(
+    return Obx(
+      () => Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: createMemberKey,
+        child: ListView(
         shrinkWrap: true,
         children: [
           setHeight(height: 20),
           CommonAppBarWithCancelButton(
-            headerLabel: 'New Member',
+            headerLabel:
+                controller.isEditMode.value ? 'Edit Member' : 'New Member',
             cancelOnPress: () {
+              controller.resetMemberForm();
               Get.back();
             },
           ),
@@ -213,8 +216,10 @@ class CreateNewMember extends StatelessWidget {
                 width: 200,
                 label: 'Gender',
                 listItems: controller.genderList,
+                selectedDropDownItem: controller.selectedGender.value,
                 notifyParent: (gender) {
                   controller.genderController.text = gender;
+                  controller.selectedGender.value = gender;
                 },
               ),
             ],
@@ -230,7 +235,9 @@ class CreateNewMember extends StatelessWidget {
                 width: 200,
                 label: 'Plan',
                 listItems: controller.planList,
+                selectedDropDownItem: controller.selectedPlanId.value,
                 notifyParent: (value) {
+                  controller.selectedPlanId.value = value;
                   controller.setPlanListAmount(value);
                 },
               ),
@@ -256,7 +263,9 @@ class CreateNewMember extends StatelessWidget {
                 width: 200,
                 label: 'Goal',
                 listItems: controller.goalList,
+                selectedDropDownItem: controller.selectedGoalId.value,
                 notifyParent: (value) {
+                  controller.selectedGoalId.value = value;
                   controller.goalListController.text = value;
                 },
               ),
@@ -330,7 +339,9 @@ class CreateNewMember extends StatelessWidget {
                 width: 200,
                 label: 'Training Mode',
                 listItems: controller.trainingModeList,
+                selectedDropDownItem: controller.selectedTrainingModeId.value,
                 notifyParent: (value) {
+                  controller.selectedTrainingModeId.value = value;
                   controller.trainingModeListController.text = value;
                 },
               ),
@@ -341,7 +352,9 @@ class CreateNewMember extends StatelessWidget {
                 width: 200,
                 label: 'Source',
                 listItems: controller.sourceList,
+                selectedDropDownItem: controller.selectedSourceId.value,
                 notifyParent: (value) {
+                  controller.selectedSourceId.value = value;
                   controller.source.text = value;
                 },
               ),
@@ -369,7 +382,9 @@ class CreateNewMember extends StatelessWidget {
                 width: 200,
                 label: 'Group',
                 listItems: controller.groupList,
+                selectedDropDownItem: controller.selectedGroupId.value,
                 notifyParent: (value) {
+                  controller.selectedGroupId.value = value;
                   controller.groupListController.text = value;
                 },
               ),
@@ -394,7 +409,9 @@ class CreateNewMember extends StatelessWidget {
                 width: 200,
                 label: 'Payment Mode',
                 listItems: controller.paymentList,
+                selectedDropDownItem: controller.selectedPaymentModeId.value,
                 notifyParent: (value) {
+                  controller.selectedPaymentModeId.value = value;
                   controller.paymentModeListController.text = value;
                 },
               ),
@@ -410,7 +427,10 @@ class CreateNewMember extends StatelessWidget {
                 width: 200,
                 label: 'Training Type',
                 listItems: controller.trainingTypeList,
+                selectedDropDownItem:
+                    controller.selectedTrainingTypeId.value,
                 notifyParent: (value) {
+                  controller.selectedTrainingTypeId.value = value;
                   controller.trainingTypeListController.text = value;
                 },
               ),
@@ -780,7 +800,7 @@ class CreateNewMember extends StatelessWidget {
                 color: AppColors.darkBackground,
                 height: 40,
                 width: 120,
-                label: 'Submit',
+                label: controller.isEditMode.value ? 'Update' : 'Submit',
                 onPress: () {
                   if (createMemberKey.currentState!.validate()) {
                     var name = '${controller.firstname.text} ${controller.lastname.text}';
@@ -817,6 +837,7 @@ class CreateNewMember extends StatelessWidget {
                 width: 120,
                 label: 'Cancel',
                 onPress: () {
+                  controller.resetMemberForm();
                   Get.back();
                 },
               ),
@@ -824,7 +845,8 @@ class CreateNewMember extends StatelessWidget {
           ),
           setHeight(height: 20),
         ],
-      ).paddingSymmetric(horizontal: 8),
+        ).paddingSymmetric(horizontal: 8),
+      ),
     );
   }
 }

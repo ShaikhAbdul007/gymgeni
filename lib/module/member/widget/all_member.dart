@@ -6,8 +6,8 @@ class AllMemberWidget extends StatelessWidget {
   final List<String> columnNames;
   final List<Members> members;
   final bool isDataLoading;
-  final VoidCallback deleteOnTap;
-  final VoidCallback editOnTap;
+  final void Function(Members member) deleteOnTap;
+  final void Function(Members member) editOnTap;
   const AllMemberWidget({
     super.key,
     required this.deleteOnTap,

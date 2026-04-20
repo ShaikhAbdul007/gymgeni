@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-const destopSize = 1000;
-const tabletSize = 500;
+const destopSize = 1050;
+const tabletSize = 768;
 const mobileScreen = 500;
 
 bool isDesktop(BuildContext context) {

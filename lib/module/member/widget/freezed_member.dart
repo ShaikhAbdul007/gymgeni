@@ -6,8 +6,8 @@ class FreezedMemberWidget extends StatelessWidget {
   final List<String> columnNames;
   final List<Members> members;
   final bool isDataLoading;
-  final VoidCallback deleteOnTap;
-  final VoidCallback editOnTap;
+  final void Function(Members member) deleteOnTap;
+  final void Function(Members member) editOnTap;
   const FreezedMemberWidget({
     super.key,
     required this.columnNames,
@@ -26,7 +26,6 @@ class FreezedMemberWidget extends StatelessWidget {
       members: members,
       deleteOnTap: deleteOnTap,
       editOnTap: editOnTap,
-
     );
   }
 }

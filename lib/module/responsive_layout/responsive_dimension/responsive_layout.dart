@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymgeni/utils/constant.dart';
 import 'dimension.dart';
 
 class ResponsiveLayout extends StatelessWidget {
@@ -16,6 +17,7 @@ class ResponsiveLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
+     Constant.   customPrintLog(' Screen width: ${constraints.maxWidth}');
         if (constraints.maxWidth >= destopSize) {
           return desktop;
         } else if (constraints.maxWidth >= tabletSize &&

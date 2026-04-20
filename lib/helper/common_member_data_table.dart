@@ -13,8 +13,8 @@ class CommonMemberDataTable extends StatelessWidget {
   final List<String> columnNames;
   final List<Members> members;
   final List<Widget>? actionButtons;
-  final VoidCallback? deleteOnTap;
-  final VoidCallback? editOnTap;
+  final void Function(Members member)? deleteOnTap;
+  final void Function(Members member)? editOnTap;
   final bool isDataLoading;
   final String noDataFound;
   const CommonMemberDataTable({
@@ -152,8 +152,12 @@ class CommonMemberDataTable extends StatelessWidget {
                             ),
                             DataCell(
                               CommonAction(
-                                deleteOnTap: deleteOnTap ?? () {},
-                                editOnTap: editOnTap ?? () {},
+                                deleteOnTap: () {
+                                  deleteOnTap?.call(member);
+                                },
+                                editOnTap: () {
+                                  editOnTap?.call(member);
+                                },
                                 actionButtons: actionButtons ?? [],
                               ),
                             ),

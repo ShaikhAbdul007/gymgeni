@@ -38,8 +38,8 @@ class MemberDesktop extends StatelessWidget {
       tabBarChildren: [
         Obx(
           () => AllMemberWidget(
-            deleteOnTap: () {},
-            editOnTap: () {},
+            deleteOnTap: (_) {},
+            editOnTap: controller.startEditMember,
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
@@ -50,8 +50,8 @@ class MemberDesktop extends StatelessWidget {
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
-            deleteOnTap: () {},
-            editOnTap: () {},
+            deleteOnTap: (_) {},
+            editOnTap: controller.startEditMember,
           ),
         ),
         Obx(
@@ -66,8 +66,8 @@ class MemberDesktop extends StatelessWidget {
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
-            deleteOnTap: () {},
-            editOnTap: () {},
+            deleteOnTap: (_) {},
+            editOnTap: controller.startEditMember,
           ),
         ),
         Obx(
@@ -75,8 +75,8 @@ class MemberDesktop extends StatelessWidget {
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
-            deleteOnTap: () {},
-            editOnTap: () {},
+            deleteOnTap: (_) {},
+            editOnTap: controller.startEditMember,
           ),
         ),
         Obx(
@@ -84,8 +84,8 @@ class MemberDesktop extends StatelessWidget {
             isDataLoading: controller.isMembersLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
-            deleteOnTap: () {},
-            editOnTap: () {},
+            deleteOnTap: (_) {},
+            editOnTap: controller.startEditMember,
           ),
         ),
         MemberMasterView(),
@@ -95,7 +95,7 @@ class MemberDesktop extends StatelessWidget {
       buttonLabel: 'Add Member',
       buttonOnPress: () {
         Constant.customPrintLog('tapped');
-        controller.openDrawer();
+        controller.startCreateMember();
       },
       tabs: controller.tabs,
       tabController: controller.tabController,
