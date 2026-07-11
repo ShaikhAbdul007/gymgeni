@@ -97,7 +97,7 @@ class CreateNewEmployee extends StatelessWidget {
                         error: 'Enter gender',
                         listItems: controller.genderList,
                         notifyParent: (value) {
-                          //controller.selectedGender.value = value;
+                          controller.genderController.text = value;
                         },
                       ),
                       setWidth(width: 25),
@@ -217,7 +217,7 @@ class CreateNewEmployee extends StatelessWidget {
                           label: 'Employee Type',
                           listItems: controller.employeeTypeeName,
                           notifyParent: (value) {
-                            //  controller.selectedEmployeeType.value = value;
+                            controller.employeeTypeIdController.text = value;
                           },
                         ),
               ),
@@ -235,7 +235,7 @@ class CreateNewEmployee extends StatelessWidget {
                           label: 'Employee Group',
                           listItems: controller.groupName,
                           notifyParent: (value) {
-                            //  controller.selectedEmployeeType.value = value;
+                            controller.groupIdController.text = value;
                           },
                         ),
               ),
@@ -309,24 +309,9 @@ class CreateNewEmployee extends StatelessWidget {
                 color: AppColors.darkBackground,
                 label: 'Submit',
                 onPress: () {
-                  if (commonAddWidgetKey.currentState!.validate()) {}
-                  Map body = {
-                    "firstName": "",
-                    "lastName": "",
-                    "gender": "",
-                    "mobile": "",
-                    "email": "",
-                    "age": "",
-                    "salary": "",
-                    "dob": "",
-                    "joiningDate": "",
-                    "anniversaryDate": "",
-                    "employeeType": "",
-                    "address": "",
-                    "permissions": [],
-                  };
-
-                  //controller.submitEmployee(context);
+                  if (commonAddWidgetKey.currentState!.validate()) {
+                    controller.submitEmployee(context);
+                  }
                 },
               ),
               setWidth(width: 15),

@@ -11,8 +11,8 @@ import 'common_action.dart';
 class CommonEmployeeDataTable extends StatelessWidget {
   final List<String> columnNames;
   final List<Employees> employees;
-  final VoidCallback? deleteOnTap;
-  final VoidCallback? editOnTap;
+  final void Function(Employees employee)? deleteOnTap;
+  final void Function(Employees employee)? editOnTap;
   final bool isDataLoading;
   final String noDataFound;
   const CommonEmployeeDataTable({
@@ -120,8 +120,8 @@ class CommonEmployeeDataTable extends StatelessWidget {
                             ),
                             DataCell(
                               CommonAction(
-                                deleteOnTap: deleteOnTap ?? () {},
-                                editOnTap: editOnTap ?? () {},
+                                deleteOnTap: () => (deleteOnTap ?? (_) {})(employees),
+                                editOnTap: () => (editOnTap ?? (_) {})(employees),
                               ),
                             ),
                           ],

@@ -4,17 +4,26 @@ import 'package:gymgeni/helper/common_progress_bar.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/dimension.dart';
 import 'package:gymgeni/utils/colors.dart';
 import '../module/employee/model/employee_attendance_model.dart';
+import '../module/member/model/member_attandence_model.dart';
 import '../module/member_master/model/member_master_model.dart';
 import '../utils/text_style.dart';
 import 'common_action.dart';
 
 class CommonAttendanceDataTable extends StatelessWidget {
   final List<String> columnNames;
-  final List<EmployeeAttendanceData> employees;
+  final List<dynamic> employees;
   final VoidCallback? deleteOnTap;
   final VoidCallback? editOnTap;
   final bool isDataLoading;
   final String noDataFound;
+
+  String? _getImageUrl(dynamic item) {
+    if (item is EmployeeAttendanceData) {
+      return item.imageUrl;
+    }
+    return null;
+  }
+
   const CommonAttendanceDataTable({
     super.key,
     required this.columnNames,
@@ -72,7 +81,7 @@ class CommonAttendanceDataTable extends StatelessWidget {
                                   child: Image.network(
                                     width: 200,
                                     height: 200,
-                                    employees.imageUrl ?? '',
+                                    _getImageUrl(employees) ?? '',
                                     fit: BoxFit.contain,
                                     errorBuilder: (context, error, stackTrace) {
                                       return Image.asset(

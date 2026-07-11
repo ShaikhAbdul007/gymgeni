@@ -12,8 +12,11 @@ import 'common_action.dart';
 class CommonMemberDataTable extends StatelessWidget {
   final List<String> columnNames;
   final List<Members> members;
-  final VoidCallback? deleteOnTap;
-  final VoidCallback? editOnTap;
+  final void Function(Members member)? deleteOnTap;
+  final void Function(Members member)? editOnTap;
+  final void Function(Members member)? freezeOnTap;
+  final void Function(Members member)? unfreezeOnTap;
+  final void Function(Members member)? transferOnTap;
   final bool isDataLoading;
   final String noDataFound;
   const CommonMemberDataTable({
@@ -22,6 +25,9 @@ class CommonMemberDataTable extends StatelessWidget {
     required this.members,
     this.deleteOnTap,
     this.editOnTap,
+    this.freezeOnTap,
+    this.unfreezeOnTap,
+    this.transferOnTap,
     required this.isDataLoading,
     required this.noDataFound,
   });
@@ -150,8 +156,17 @@ class CommonMemberDataTable extends StatelessWidget {
                             ),
                             DataCell(
                               CommonAction(
-                                deleteOnTap: deleteOnTap ?? () {},
-                                editOnTap: editOnTap ?? () {},
+                                deleteOnTap: () => (deleteOnTap ?? (_) {})(member),
+                                editOnTap: () => (editOnTap ?? (_) {})(member),
+                                freezeOnTap: (freezeOnTap != null && member.status == 'Active')
+                                    ? () => freezeOnTap!(member)
+                                    : null,
+                                unfreezeOnTap: (unfreezeOnTap != null && member.status == 'Freezed')
+                                    ? () => unfreezeOnTap!(member)
+                                    : null,
+                                transferOnTap: (transferOnTap != null && member.status == 'Active')
+                                    ? () => transferOnTap!(member)
+                                    : null,
                               ),
                             ),
                           ],

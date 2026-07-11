@@ -5,13 +5,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:gymgeni/theme/theme.dart';
 import 'routes/routes.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  intailization();
+  await intailization();
   runApp(const MyApp());
 }
 
-intailization() async {
+Future<void> intailization() async {
   await GetStorage.init();
   usePathUrlStrategy();
 }

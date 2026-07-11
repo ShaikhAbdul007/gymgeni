@@ -28,7 +28,10 @@ class CreateNewLead extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Create New Lead', style: customNunito(fontSize: 16)),
+              Obx(() => Text(
+                controller.isEditMode.value ? 'Edit Lead Details' : 'Create New Lead',
+                style: customNunito(fontSize: 16),
+              )),
               InkWell(
                 onTap: () {
                   Get.back();
@@ -93,6 +96,7 @@ class CreateNewLead extends StatelessWidget {
                         label: 'Gender',
                         error: 'Enter gender',
                         listItems: controller.genderList,
+                        selectedDropDownItem: controller.selectedGender.text.isNotEmpty ? controller.selectedGender.text : null,
                         notifyParent: (value) {
                           controller.selectedGender.text = value;
                         },
@@ -150,6 +154,7 @@ class CreateNewLead extends StatelessWidget {
                           width: 200,
                           label: 'plan',
                           listItems: controller.planList,
+                          selectedDropDownItem: controller.planListId.text.isNotEmpty ? controller.planListId.text : null,
                           notifyParent: (value) {
                             controller.planListId.text = value;
                           },
@@ -168,6 +173,7 @@ class CreateNewLead extends StatelessWidget {
                           width: 200,
                           label: 'Status',
                           listItems: controller.statusList,
+                          selectedDropDownItem: controller.statusListId.text.isNotEmpty ? controller.statusListId.text : null,
                           notifyParent: (value) {
                             controller.statusListId.text = value;
                           },
@@ -192,6 +198,7 @@ class CreateNewLead extends StatelessWidget {
                           width: 200,
                           label: 'Categorie',
                           listItems: controller.categoryList,
+                          selectedDropDownItem: controller.categorieListId.text.isNotEmpty ? controller.categorieListId.text : null,
                           notifyParent: (value) {
                             controller.categorieListId.text = value;
                           },
@@ -210,6 +217,7 @@ class CreateNewLead extends StatelessWidget {
                           width: 200,
                           label: 'Follow Up',
                           listItems: controller.followUpTypeList,
+                          selectedDropDownItem: controller.followUpListId.text.isNotEmpty ? controller.followUpListId.text : null,
                           notifyParent: (value) {
                             controller.followUpListId.text = value;
                           },
@@ -228,6 +236,7 @@ class CreateNewLead extends StatelessWidget {
                           width: 200,
                           label: 'Source',
                           listItems: controller.sourceList,
+                          selectedDropDownItem: controller.sourceListId.text.isNotEmpty ? controller.sourceListId.text : null,
                           notifyParent: (value) {
                             controller.sourceListId.text = value;
                           },
@@ -305,8 +314,8 @@ class CreateNewLead extends StatelessWidget {
                   onPress: () {
                     if (commonAddWidgetKey.currentState!.validate()) {
                       String name =
-                          '${controller.firstname.text.trim()}${controller.lastname.text.trim()}';
-                      Map body = {
+                          '${controller.firstname.text.trim()} ${controller.lastname.text.trim()}';
+                      Map<String, String> body = {
                         "name": name,
                         "plan": controller.planListId.text.trim(),
                         "expected_date": controller.expectedDate.text.trim(),

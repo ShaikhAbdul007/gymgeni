@@ -38,7 +38,9 @@ class Desktop extends StatelessWidget {
           () => AllEmployee(
             columnNames: controller.employeeColumns,
             employees: controller.employeeList,
-            isDataLoading: controller.isEmployeeLoading.value,
+            isDataLoading: controller.isEmployeeLoading.value || controller.isDeleteEmployeeLoading.value,
+            editOnTap: (employee) => controller.onEditEmployeeTap(employee),
+            deleteOnTap: (employee) => controller.deleteEmployee(context, employee.id ?? ''),
           ),
         ),
         EmployeeAttendance(
@@ -53,7 +55,7 @@ class Desktop extends StatelessWidget {
       buttonLabel: 'Add Employe',
       buttonOnPress: () {
         Constant.customPrintLog('employee Pressed');
-        controller.openDrawer();
+        controller.onAddEmployeeTap();
       },
       tabs: controller.tabs,
       tabController: controller.tabController,

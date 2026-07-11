@@ -78,6 +78,15 @@ class Leads {
   String? status;
   String? imageUrl;
   String? des;
+  String? mobile;
+  String? email;
+  String? gender;
+  String? address;
+  String? planId;
+  String? leadsourceId;
+  String? leadstatusId;
+  String? leadcategoryId;
+  String? leadfollowtypeId;
 
   Leads({
     this.id,
@@ -93,6 +102,15 @@ class Leads {
     this.leadsourceName,
     this.status,
     this.imageUrl,
+    this.mobile,
+    this.email,
+    this.gender,
+    this.address,
+    this.planId,
+    this.leadsourceId,
+    this.leadstatusId,
+    this.leadcategoryId,
+    this.leadfollowtypeId,
   });
 
   Leads.fromJson(Map<String, dynamic> json) {
@@ -109,6 +127,15 @@ class Leads {
     leadsourceName = json['leadsource_name'];
     status = json['status'];
     imageUrl = json['imageUrl'];
+    mobile = json['mobile'];
+    email = json['email'];
+    gender = json['gender'];
+    address = json['address'];
+    planId = json['plan'];
+    leadsourceId = json['leadsource_id'];
+    leadstatusId = json['leadstatus_id'];
+    leadcategoryId = json['leadcategory_id'];
+    leadfollowtypeId = json['leadfollowtype_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -126,6 +153,15 @@ class Leads {
     data['leadsource_name'] = leadsourceName;
     data['status'] = status;
     data['imageUrl'] = imageUrl;
+    data['mobile'] = mobile;
+    data['email'] = email;
+    data['gender'] = gender;
+    data['address'] = address;
+    data['plan'] = planId;
+    data['leadsource_id'] = leadsourceId;
+    data['leadstatus_id'] = leadstatusId;
+    data['leadcategory_id'] = leadcategoryId;
+    data['leadfollowtype_id'] = leadfollowtypeId;
     return data;
   }
 }

@@ -30,16 +30,53 @@ class LeadRepo {
   }) async {
     try {
       var res = await networking.postMultipartRequestData(
-        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.registerEndPoint}',
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.createLead}',
         body: body,
-        file: file ?? File(''),
-        fileBytes: fileBytes ?? Uint8List(0),
-        fileField: fileField ?? '',
-        fileName: fileName ?? '',
+        file: file,
+        fileBytes: fileBytes,
+        fileField: fileField,
+        fileName: fileName,
       );
       var ress = AddLeadModel.fromJson(res);
       Constant.customPrintLog('res is from multipart $ress');
       return ress;
+    } catch (e) {
+      return throw (e);
+    }
+  }
+
+  Future<AddLeadModel> updateLeadData({
+    required Map<String, String> body,
+    File? file,
+    Uint8List? fileBytes,
+    String? fileField,
+    String? fileName,
+  }) async {
+    try {
+      var res = await networking.postMultipartRequestData(
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.createLead}',
+        method: 'PUT',
+        body: body,
+        file: file,
+        fileBytes: fileBytes,
+        fileField: fileField,
+        fileName: fileName,
+      );
+      var ress = AddLeadModel.fromJson(res);
+      Constant.customPrintLog('res is from multipart $ress');
+      return ress;
+    } catch (e) {
+      return throw (e);
+    }
+  }
+
+  Future<AddLeadModel> convertLeadToMember({required Map<String, dynamic> body}) async {
+    try {
+      var res = await networking.postData(
+        url: '${ApiEndPoint.fullBaseUrl}all-leads/convert',
+        body: body,
+      );
+      return AddLeadModel.fromJson(res);
     } catch (e) {
       return throw (e);
     }

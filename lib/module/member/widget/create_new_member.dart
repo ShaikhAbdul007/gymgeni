@@ -13,7 +13,14 @@ import 'new_enqire_text_component.dart';
 
 class CreateNewMember extends StatelessWidget {
   final MemberViewModel controller;
-  const CreateNewMember({super.key, required this.controller});
+  final String headerLabel;
+  final String submitLabel;
+  const CreateNewMember({
+    super.key,
+    required this.controller,
+    this.headerLabel = 'New Member',
+    this.submitLabel = 'Submit',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +32,9 @@ class CreateNewMember extends StatelessWidget {
         children: [
           setHeight(height: 20),
           CommonAppbarWithCancelbutton(
-            headerLabel: 'New Member',
+            headerLabel: headerLabel,
             cancelOnPress: () {
-              Get.back();
+              controller.closeMemberDrawer();
             },
           ),
           setHeight(height: 15),
@@ -780,34 +787,10 @@ class CreateNewMember extends StatelessWidget {
                 color: AppColors.darkBackground,
                 height: 40,
                 width: 120,
-                label: 'Submit',
+                label: submitLabel,
                 onPress: () {
                   if (creatMemberKey.currentState!.validate()) {
-                    var name = '${controller.firstname}${controller.lastname}';
-                    var body = {
-                      "name": name,
-                      "gender": controller.genderController,
-                      "mobile_number": controller.mobileNumber,
-                      "alternate_mobile": controller.alternateNumber,
-                      "email": controller.email,
-                      "age": controller.age,
-                      "plan_id": controller.planListController,
-                      "training_mode_id": controller.trainingModeListController,
-                      "training_type_id": controller.trainingTypeListController,
-                      "goal_id": controller.goalListController,
-                      "group_id": controller.groupListController,
-                      "source_id": controller.source,
-                      "joining_date": controller.joiningDate,
-                      "healthCondition": controller.healthCondition,
-                      "amount": controller.amountpaid,
-                      "address": controller.address,
-                      "balanceAmount": controller.balanceAmount,
-                      "balance_date": controller.pendingDate,
-                      "payment_mode": controller.paymentModeListController,
-                      'image': '',
-                      'discount': controller.discount,
-                    };
-                    Constant.customPrintLog(body);
+                    controller.submitMemberForm(context);
                   }
                 },
               ),
@@ -817,7 +800,7 @@ class CreateNewMember extends StatelessWidget {
                 width: 120,
                 label: 'Cancel',
                 onPress: () {
-                  Get.back();
+                  controller.closeMemberDrawer();
                 },
               ),
             ],

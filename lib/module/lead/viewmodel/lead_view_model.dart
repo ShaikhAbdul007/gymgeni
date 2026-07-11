@@ -18,16 +18,23 @@ import '../../lead_master/lead_categories/model/lead_categories_model.dart';
 import '../../lead_master/lead_follow_type/model/lead_follow_type_model.dart';
 import '../../lead_master/lead_status/model/lead_status_model.dart';
 import '../../member_master/member_plan/model/member_allplan_model.dart';
+import '../model/add_lead_model.dart';
 import '../model/all_lead_model.dart';
+import 'package:gymgeni/repository/finance_payment_method_repo.dart';
+import '../../finance_master/finance_payment_method/model/all_payment_method_model.dart';
+import 'package:gymgeni/cachemanager/cache_manager.dart';
 
 class LeadViewModel extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, CacheManager {
   final allLeadRepo = LeadRepo();
   final source = SourceRepo();
   final followupType = LeadMasterFollowTypeRepo();
   final category = LeadMasterCategoryRepo();
   final status = LeadStatusRepo();
   final plan = PlanRepo();
+  final paymentModeRepo = FinancePaymentMethodRepo();
+  RxBool isEditMode = false.obs;
+  RxString selectedLeadId = ''.obs;
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   TextEditingController contactNo = TextEditingController();
@@ -65,11 +72,14 @@ class LeadViewModel extends GetxController
   RxList<LeadStatusData> statusList = <LeadStatusData>[].obs;
   RxList<LeadSourceData> sourceList = <LeadSourceData>[].obs;
   RxList<LeadFollowUpTypeData> followUpTypeList = <LeadFollowUpTypeData>[].obs;
+  RxList<AllPaymentData> paymentList = <AllPaymentData>[].obs;
   RxBool isAllLeaLoading = false.obs;
   RxBool isCreateNewLead = false.obs;
   RxBool isdataLoading = false.obs;
+  RxBool isConvertLoading = false.obs;
   @override
   void onInit() {
+    checkAuthGuard();
     tabController = TabController(length: tabs.length, vsync: this);
     getAllLeadData();
     getCategoryData();
@@ -77,6 +87,7 @@ class LeadViewModel extends GetxController
     getPlanData();
     getSourceData();
     getStatusData();
+    getPaymentModeData();
     super.onInit();
   }
 
@@ -198,20 +209,90 @@ class LeadViewModel extends GetxController
     }
   }
 
-  void submitNewLead(dynamic body) async {
+  void getPaymentModeData() async {
+    isdataLoading.value = true;
+    var res = await paymentModeRepo.getFinancePaymentMethod();
+    try {
+      if (res.status == success) {
+        paymentList.value = res.data ?? [];
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } finally {
+      isdataLoading.value = false;
+    }
+  }
+
+  void onCreateNewLeadTap() {
+    isEditMode.value = false;
+    selectedLeadId.value = '';
+    firstname.clear();
+    lastname.clear();
+    contactNo.clear();
+    selectedGender.clear();
+    expectedDate.clear();
+    email.clear();
+    address.clear();
+    description.clear();
+    sourceListId.clear();
+    followUpListId.clear();
+    statusListId.clear();
+    categorieListId.clear();
+    planListId.clear();
+    webImage.value = Uint8List(0);
+    resImage = null;
+    openDrawer();
+  }
+
+  void onEditLeadTap(Leads lead) {
+    isEditMode.value = true;
+    selectedLeadId.value = lead.id ?? '';
+    firstname.text = lead.name?.split(' ').first ?? '';
+    lastname.text = (lead.name?.split(' ').length ?? 0) > 1 ? lead.name!.split(' ').sublist(1).join(' ') : '';
+    selectedGender.text = lead.gender ?? '';
+    contactNo.text = lead.mobile ?? '';
+    email.text = lead.email ?? '';
+    expectedDate.text = lead.expectedDate ?? '';
+    description.text = lead.description ?? '';
+    address.text = lead.address ?? '';
+    sourceListId.text = lead.leadsourceId ?? '';
+    followUpListId.text = lead.leadfollowtypeId ?? '';
+    statusListId.text = lead.leadstatusId ?? '';
+    categorieListId.text = lead.leadcategoryId ?? '';
+    planListId.text = lead.planId ?? '';
+    webImage.value = Uint8List(0);
+    resImage = null;
+    openDrawer();
+  }
+
+  void submitNewLead(Map<String, String> body) async {
     isCreateNewLead.value = true;
     try {
-      var res = await allLeadRepo.addNewLeadData(
-        body: body,
-        fileBytes: webImage.value,
-        fileField: 'image',
-        fileName: resImage?.name ?? '',
-      );
+      AddLeadModel res;
+      if (isEditMode.value) {
+        body["id"] = selectedLeadId.value;
+        res = await allLeadRepo.updateLeadData(
+          body: body,
+          fileBytes: webImage.value.isNotEmpty ? webImage.value : null,
+          fileField: webImage.value.isNotEmpty ? 'image' : null,
+          fileName: (resImage?.name ?? '').isNotEmpty ? resImage!.name : null,
+        );
+      } else {
+        res = await allLeadRepo.addNewLeadData(
+          body: body,
+          fileBytes: webImage.value.isNotEmpty ? webImage.value : null,
+          fileField: webImage.value.isNotEmpty ? 'image' : null,
+          fileName: (resImage?.name ?? '').isNotEmpty ? resImage!.name : null,
+        );
+      }
       if (res.status == success) {
         Get.back();
         Constant.showSnackBar(
           context: Get.context!,
-
           errorMessage: res.message ?? '',
           errorStatus: true,
         );
@@ -219,13 +300,42 @@ class LeadViewModel extends GetxController
       } else {
         Constant.showSnackBar(
           context: Get.context!,
-
           errorMessage: res.message ?? '',
           errorStatus: false,
         );
       }
     } finally {
       isCreateNewLead.value = false;
+    }
+  }
+
+  void convertLeadToMember(Map<String, dynamic> body) async {
+    if (Get.context == null) return;
+    isConvertLoading.value = true;
+    try {
+      var res = await allLeadRepo.convertLeadToMember(body: body);
+      if (res.status == success) {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? 'Lead converted to member successfully',
+          errorStatus: true,
+        );
+        getAllLeadData();
+      } else {
+        Constant.showSnackBar(
+          context: Get.context!,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } catch (e) {
+      Constant.showSnackBar(
+        context: Get.context!,
+        errorMessage: e.toString(),
+        errorStatus: false,
+      );
+    } finally {
+      isConvertLoading.value = false;
     }
   }
 }

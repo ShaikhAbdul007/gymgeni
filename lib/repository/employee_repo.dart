@@ -45,39 +45,40 @@ class EmployeeRepo {
     }
   }
 
-  // Future<AllEmployeeModel> createEmployee(dynamic body) async {
-  //   try {
-  //     var res = await networking.postData(
-  //       url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.createEmployee}',
-  //       body: body,
-  //     );
-  //     return AllEmployeeModel.fromJson(res);
-  //   } catch (e) {
-  //     return throw (e);
-  //   }
-  // }
+  Future<CreatNewEmployeeModel> updateEmployeeData({
+    required dynamic body,
+    String? fileField,
+    File? file,
+    Uint8List? fileBytes,
+    String? fileName,
+  }) async {
+    try {
+      var res = await networking.postMultipartRequestData(
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.createEmployee}',
+        method: 'PUT',
+        body: body,
+        file: file,
+        fileBytes: fileBytes,
+        fileField: fileField,
+        fileName: fileName,
+      );
+      return CreatNewEmployeeModel.fromJson(res);
+    } catch (e) {
+      return throw (e);
+    }
+  }
 
-  // Future<> updateEmployee(dynamic body) async {
-  //   try {
-  //     var res = await networking.putData(
-  //       url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.updateEmployee}',
-  //       body: body,
-  //     );
-  //     return AllEmployeeModel.fromJson(res);
-  //   } catch (e) {
-  //     return throw (e);
-  //   }
-  // }
-
-  // Future<> deletemployee(dynamic body) async {
-  //   try {
-  //     var res = await networking.deleteData(
-  //       url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deleteEmployee}',
-  //       body: body,
-  //     );
-  //     return AllEmployeeModel.fromJson(res);
-  //   } catch (e) {
-  //     return throw (e);
-  //   }
-  // }
+  Future<CreatNewEmployeeModel> deleteEmployeeData({
+    required String id,
+  }) async {
+    try {
+      var res = await networking.deleteData(
+        url: '${ApiEndPoint.fullBaseUrl}${ApiEndPoint.deleteEmployee}$id',
+        body: {},
+      );
+      return CreatNewEmployeeModel.fromJson(res);
+    } catch (e) {
+      return throw (e);
+    }
+  }
 }

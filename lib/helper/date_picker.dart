@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import '../utils/colors.dart';
 import '../utils/text_style.dart';
 import 'textfield.dart';
+import 'date_formatter.dart';
 
 class CustomDatePicker extends StatelessWidget {
   final String hintText;
@@ -71,7 +72,7 @@ class CustomDatePicker extends StatelessWidget {
             },
           );
           if (pickedDate != null) {
-            String formatDate = DateFormat('dd-MM-yyyy').format(pickedDate);
+            String formatDate = DateFormatter.toDisplayDate(pickedDate);
             controller.text = formatDate;
           } else {
             return;
@@ -159,8 +160,8 @@ class CustomDateRangePicker extends StatelessWidget {
             final startDate = pickedDate.start;
             final endDate = pickedDate.end;
 
-            String formatStartDate = DateFormat('dd-MM-yyyy').format(startDate);
-            String formatEndDate = DateFormat('dd-MM-yyyy').format(endDate);
+            String formatStartDate = DateFormatter.toDisplayDate(startDate);
+            String formatEndDate = DateFormatter.toDisplayDate(endDate);
             controller.text = '$formatStartDate - $formatEndDate';
           }
         },

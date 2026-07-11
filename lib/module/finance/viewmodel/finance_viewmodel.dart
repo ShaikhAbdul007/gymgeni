@@ -6,10 +6,12 @@ import 'package:gymgeni/utils/constant.dart';
 import 'package:gymgeni/utils/errorstrings.dart';
 import 'package:intl/intl.dart';
 
+import 'package:gymgeni/cachemanager/cache_manager.dart';
+import '../../../helper/date_formatter.dart';
 import '../model/finance_pending_model.dart';
 
 class FinanceViewmodel extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, CacheManager {
   RxBool isAllFinanceDataLoading = false.obs;
   RxBool isPendingFinanceDataLoading = false.obs;
   RxBool isTodayDataLoading = false.obs;
@@ -38,6 +40,7 @@ class FinanceViewmodel extends GetxController
 
   @override
   void onInit() {
+    checkAuthGuard();
     tabController = TabController(length: tabs.length, vsync: this);
     super.onInit();
   }
@@ -79,7 +82,7 @@ class FinanceViewmodel extends GetxController
   }
 
   void getTodayFinanceData() async {
-    String dateee = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    String dateee = DateFormatter.toApiDate(DateTime.now());
     isTodayDataLoading.value = true;
     try {
       var res = await financeRepo.getTodayFinanceData(dateee: dateee);

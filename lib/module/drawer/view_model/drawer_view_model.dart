@@ -1,15 +1,56 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:gymgeni/cachemanager/cache_manager.dart';
 
 import '../../../routes/routes_path.dart';
 import '../widget/menu_item.dart';
 
-class CustomDrawerController extends GetxController {
+class CustomDrawerController extends GetxController with CacheManager {
   var selectedIndex = 0.obs; // selected menu ke liye
   var hoverIndex = (-1).obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    _updateSelectedIndex();
+    Get.rootDelegate.addListener(_routeListener);
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    _updateSelectedIndex();
+  }
+
+  @override
+  void onClose() {
+    Get.rootDelegate.removeListener(_routeListener);
+    super.onClose();
+  }
+
+  void _routeListener() {
+    _updateSelectedIndex();
+  }
+
+  void _updateSelectedIndex() {
+    final currentRoute = Get.currentRoute;
+    final delegateRoute = Get.rootDelegate.currentConfiguration?.currentPage?.name ?? '';
+    for (int i = 0; i < listMenuItem.length; i++) {
+      final route = listMenuItem[i].route;
+      if (currentRoute.startsWith(route) || (delegateRoute.isNotEmpty && delegateRoute.startsWith(route))) {
+        selectedIndex.value = i;
+        break;
+      }
+    }
+  }
+
   void menuOnTap(int index, String route) {
     selectedIndex.value = index;
+    if (route == RoutesPaths.loginView) {
+      removeBox();
+      Get.rootDelegate.offNamed(RoutesPaths.loginView);
+      return;
+    }
     Get.rootDelegate.toNamed(route);
   }
 

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/loginscreen_controller.dart';
+import 'logintablet_view.dart';
 
 class LoginMobile extends GetView<LoginViewModel> {
   const LoginMobile({super.key});
   @override
   Widget build(BuildContext context) {
-    return ListView();
+    return LoginTablet(controller: controller);
   }
 }
 

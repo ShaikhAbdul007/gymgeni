@@ -1,7 +1,25 @@
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import '../routes/routes_path.dart';
 
 mixin class CacheManager {
   final box = GetStorage();
+
+  void checkAuthGuard() {
+    if (retriveToken().isEmpty) {
+      Future.delayed(Duration.zero, () {
+        Get.rootDelegate.offNamed(RoutesPaths.loginView);
+      });
+    }
+  }
+
+  void checkGuestGuard() {
+    if (retriveToken().isNotEmpty) {
+      Future.delayed(Duration.zero, () {
+        Get.rootDelegate.offNamed(RoutesPaths.dashboardView);
+      });
+    }
+  }
 
   //--------------------Save all the value------------------------------------------------------------------------------
 

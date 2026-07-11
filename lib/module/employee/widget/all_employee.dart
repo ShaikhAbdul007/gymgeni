@@ -7,11 +7,15 @@ class AllEmployee extends StatelessWidget {
   final List<String> columnNames;
   final List<Employees> employees;
   final bool isDataLoading;
+  final void Function(Employees employee)? editOnTap;
+  final void Function(Employees employee)? deleteOnTap;
   const AllEmployee({
     super.key,
     required this.columnNames,
     required this.employees,
     required this.isDataLoading,
+    this.editOnTap,
+    this.deleteOnTap,
   });
 
   @override
@@ -21,6 +25,8 @@ class AllEmployee extends StatelessWidget {
       employees: employees,
       isDataLoading: isDataLoading,
       noDataFound: 'No employee found',
+      editOnTap: editOnTap,
+      deleteOnTap: deleteOnTap,
     );
   }
 }

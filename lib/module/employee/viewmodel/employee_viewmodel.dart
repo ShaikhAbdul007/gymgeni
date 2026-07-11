@@ -8,13 +8,15 @@ import '../../../repository/member_master_group_repo.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/errorstrings.dart';
 import '../../../utils/keys.dart';
+import 'package:gymgeni/cachemanager/cache_manager.dart';
 import '../../employee_master/employee_master_type/model/employee_type_model.dart';
 import '../../member_master/member_group/model/member_allgroup_model.dart';
 import '../model/all_employee_model.dart';
 import '../model/employee_attendance_model.dart';
+import '../../../helper/date_formatter.dart';
 
 class EmployeeViewmodel extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetSingleTickerProviderStateMixin, CacheManager {
   final emmployeeRepo = EmployeeRepo();
   final employeeMasterEmployeeTypeRepo = EmployeeMasterEmployeeTypeRepo();
   final emmployeeAttendanceRepo = EmployeeAttendanceRepo();
@@ -31,6 +33,13 @@ class EmployeeViewmodel extends GetxController
   TextEditingController dob = TextEditingController();
   TextEditingController search = TextEditingController();
   TextEditingController anniversaryDate = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController employeeTypeIdController = TextEditingController();
+  TextEditingController groupIdController = TextEditingController();
+  RxBool isEditMode = false.obs;
+  RxString selectedEmployeeId = ''.obs;
+  RxBool isCreateEmployeeLoading = false.obs;
+  RxBool isDeleteEmployeeLoading = false.obs;
   RxList<bool> permissionSelected = <bool>[].obs;
   TabController? tabController;
   List<Tab> tabs = [
@@ -75,6 +84,7 @@ class EmployeeViewmodel extends GetxController
 
   @override
   void onInit() {
+    checkAuthGuard();
     tabController = TabController(length: tabs.length, vsync: this);
     permissionSelected.value = List.generate(
       radioList.length,
@@ -173,6 +183,148 @@ class EmployeeViewmodel extends GetxController
       }
     } finally {
       isEmployeeAttendanceLoading.value = false;
+    }
+  }
+
+  void onAddEmployeeTap() {
+    isEditMode.value = false;
+    selectedEmployeeId.value = '';
+    clearEmployeeForm();
+    openDrawer();
+  }
+
+  void onEditEmployeeTap(Employees employee) {
+    isEditMode.value = true;
+    selectedEmployeeId.value = employee.id ?? '';
+    clearEmployeeForm();
+
+    final fullName = (employee.name ?? '').trim();
+    final nameParts = fullName.split(RegExp(r'\s+'));
+    firstname.text = nameParts.isNotEmpty ? nameParts.first : '';
+    lastname.text = nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '';
+    contactNo.text = employee.contactNo ?? '';
+    genderController.text = employee.gender ?? '';
+    email.text = employee.createdByEmail ?? '';
+    address.text = employee.address ?? '';
+    dob.text = employee.dateOfBirth ?? '';
+    joiningDate.text = employee.joiningDate ?? '';
+    anniversaryDate.text = employee.dateOfAnniversary ?? '';
+
+    // Bind Type and Group IDs if matching found
+    for (var type in employeeTypeeName) {
+      if (type.name == employee.employeeTypeName) {
+        employeeTypeIdController.text = type.id ?? '';
+        break;
+      }
+    }
+    // Set group ID
+    groupIdController.text = '';
+
+    openDrawer();
+  }
+
+  void clearEmployeeForm() {
+    firstname.clear();
+    lastname.clear();
+    contactNo.clear();
+    alternateContactNo.clear();
+    email.clear();
+    age.clear();
+    salary.clear();
+    dob.clear();
+    joiningDate.clear();
+    anniversaryDate.clear();
+    address.clear();
+    genderController.clear();
+    employeeTypeIdController.clear();
+    groupIdController.clear();
+    permissionSelected.value = List.generate(
+      radioList.length,
+      (index) => false,
+    );
+  }
+
+  void submitEmployee(BuildContext context) async {
+    isCreateEmployeeLoading.value = true;
+    try {
+      final name = "${firstname.text.trim()} ${lastname.text.trim()}".trim();
+      final username = email.text.trim().split('@').first;
+      final body = {
+        "name": name,
+        "email": email.text.trim(),
+        "gender": genderController.text.trim().toLowerCase(),
+        "employee_type_id": employeeTypeIdController.text.trim(),
+        "group_id": groupIdController.text.trim(),
+        "contact_no": contactNo.text.trim(),
+        "date_of_birth": DateFormatter.convertDisplayToApi(dob.text.trim()),
+        "date_of_anniversary": DateFormatter.convertDisplayToApi(anniversaryDate.text.trim()),
+        "joining_date": DateFormatter.convertDisplayToApi(joiningDate.text.trim()),
+        "address": address.text.trim(),
+      };
+      if (!isEditMode.value) {
+        body["username"] = username;
+      }
+
+      dynamic res;
+      if (isEditMode.value) {
+        body["id"] = selectedEmployeeId.value;
+        res = await emmployeeRepo.updateEmployeeData(body: body);
+      } else {
+        res = await emmployeeRepo.signUpFun(body: body);
+      }
+
+      if (res.status == success) {
+        Get.back();
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? 'Employee saved successfully',
+          errorStatus: true,
+        );
+        getEmpolyeeData();
+      } else {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } catch (e) {
+      Constant.showSnackBar(
+        context: context,
+        errorMessage: e.toString(),
+        errorStatus: false,
+      );
+    } finally {
+      isCreateEmployeeLoading.value = false;
+    }
+  }
+
+  void deleteEmployee(BuildContext context, String id) async {
+    isDeleteEmployeeLoading.value = true;
+    try {
+      var res = await emmployeeRepo.deleteEmployeeData(id: id);
+      if (res.status == success) {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? 'Employee deleted successfully',
+          errorStatus: true,
+        );
+        getEmpolyeeData();
+      } else {
+        Constant.showSnackBar(
+          context: context,
+          errorMessage: res.message ?? '',
+          errorStatus: false,
+        );
+      }
+    } catch (e) {
+      Constant.showSnackBar(
+        context: context,
+        errorMessage: e.toString(),
+        errorStatus: false,
+      );
+    } finally {
+      isDeleteEmployeeLoading.value = false;
     }
   }
 }

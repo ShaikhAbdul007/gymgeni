@@ -12,7 +12,8 @@ class CommonLeadDataTable extends StatelessWidget {
   final List<String> columnNames;
   final List<Leads> leads;
   final VoidCallback? deleteOnTap;
-  final VoidCallback? editOnTap;
+  final void Function(Leads lead)? editOnTap;
+  final void Function(Leads lead)? convertOnTap;
   final bool isDataLoading;
   final String noDataFound;
   const CommonLeadDataTable({
@@ -21,6 +22,7 @@ class CommonLeadDataTable extends StatelessWidget {
     required this.leads,
     this.deleteOnTap,
     this.editOnTap,
+    this.convertOnTap,
     required this.isDataLoading,
     required this.noDataFound,
   });
@@ -121,7 +123,8 @@ class CommonLeadDataTable extends StatelessWidget {
                             DataCell(
                               CommonAction(
                                 deleteOnTap: deleteOnTap ?? () {},
-                                editOnTap: editOnTap ?? () {},
+                                editOnTap: () => (editOnTap ?? (_) {})(lead),
+                                convertOnTap: convertOnTap != null ? () => convertOnTap!(lead) : null,
                               ),
                             ),
                           ],

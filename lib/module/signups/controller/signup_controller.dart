@@ -113,6 +113,12 @@ class SignupViewModel extends GetxController with CacheManager {
   }
 
   @override
+  void onInit() {
+    super.onInit();
+    checkGuestGuard();
+  }
+
+  @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();

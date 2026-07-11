@@ -110,11 +110,13 @@ class AppRoutes {
       name: RoutesPaths.loginView,
       page: () => const LoginView(),
       binding: LoginBinding(),
+      middlewares: [RoutesMiddleware()],
     ),
     GetPage(
       name: RoutesPaths.signUpView,
       page: () => const SignupView(),
       binding: SignupBinding(),
+      middlewares: [RoutesMiddleware()],
     ),
     GetPage(
       name: RoutesPaths.memberMasterView,

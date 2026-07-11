@@ -141,10 +141,11 @@ class Networking extends BaseClient with CacheManager {
     File? file,
     Uint8List? fileBytes,
     String? fileName,
+    String method = 'POST',
   }) async {
     String? token = checkingTokenExpireOrNot();
 
-    var request = http.MultipartRequest('POST', Uri.parse(url));
+    var request = http.MultipartRequest(method, Uri.parse(url));
 
     // headers
     request.headers['Accept'] = 'application/json';

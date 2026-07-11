@@ -4,12 +4,13 @@ import 'package:gymgeni/helper/common_body.dart';
 import 'package:gymgeni/module/member/widget/active_member.dart';
 import 'package:gymgeni/module/member/widget/all_member.dart';
 import 'package:gymgeni/module/member/widget/create_new_member.dart';
+import 'package:gymgeni/module/member/widget/edit_member.dart';
 import 'package:gymgeni/module/member/widget/freezed_member.dart';
 import 'package:gymgeni/module/member/widget/inactive_member.dart';
 import 'package:gymgeni/module/member/widget/pending_member.dart';
+import 'package:gymgeni/module/member/widget/memeber_attendence.dart';
 import 'package:gymgeni/module/member_master/view/member_master_view.dart';
 import 'package:gymgeni/module/responsive_layout/responsive_dimension/responsive_tempate.dart';
-import '../../../utils/constant.dart';
 import '../../../utils/keys.dart';
 import '../view_model/member_view_model.dart';
 
@@ -18,12 +19,17 @@ class MembersView extends GetView<MemberViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveTemplate(
-      desktop: MemberDesktop(controller: controller),
-      tablet: Table(),
-      mobile: Mobile(),
-      scaffoldKey: memberScaffoldKey,
-      endDrawer: CreateNewMember(controller: controller),
+    return Obx(
+      () => ResponsiveTemplate(
+        desktop: MemberDesktop(controller: controller),
+        tablet: Table(),
+        mobile: Mobile(),
+        scaffoldKey: memberScaffoldKey,
+        endDrawer:
+            controller.isEditMode.value
+                ? EditMemberDrawer(controller: controller)
+                : CreateNewMember(controller: controller),
+      ),
     );
   }
 }
@@ -38,44 +44,75 @@ class MemberDesktop extends StatelessWidget {
       tabBarChildren: [
         Obx(
           () => AllMemberWidget(
-            isDataLoading: controller.isMembersLoading.value,
+            isDataLoading:
+                controller.isMembersLoading.value ||
+                controller.isDeleteMembersLoading.value ||
+                controller.isActionLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            editOnTap: controller.onEditMemberTap,
+            deleteOnTap: controller.onDeleteMemberTap,
+            freezeOnTap: (member) => controller.freezeMember(memberId: member.id ?? ''),
+            unfreezeOnTap: (member) => controller.unfreezeMember(memberId: member.id ?? ''),
+            transferOnTap: controller.showTransferDialog,
           ),
         ),
         Obx(
           () => ActiveMemberWidget(
-            isDataLoading: controller.isMembersLoading.value,
+            isDataLoading:
+                controller.isMembersLoading.value ||
+                controller.isDeleteMembersLoading.value ||
+                controller.isActionLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            editOnTap: controller.onEditMemberTap,
+            deleteOnTap: controller.onDeleteMemberTap,
+            freezeOnTap: (member) => controller.freezeMember(memberId: member.id ?? ''),
+            transferOnTap: controller.showTransferDialog,
           ),
         ),
         Obx(
           () => InactiveMemberWidget(
-            isDataLoading: controller.isMembersLoading.value,
+            isDataLoading:
+                controller.isMembersLoading.value ||
+                controller.isDeleteMembersLoading.value ||
+                controller.isActionLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            editOnTap: controller.onEditMemberTap,
+            deleteOnTap: controller.onDeleteMemberTap,
           ),
         ),
         Obx(
           () => PendingMemberWidget(
-            isDataLoading: controller.isMembersLoading.value,
+            isDataLoading:
+                controller.isMembersLoading.value ||
+                controller.isDeleteMembersLoading.value ||
+                controller.isActionLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            editOnTap: controller.onEditMemberTap,
+            deleteOnTap: controller.onDeleteMemberTap,
           ),
         ),
         Obx(
           () => FreezedMemberWidget(
-            isDataLoading: controller.isMembersLoading.value,
+            isDataLoading:
+                controller.isMembersLoading.value ||
+                controller.isDeleteMembersLoading.value ||
+                controller.isActionLoading.value,
             columnNames: controller.columnNames,
             members: controller.getMember,
+            editOnTap: controller.onEditMemberTap,
+            deleteOnTap: controller.onDeleteMemberTap,
+            unfreezeOnTap: (member) => controller.unfreezeMember(memberId: member.id ?? ''),
           ),
         ),
         Obx(
-          () => FreezedMemberWidget(
-            isDataLoading: controller.isMembersLoading.value,
-            columnNames: controller.columnNames,
-            members: controller.getMember,
+          () => MemberAttendance(
+            isDataLoading: controller.isMemberAttendanceLoading.value,
+            columnNames: controller.attendanceColumns,
+            members: controller.memberAttendanceList,
           ),
         ),
         MemberMasterView(),
@@ -84,8 +121,7 @@ class MemberDesktop extends StatelessWidget {
       subHeading: 'Manage all your members in one place',
       buttonLabel: 'Add Member',
       buttonOnPress: () {
-        Constant.customPrintLog('tapped');
-        controller.openDrawer();
+        controller.openCreateDrawer();
       },
       tabs: controller.tabs,
       tabController: controller.tabController,

@@ -7,11 +7,15 @@ class AllLead extends StatelessWidget {
   final bool isDataLoading;
   final List<String> columnNames;
   final List<Leads> leads;
+  final void Function(Leads lead)? editOnTap;
+  final void Function(Leads lead)? convertOnTap;
   const AllLead({
     super.key,
     required this.isDataLoading,
     required this.columnNames,
     required this.leads,
+    this.editOnTap,
+    this.convertOnTap,
   });
 
   @override
@@ -21,6 +25,8 @@ class AllLead extends StatelessWidget {
       leads: leads,
       isDataLoading: isDataLoading,
       noDataFound: 'No lead found',
+      editOnTap: editOnTap,
+      convertOnTap: convertOnTap,
     );
   }
 }

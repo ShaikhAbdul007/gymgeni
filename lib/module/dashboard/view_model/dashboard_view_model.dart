@@ -7,11 +7,12 @@ import 'package:gymgeni/repository/dashboard_repo.dart';
 import 'package:gymgeni/repository/expiry_member_repo.dart';
 import 'package:gymgeni/repository/pie_stats_repo.dart';
 import 'package:gymgeni/repository/recent_activites_repo.dart';
+import 'package:gymgeni/cachemanager/cache_manager.dart';
 import '../../../utils/constant.dart';
 import '../../../utils/errorstrings.dart';
 import '../model/dashboard_business_overall_componenet_model.dart';
 
-class DashboardViewModel extends GetxController {
+class DashboardViewModel extends GetxController with CacheManager {
   final dashBoardRepo = DashboardRepo();
   final recentActivitesRepo = RecentActivitesRepo();
   final expiryMemberRepo = ExpiryMemberRepo();
@@ -31,6 +32,7 @@ class DashboardViewModel extends GetxController {
 
   @override
   void onInit() {
+    checkAuthGuard();
     getDashBoardStats();
     getExpiryMembersData();
     getRecentActivites();

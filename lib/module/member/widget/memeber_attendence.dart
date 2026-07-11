@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gymgeni/helper/common_attendance_data_table.dart';
-import '../model/members_model.dart';
+import '../model/member_attandence_model.dart';
 
 class MemberAttendance extends StatelessWidget {
   final List<String> columnNames;
-  final List<Members> members;
+  final List<MemberAttendanceData> members;
   final bool isDataLoading;
   const MemberAttendance({
     super.key,
@@ -16,7 +16,7 @@ class MemberAttendance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonAttendanceDataTable(
-      employees: [],
+      employees: members,
       noDataFound: 'No member attendance found',
       isDataLoading: isDataLoading,
       columnNames: columnNames,
